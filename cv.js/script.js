@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const projects = {
         1: {
             title: "Landing Page Design Citra Kuliner - Desember 2025",
-            description: "This project focused on designing a high-converting landing page for Citra Kuliner to support their digital marketing efforts. The main challenge was presenting diverse catering services in a clear and persuasive layout while maintaining brand consistency. The solution involved structuring a conversion-driven layout with clear value propositions, strong call-to-action placement, and visual hierarchy optimized for user engagement and lead generation. Check This Link for more detail up to date:",
+            description: "This project focused on designing a high-converting landing page for Citra Kuliner to support their digital marketing efforts. The main challenge was presenting diverse catering services in a clear and persuasive layout while maintaining brand consistency. The solution involved structuring a conversion-driven layout with clear value propositions, strong call-to-action placement, and visual hierarchy optimized for user engagement and lead generation. Check This Link for more detail up to date: <a href=\"https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/\" target=\"_blank\" rel=\"noopener noreferrer\">https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/</a>. ",
             images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         2: {
             title: "Marketplace Layout Design Citra Kuliner - Oktober 2025",
-            description: "This marketplace layout design aimed to improve product visibility and user navigation for Citra Kuliner’s online marketplace presence. The primary issue was overcrowded product information that reduced user focus and purchase intent. To address this, the layout was redesigned with cleaner product grouping, improved spacing, and a more intuitive browsing flow, resulting in a more user-friendly and conversion-oriented marketplace experience. Check This Link for more detail up to date: https://shopee.co.id/citrakulinerid ",
+            description: "This marketplace layout design aimed to improve product visibility and user navigation for Citra Kuliner’s online marketplace presence. The primary issue was overcrowded product information that reduced user focus and purchase intent. To address this, the layout was redesigned with cleaner product grouping, improved spacing, and a more intuitive browsing flow, resulting in a more user-friendly and conversion-oriented marketplace experience. Check This Link for more detail up to date: <a href=\"https://shopee.co.id/citrakulinerid\" target=\"_blank\" rel=\"noopener noreferrer\">https://shopee.co.id/citrakulinerid</a>",
             link: "https://www.arindafood.com/",
 			images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/kue%20kukusan%20nusantara.png?raw=true",
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 		7: {
             title: "Website Design | Arinda Food | July 2025",
-            description: "This project is an enhanced website design for Arinda Food. It was developed using the Hostinger platform to create a modern and functional digital platform that showcases the brand's image, improving its discoverability on search engines and through other SEO efforts. We focused on an engaging user interface (UI) design, intuitive user experience (UX), and simple navigation, allowing customers to easily browse the site and learn more about this dynamic brand. You can access the website by clicking the link below: https://www.arindafood.com/.",
+            description: "This project is an enhanced website design for Arinda Food. It was developed using the Hostinger platform to create a modern and functional digital platform that showcases the brand's image, improving its discoverability on search engines and through other SEO efforts. We focused on an engaging user interface (UI) design, intuitive user experience (UX), and simple navigation, allowing customers to easily browse the site and learn more about this dynamic brand. You can access the website by clicking the link below: <a href=\"https://www.arindafood.com/\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.arindafood.com/</a>.",
             images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%201.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%202.png?raw=true",
@@ -408,3 +408,4 @@ if (selectedProject.link) {
     // Sekarang, gunakan kode di atas untuk menyisipkan tautan ini ke HTML
 
 }
+
