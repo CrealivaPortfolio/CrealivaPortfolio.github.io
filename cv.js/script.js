@@ -120,12 +120,16 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 		7: {
             title: "Website Design | Arinda Food | July 2025",
-            description: "This project is an enhanced website design for Arinda Food. It was developed using the Hostinger platform to create a modern and functional digital platform that showcases the brand's image, improving its discoverability on search engines and through other SEO efforts. We focused on an engaging user interface (UI) design, intuitive user experience (UX), and simple navigation, allowing customers to easily browse the site and learn more about this dynamic brand. You can access the website by clicking the link below:.",
+            description: "This project is an enhanced website design for Arinda Food. It was developed using the Hostinger platform to create a modern and functional digital platform that showcases the brand's image, improving its discoverability on search engines and through other SEO efforts. We focused on an engaging user interface (UI) design, intuitive user experience (UX), and simple navigation, allowing customers to easily browse the site and learn more about this dynamic brand. You can access the website by clicking the link below: https://www.arindafood.com/.",
             images: [
-                "https://via.placeholder.com/800x600?text=Proyek+3-1",
-                "https://via.placeholder.com/800x600?text=Proyek+3-2",
-                "https://via.placeholder.com/800x600?text=Proyek+3-3",
-                "https://via.placeholder.com/800x600?text=Proyek+3-4"
+                "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%201.png?raw=true",
+                "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%202.png?raw=true",
+                "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%203.png?raw=true",
+				"https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%204.png?raw=true",
+				"https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%205.png?raw=true",
+				"https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%20ads.png?raw=true",
+				"https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%20analitik.png?raw=true",
+				"https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%20analitik%202.png?raw=true"
             ]
         },
 	    8: {
@@ -402,4 +406,5 @@ if (selectedProject.link) {
     // Tampilkan tautan (contoh dengan log ke konsol)
     console.log("https://www.arindafood.com/", selectedProject.link);
     // Sekarang, gunakan kode di atas untuk menyisipkan tautan ini ke HTML
+
 }
