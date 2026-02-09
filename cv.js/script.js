@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         2: {
             title: "Marketplace Layout Design Citra Kuliner - Oktober 2025",
-            description: "This marketplace layout design aimed to improve product visibility and user navigation for Citra Kuliner’s online marketplace presence. The primary issue was overcrowded product information that reduced user focus and purchase intent. To address this, the layout was redesigned with cleaner product grouping, improved spacing, and a more intuitive browsing flow, resulting in a more user-friendly and conversion-oriented marketplace experience. Check This Link for more detail up to date: <a href=\"https://shopee.co.id/citrakulinerid\" target=\"_blank\" rel=\"noopener noreferrer\">https://shopee.co.id/citrakulinerid</a>",
+            description: "This marketplace layout design aimed to improve product visibility and user navigation for Citra Kuliner’s online marketplace presence. The primary issue was overcrowded product information that reduced user focus and purchase intent. To address this, the layout was redesigned with cleaner product grouping, improved spacing, and a more intuitive browsing flow, resulting in a more user-friendly and conversion-oriented marketplace experience. Check This Link for more detail up to date:",
             link: "https://www.arindafood.com/",
 			images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/kue%20kukusan%20nusantara.png?raw=true",
@@ -409,5 +409,6 @@ if (selectedProject.link) {
     // Sekarang, gunakan kode di atas untuk menyisipkan tautan ini ke HTML
 
 }
+
 
 
