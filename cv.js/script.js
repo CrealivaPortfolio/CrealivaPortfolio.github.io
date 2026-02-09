@@ -13,8 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const projects = {
         1: {
             title: "Landing Page Design Citra Kuliner - Desember 2025",
-            description: "This project focused on designing a high-converting landing page for Citra Kuliner to support their digital marketing efforts. The main challenge was presenting diverse catering services in a clear and persuasive layout while maintaining brand consistency. The solution involved structuring a conversion-driven layout with clear value propositions, strong call-to-action placement, and visual hierarchy optimized for user engagement and lead generation. Check This Link for more detail up to date: <a href=\"https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/\" target=\"_blank\" rel=\"noopener noreferrer\">https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/</a>. ",
-            images: [
+            description: "This project focused on designing a high-converting landing page for Citra Kuliner to support their digital marketing efforts. The main challenge was presenting diverse catering services in a clear and persuasive layout while maintaining brand consistency. The solution involved structuring a conversion-driven layout with clear value propositions, strong call-to-action placement, and visual hierarchy optimized for user engagement and lead generation. Check This Link for more detail up to date:",
+            Link : "<a href=\"https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/\" target=\"_blank\" rel=\"noopener noreferrer\">https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/</a>",
+			images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
                 "https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/nasibakulpost.jpg?raw=true",
@@ -408,4 +409,5 @@ if (selectedProject.link) {
     // Sekarang, gunakan kode di atas untuk menyisipkan tautan ini ke HTML
 
 }
+
 
