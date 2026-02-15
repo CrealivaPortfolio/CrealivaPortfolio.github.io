@@ -206,24 +206,24 @@ a:hover {
 
 .hero-title {
     font-family: 'Kalam', cursive;
-	font-size: 4rem;
+	font-size: 5rem;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 7px;
     color: var(--warnabirutua-color);
 	}
 
 .hero-title2 {
     font-size: 1.6rem;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
    	color: var(--secondary-color);
 }
 
-.hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: #555;
-}
+.hero-content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 20px;
 
 .hero-image {
     position: relative;
@@ -1874,7 +1874,7 @@ body.modal-open {
     }
 
     .hero-title {
-        font-size: 2.7rem;
+        font-size: 4rem;
     	margin-bottom: 15px;
 		margin-top: 25px;
 		margin-left: 55px;
@@ -1882,10 +1882,20 @@ body.modal-open {
 		font-weight: 700;
     }
 
-    .hero-subtitle {
-        font-size: 1.2rem;
-		margin-bottom: 15px;
+	.hero-title2 {
+        font-size: 2rem;
+    	margin-bottom: 15px;
+		margin-top: 25px;
+		margin-left: 55px;
+		margin-right: 55px;
+		font-weight: 700;
     }
+
+    .hero-content p {
+  	font-size: 1rem;
+  	line-height: 1.7;
+  	color: #555;
+ 	margin-bottom: 20px;
 	
 	.hero-image {
         display: none;
@@ -1937,6 +1947,7 @@ body.modal-open {
     transform: translateX(-20px);
     transition: opacity 0.5s ease-out, transform 0.2s ease-out;
 }
+
 
 
 
