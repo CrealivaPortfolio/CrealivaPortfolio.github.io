@@ -1956,8 +1956,8 @@ body.modal-open {
 .text-link {
     background: none;
     border: none;
-    color: var(--secondary-color);
-    font-size: 1rem;
+    color: var(--warnabirutua-color);
+    font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
     padding: 10px 20px;
@@ -2084,7 +2084,7 @@ body.modal-open {
     	margin-bottom: 20px;
 		margin-left: 20px;
 		margin-right: 20px;
-		font-weight: 400;
+		font-weight: 700;
     }
 
     .hero-content p {
@@ -2146,6 +2146,7 @@ body.modal-open {
     transform: translateX(-20px);
     transition: opacity 0.5s ease-out, transform 0.2s ease-out;
 }
+
 
 
 
