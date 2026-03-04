@@ -12,27 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Data proyek (Anda bisa kustomisasi ini)
     const projects = {
         1: {
-            title: "Landing Page Design Citra Kuliner - Desember 2025",
-            description: "Proyek ini berfokus pada perancangan landing page dengan tingkat konversi tinggi untuk Citra Kuliner guna mendukung strategi digital marketing mereka. Tantangan utama adalah menampilkan berbagai layanan katering secara jelas dan persuasif tanpa mengurangi konsistensi brand. Solusi yang diterapkan adalah menyusun struktur layout berbasis konversi dengan value proposition yang kuat, penempatan call-to-action yang strategis, serta hierarki visual yang dioptimalkan untuk meningkatkan engagement dan perolehan leads. Kunjungi tautan berikut untuk detail terbaru:",
-            Link : "<a href=\"https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/\" target=\"_blank\" rel=\"noopener noreferrer\">https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/</a>",
+            title: "Poster Design Sample MantaCore Property - Marketing Gallery - Januari 2026",
+            description: "Project ini saya kerjakan sebagai bentuk latihan untuk mengasah kemampuan desain sekaligus pengembangan diri secara konsisten. Dalam prosesnya, saya memanfaatkan bantuan AI untuk menghasilkan visual yang mendukung dan memperkuat konsep ide yang telah saya rancang, sehingga eksekusi kreatif tetap terarah dan relevan dengan tujuan proyek.",
 			images: [
-                "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-                "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-                "https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/nasibakulpost.jpg?raw=true",
-                "https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
-				"https://github.com/PolluxTheGreatStar/PolluxTheGreatStar.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true"
+                "https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/smplpostermantaray/mantaraycrealivasmple%201.png?raw=true",
+                "https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/smplpostermantaray/mantaraycrealivasmple%202.png?raw=true",
+				"https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/smplpostermantaray/mantaraycrealivasmple%203.png?raw=true"
             ]
         },
         2: {
@@ -409,6 +394,7 @@ if (selectedProject.link) {
     // Sekarang, gunakan kode di atas untuk menyisipkan tautan ini ke HTML
 
 }
+
 
 
 
