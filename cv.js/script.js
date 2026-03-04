@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const projects = {
         1: {
             title: "Landing Page Design Citra Kuliner - Desember 2025",
-            description: "This project focused on designing a high-converting landing page for Citra Kuliner to support their digital marketing efforts. The main challenge was presenting diverse catering services in a clear and persuasive layout while maintaining brand consistency. The solution involved structuring a conversion-driven layout with clear value propositions, strong call-to-action placement, and visual hierarchy optimized for user engagement and lead generation. Check This Link for more detail up to date:",
+            description: "Proyek ini berfokus pada perancangan landing page dengan tingkat konversi tinggi untuk Citra Kuliner guna mendukung strategi digital marketing mereka. Tantangan utama adalah menampilkan berbagai layanan katering secara jelas dan persuasif tanpa mengurangi konsistensi brand. Solusi yang diterapkan adalah menyusun struktur layout berbasis konversi dengan value proposition yang kuat, penempatan call-to-action yang strategis, serta hierarki visual yang dioptimalkan untuk meningkatkan engagement dan perolehan leads. Kunjungi tautan berikut untuk detail terbaru:",
             Link : "<a href=\"https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/\" target=\"_blank\" rel=\"noopener noreferrer\">https://https://www.citrakuliner.id/katering-jakarta-gratis-ongkir-citra-kuliner/</a>",
 			images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/hari%20anak%20nasional.jpg?raw=true",
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         2: {
             title: "Marketplace Layout Design Citra Kuliner - Oktober 2025",
-            description: "This marketplace layout design aimed to improve product visibility and user navigation for Citra Kuliner’s online marketplace presence. The primary issue was overcrowded product information that reduced user focus and purchase intent. To address this, the layout was redesigned with cleaner product grouping, improved spacing, and a more intuitive browsing flow, resulting in a more user-friendly and conversion-oriented marketplace experience. Check This Link for more detail up to date:",
+            description: "Desain layout marketplace ini bertujuan meningkatkan visibilitas produk serta navigasi pengguna pada marketplace online Citra Kuliner. Permasalahan utama adalah informasi produk yang terlalu padat sehingga mengurangi fokus dan minat beli pengguna. Untuk mengatasinya, layout dirancang ulang dengan pengelompokan produk yang lebih rapi, jarak antar elemen yang lebih optimal, serta alur penelusuran yang lebih intuitif sehingga menghasilkan pengalaman belanja yang lebih nyaman dan berorientasi pada konversi. Kunjungi tautan berikut untuk detail terbaru:",
             link: "https://www.arindafood.com/",
 			images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/kue%20kukusan%20nusantara.png?raw=true",
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         3: {
             title: "Interior Office 3D Modelling & Visualization - November 2025",
-            description: "This project involved creating a realistic 3D interior office visualization to help the client better understand spatial planning and design intent before execution. The challenge was translating conceptual ideas into a clear and immersive visual representation. The solution was achieved through accurate 3D modeling, realistic lighting, and material composition, allowing the client to visualize the office environment with proper scale, atmosphere, and functionality..",
+            description: "Proyek ini mencakup pembuatan visualisasi interior kantor 3D yang realistis untuk membantu klien memahami perencanaan ruang dan konsep desain sebelum tahap eksekusi. Tantangannya adalah menerjemahkan ide konseptual menjadi representasi visual yang jelas dan imersif. Solusinya diwujudkan melalui pemodelan 3D yang akurat, pencahayaan realistis, serta komposisi material yang detail sehingga klien dapat memvisualisasikan lingkungan kantor dengan skala, suasana, dan fungsi yang tepat.",
             images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20skp%201.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20skp%202.png?raw=true",
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 		4: {
             title: "Instagram Feeds | Arinda Food | August 2025",
-            description: "This Instagram Feeds Project aims to enhance Arinda Food brand's image through a consistent and appealing visual design. The main challenge was to create appetizing content that would grab the audience's attention amidst tough competition, which we tackled by developing a visual style guide, designing a variety of content such as recipes and testimonials, and utilizing professional photography techniques. The results of this project were increased engagement, significant follower growth, and the establishment of a more professional and trustworthy brand presence on Instagram..",
+            description: "Proyek Instagram Feeds ini bertujuan meningkatkan citra brand Arinda Food melalui desain visual yang konsisten dan menarik. Tantangan utamanya adalah menciptakan konten yang menggugah selera dan mampu menarik perhatian audiens di tengah persaingan yang ketat. Hal ini diatasi dengan menyusun panduan visual (visual style guide), merancang berbagai jenis konten seperti resep dan testimoni, serta memanfaatkan teknik fotografi yang profesional. Hasil dari proyek ini adalah peningkatan engagement, pertumbuhan followers yang signifikan, serta terbentuknya citra brand yang lebih profesional dan terpercaya di Instagram.",
             images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodld/hari%20anak%20nasional.jpg?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodld/pesanan320paks.jpg?raw=true",
@@ -101,27 +101,27 @@ document.addEventListener('DOMContentLoaded', function() {
 				"https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodld/nunda%20laper,arinda.jpg?raw=true"
             ]
         },
-		5: {
+        5: {
             title: "Poliklinik 3D Visualization",
-            description: "The Poliklinik 3D Visualization project was designed to present a clean, professional, and reassuring healthcare environment. The main challenge was conveying a realistic clinical atmosphere while maintaining visual comfort for patients. This was solved through detailed 3D rendering, balanced lighting, and realistic material application, resulting in a visual output that effectively communicates professionalism and trust.",
+            description: "Proyek visualisasi 3D Poliklinik ini dirancang untuk menampilkan lingkungan layanan kesehatan yang bersih, profesional, dan memberikan rasa nyaman. Tantangan utamanya adalah menghadirkan suasana klinis yang realistis tanpa menghilangkan kesan hangat bagi pasien. Hal ini diselesaikan melalui rendering 3D yang detail, pencahayaan yang seimbang, serta penerapan material yang realistis sehingga menghasilkan visual yang mampu merepresentasikan profesionalisme dan membangun kepercayaan.",
             images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/poliklinik3dv/poliklinik3dv1.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/poliklinik3dv/poliklinik3dv2.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/poliklinik3dv/poliklinik3dv3.png?raw=true",
             ]
         },
-		6: {
+        6: {
             title: "Exterior Render Visualization Gideon's Project - June 2025",
-            description: "This exterior render visualization aimed to showcase architectural details and overall building aesthetics in a realistic manner. The challenge was achieving a natural outdoor atmosphere that accurately represented lighting, textures, and environmental context. The solution involved high-quality exterior rendering and compositing techniques, producing a realistic visualization suitable for presentations and architectural reviews.",
+            description: "Visualisasi render eksterior ini bertujuan menampilkan detail arsitektur serta estetika bangunan secara realistis. Tantangannya adalah menciptakan suasana outdoor yang natural dengan pencahayaan, tekstur, dan konteks lingkungan yang akurat. Solusi yang diterapkan berupa teknik rendering eksterior berkualitas tinggi dan proses compositing yang presisi sehingga menghasilkan visual realistis yang layak digunakan untuk presentasi maupun review arsitektur.",
             images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/gideon3dv/gideon3dv1.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/gideon3dv/gideon3dv2.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/gideon3dv/gideon3dv3.png?raw=true"
             ]
         },
-		7: {
+        7: {
             title: "Website Design | Arinda Food | July 2025",
-            description: "This project is an enhanced website design for Arinda Food. It was developed using the Hostinger platform to create a modern and functional digital platform that showcases the brand's image, improving its discoverability on search engines and through other SEO efforts. We focused on an engaging user interface (UI) design, intuitive user experience (UX), and simple navigation, allowing customers to easily browse the site and learn more about this dynamic brand. You can access the website by clicking the link below: <a href=\"https://www.arindafood.com/\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.arindafood.com/</a>.",
+            description: "Proyek ini merupakan pengembangan desain website Arinda Food yang dibangun menggunakan platform Hostinger untuk menciptakan platform digital yang modern dan fungsional. Tujuannya adalah memperkuat citra brand serta meningkatkan visibilitas di mesin pencari melalui optimalisasi SEO. Fokus utama berada pada desain user interface (UI) yang menarik, pengalaman pengguna (UX) yang intuitif, serta navigasi yang sederhana sehingga memudahkan pelanggan menjelajahi website dan mengenal brand lebih dalam. Website dapat diakses melalui tautan berikut: <a href=\"https://www.arindafood.com/\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.arindafood.com/</a>.",
             images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%201.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%202.png?raw=true",
@@ -133,18 +133,18 @@ document.addEventListener('DOMContentLoaded', function() {
 				"https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%20analitik%202.png?raw=true"
             ]
         },
-	    8: {
+        8: {
             title: "Interior Render Visualization Azzhura's Project - Mei 2025",
-            description: "This project focused on interior render visualization to help the client visualize spatial layout, materials, and ambiance. The key challenge was ensuring the design felt both detailed and cohesive. Through precise compositing, realistic lighting, and careful material selection, the final render successfully delivered a clear and immersive interior visualization aligned with the client’s design objectives.",
+            description: "Proyek ini berfokus pada visualisasi render interior untuk membantu klien memahami tata ruang, pemilihan material, dan suasana ruangan secara menyeluruh. Tantangan utamanya adalah memastikan desain terlihat detail namun tetap harmonis. Melalui compositing yang presisi, pencahayaan realistis, dan pemilihan material yang tepat, hasil akhir berhasil menghadirkan visual interior yang imersif dan sesuai dengan tujuan desain klien.",
             images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/azhura3dv/Azhura3dv1.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/azhura3dv/Azhura3dv2.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/azhura3dv/Azhura3dv3.png?raw=true"
             ]
         },
-		9: {
+        9: {
             title: "Arinda Food's Packaging Box Design - February 2025",
-            description: "This packaging design project aimed to strengthen Arinda Food’s brand identity through a visually appealing and functional box design. The main challenge was creating packaging that stood out while remaining practical for food delivery. The solution combined brand-aligned visuals, clear information hierarchy, and packaging functionality, resulting in a design that enhances brand recognition and customer experience.",
+            description: "Proyek desain kemasan ini bertujuan memperkuat identitas brand Arinda Food melalui desain box yang menarik secara visual sekaligus fungsional. Tantangan utamanya adalah menciptakan kemasan yang menonjol di pasaran namun tetap praktis untuk kebutuhan pengiriman makanan. Solusi yang diterapkan menggabungkan visual yang selaras dengan brand, hierarki informasi yang jelas, serta pertimbangan fungsi kemasan sehingga menghasilkan desain yang meningkatkan brand recognition dan pengalaman pelanggan.",
             images: [
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd1.png?raw=true",
                 "https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd2.png?raw=true",
@@ -409,6 +409,7 @@ if (selectedProject.link) {
     // Sekarang, gunakan kode di atas untuk menyisipkan tautan ini ke HTML
 
 }
+
 
 
 
