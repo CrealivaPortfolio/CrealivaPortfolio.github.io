@@ -266,7 +266,7 @@ a:hover {
     content: "";
     position: absolute;
     inset: 0;
-    background: url('C:/Users/willy/Downloads/HTML/Logo/iphone crealiva sample2.gif') center/cover no-repeat;
+    background: url('iphone crealiva sample2.gif') center/cover no-repeat;
     z-index: 0;
 	filter: brightness(0.8) blur(2px);
 }
