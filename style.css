@@ -46,45 +46,112 @@ a:hover {
 }
 
 .section-title {
-	font-family: 'Kalam', cursive;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 50px;
-    position: relative;
-    padding-bottom: 15px;
+  position: relative;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 90px;
+  font-weight: 600;
+  margin-bottom: 90px;
+  transform: translateY(-5px);
+  transform: translateX(-40px);
 }
+
+/* perlu copy */
+
+/* Komitmen */
+.section-title .main {
+  display: inline-block;
+    margin-bottom: 20px;
+	  transition: transform 0.8s ease; /* animasi halus */
+}
+
+/* Saya */
+.section-title .accent {
+  position: absolute;
+
+  left: 50%;                 /* kunci center */
+  top: 10px;
+  display: inline-block; /* WAJIB biar bisa di-transform */
+
+  transition: transform 0.8s ease; /* animasi halus */
+
+  transform: translateX(20px) rotate(-5deg);
+  transform: translateY(50px) rotate(-5deg);
+  /* translateX ini buat geser dikit ke kanan */
+
+  font-family: 'Kalam', cursive;
+  font-size: 120px;
+  color: #004078;
+
+}
+
+.section-title .accent:hover {
+  transform: translateY(50px) scale(1.2) rotate(-8deg);
+  text-shadow: 4px 6px 15px rgba(0,0,0,0.15);
+}
+
+.section-title .main:hover {
+  transform: scale(0.8) rotate(-5deg);
+  text-shadow: 4px 6px 15px rgba(0,0,0,0.15);
+}
+
+
+/* perlu copy */
 
 .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: var(--primary-color);
+    display: none;
 }
+
 
 .section-title2 {
-	font-family: 'Kalam', cursive;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 50px;
-    position: relative;
-    padding-bottom: 15px;
-	color: var(--light-text-color);
-	
+  position: relative;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 90px;
+  font-weight: 600;
+  margin-bottom: 90px;
+  transform: translateY(-5px);
+  transform: translateX(-140px);
 }
 
-.section-title2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: var(--light-text-color);
+/* perlu copy */
+
+/* Komitmen */
+.section-title2 .main {
+  display: inline-block;
+    margin-bottom: 20px;
+	  transition: transform 0.8s ease; /* animasi halus */
+	  color: #fff;
+}
+
+/* Saya */
+.section-title2 .accent {
+  position: absolute;
+
+  left: 50%;                 /* kunci center */
+  top: 10px;
+  display: inline-block; /* WAJIB biar bisa di-transform */
+
+  transition: transform 0.8s ease; /* animasi halus */
+
+  transform: translateX(20px) rotate(-5deg);
+  transform: translateY(50px) rotate(-5deg);
+  /* translateX ini buat geser dikit ke kanan */
+
+  font-family: 'Kalam', cursive;
+  font-size: 120px;
+  color: #fff;
+
+}
+
+.section-title2 .accent:hover {
+  transform: translateY(50px) scale(1.2) rotate(-8deg);
+  text-shadow: 4px 6px 15px rgba(0,0,0,0.15);
+}
+
+.section-title2 .main:hover {
+  transform: scale(0.8) rotate(-5deg);
+  text-shadow: 4px 6px 15px rgba(0,0,0,0.15);
 }
 
 
@@ -175,12 +242,33 @@ a:hover {
 }
 
 /* Hero Section */
+/* perlu copy */
+
+.hero .container,
+.hero-content,
+.hero-image {
+    position: relative;
+    z-index: 2;
+}
+
 .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     text-align: center;
     padding-top: 100px; /* Adjust for fixed header */
+	position: relative; /* WAJIB */
+    overflow: hidden;  /* biar rapi */
+}
+
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('C:/Users/willy/Downloads/HTML/Logo/iphone crealiva sample2.gif') center/cover no-repeat;
+    z-index: 0;
+	filter: brightness(0.8) blur(2px);
 }
 
 .hero .finisher-header {
@@ -189,9 +277,20 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* Pastikan berada di lapisan paling belakang */
+    z-index: 1; /* Pastikan berada di lapisan paling belakang */
 
-	
+}
+
+.hero .finisher-header canvas {
+    background: transparent !important;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
 }
 
 .hero .container {
@@ -211,20 +310,20 @@ a:hover {
 	font-size: 7rem;
     font-weight: 600;
     margin-bottom: 15px;
-    color: var(--warnabirutua-color);
+    color: #fff;
 	}
 
 .hero-title2 {
     font-size: 1.6rem;
     font-weight: 700;
     margin-bottom: 30px;
-   	color: var(--secondary-color);
+   	color: #fff;
 	}
 
 .hero-content p {
   font-size: 1rem;
   line-height: 1.7;
-  color: #555;
+  color: #fff;
   margin-bottom: 30px;
 }
 
@@ -1030,9 +1129,23 @@ a:hover {
 
 
 /* Portfolio Section */
-.portfolio {
-    padding: 100px 0;
+/* perlu copy */
+
+.All-Project2 {
+	padding: 80px;
 	background-image: linear-gradient(#2c3b7e, #101A45);
+}
+
+.All-Project2 h3 {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	color: #fff;
+}
+
+.All-Project2 p {
+	margin-top: 50px;
+	margin-bottom: 50px;
+	color: #fff;
 }
 .description-section {
     font-size: 1em;
@@ -1903,7 +2016,15 @@ body.modal-open {
     color: var(--light-text-color);
 }
 
+/* perlu copy */
 
+.photos-360 {
+	padding: 10px 10%;
+}
+
+.photos-360 h2 {
+	transform: translateX(-125px);
+}
 
 /* ... Section 3 Images ... */
 
@@ -1956,8 +2077,8 @@ body.modal-open {
 .text-link {
     background: none;
     border: none;
-    color: var(--warnabirutua-color);
-    font-size: 1.2rem;
+    color: #fff;
+    font-size: 1.5rem;
     font-weight: 600;
     cursor: pointer;
     padding: 10px 20px;
@@ -2049,6 +2170,31 @@ body.modal-open {
 }
 /* Responsive Design */
 @media (max-width: 768px) {
+
+			/* perlu copy */
+		.section-title2 {
+	 transform: translateX(-80px);
+	}
+	
+	.section-title .main {
+	font-size: 80px;
+	}
+
+	.section-title .accent {
+	font-size: 110px;
+	}
+	
+	.section-title2 .main {
+	font-size: 60px;
+	}
+
+	.section-title2 .accent {
+	display: inline-block; /* WAJIB biar bisa di-transform */
+	font-size: 90px;
+	left: 33%;
+	transform: translateY(70px) rotate(-5deg);
+	}
+	
        .header .container {
         flex-direction: column;
     }
