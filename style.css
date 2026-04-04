@@ -85,7 +85,7 @@ a:hover {
 }
 
 .section-title .accent:hover {
-  transform: translateY(50px) scale(1.2) rotate(-8deg);
+  transform: translateY(0px) scale(1.2) rotate(-8deg);
   text-shadow: 4px 6px 15px rgba(0,0,0,0.15);
 }
 
@@ -151,6 +151,11 @@ a:hover {
 .section-title2 .main:hover {
   transform: scale(0.8) rotate(-5deg);
   text-shadow: 4px 6px 15px rgba(0,0,0,0.15);
+}
+
+.dedikasi-saya h2 {
+	transform: translateX(110px);
+	transform: translateY(110px);
 }
 
 
@@ -1341,7 +1346,7 @@ a:hover {
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 5.5rem;
   margin-bottom: 60px;
   text-align: center;
 }
