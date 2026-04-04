@@ -50,7 +50,6 @@ a:hover {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   font-size: 90px;
-  font-weight: 600;
   margin-bottom: 90px;
   transform: translateY(-5px);
   transform: translateX(-40px);
@@ -76,7 +75,7 @@ a:hover {
   transition: transform 0.8s ease; /* animasi halus */
 
   transform: translateX(20px) rotate(-5deg);
-  transform: translateY(50px) rotate(-5deg);
+  transform: translateY(0px) rotate(-5deg);
   /* translateX ini buat geser dikit ke kanan */
 
   font-family: 'Kalam', cursive;
@@ -1083,13 +1082,6 @@ a:hover {
 /* Media Queries untuk Tampilan Mobile */
 @media (max-width: 768px) {
 
-	.section-title {
-	font-family: 'Kalam', cursive;	
-	}
-
-	.section-title2 {
-	font-family: 'Kalam', cursive;
-	}
     .testimonial-card {
         flex-direction: column;
         text-align: center;
@@ -2257,6 +2249,7 @@ body.modal-open {
 
 	.section-title .accent {
 	font-size: 110px;
+	transform: translateY(40px) rotate(-5deg);
 	}
 	
 	.section-title2 .main {
