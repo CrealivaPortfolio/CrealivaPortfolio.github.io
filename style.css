@@ -2179,6 +2179,74 @@ body.modal-open {
 @media (max-width: 768px) {
 
 			/* perlu copy */
+ .All-Project2 {
+    padding: 40px 20px;
+  }
+
+  .All-Project2 h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .All-Project2 p {
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .description-section {
+    font-size: 0.9rem;
+    margin: 0 auto 30px auto;
+    padding: 0 10px;
+    text-align: center;
+
+    /* 🔥 HAPUS margin kiri kanan gede */
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr; /* 1 kolom biar clean */
+    gap: 20px;
+  }
+
+  .portfolio-item {
+    border-radius: 12px;
+  }
+
+  .portfolio-item img {
+    border-radius: 12px;
+  }
+
+  /* Overlay lebih readable di HP */
+  .portfolio-overlay,
+  .item-overlay {
+    padding: 15px;
+  }
+
+  .portfolio-overlay h4,
+  .item-overlay h3 {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
+
+  .portfolio-overlay p,
+  .item-overlay p {
+    font-size: 0.85rem;
+    margin: 5px 0 15px 0;
+  }
+
+  .view-detail-btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  /* Button bawah */
+  #see-more-btn {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+	
 		.section-title2 {
 	 transform: translateX(-80px);
 	}
