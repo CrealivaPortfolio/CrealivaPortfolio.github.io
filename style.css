@@ -155,7 +155,7 @@ a:hover {
 
 .dedikasi-saya h2 {
 	transform: translateX(110px);
-	transform: translateY(110px);
+	transform: translateY(-70px);
 }
 
 
@@ -861,7 +861,6 @@ a:hover {
 
 .commitment-section {
     position: relative; /* Penting: Jadikan section sebagai referensi posisi */
-    overflow: hidden; /* Penting: Untuk memastikan logo tidak keluar dari section */
 }
 
 .commitment-background-logo {
