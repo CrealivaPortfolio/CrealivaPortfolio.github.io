@@ -2275,82 +2275,84 @@ body.modal-open {
         margin: 0 10px;
     }
 
-    .hero .container {
-        flex-direction: column;
-        text-align: center;
-    }
+    /* ========================= */
+/* HERO MOBILE FIX */
+/* ========================= */
 
-    .hero-content {
-        margin-bottom: 40px;
-    }
+.hero {
+    overflow: hidden;
+}
 
-    .hero-title {
-        font-size: 5rem;
-    	margin-bottom: 10px;
-		margin-top: 25px;
-		margin-left: 55px;
-		margin-right: 55px;
-		font-weight: 600;
-    }
+.hero .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px; /* biar ada jarak kiri kanan */
+}
 
-	.hero-title2 {
-        font-size: 1.5rem;
-    	margin-bottom: 20px;
-		margin-left: 20px;
-		margin-right: 20px;
-		font-weight: 700;
-    }
+/* Content */
+.hero-content {
+    margin-bottom: 30px;
+    width: 100%;
+}
 
-    .hero-content p {
-  	font-size: 1rem;
-  	line-height: 1.7;
-  	color: #fff;
-	margin-left: 10px;
-	margin-right: 10px;
- 	margin-bottom: 20px;
-	}
-	
-	.hero-image {
-        display: none;
-    }
-	.cta-button {
+/* Title */
+.hero-title {
+    font-size: 2.2rem;
+    margin: 20px 0 10px 0; /* ❌ hapus margin kiri kanan */
+    font-weight: 700;
+}
+
+/* Subtitle */
+.hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    padding: 0 10px; /* biar ga nempel pinggir */
+}
+
+/* Image (hide di mobile) */
+.hero-image {
+    display: none;
+}
+
+/* Button */
+.cta-button {
     display: inline-block;
-	margin-top: 15px;
-	margin-bottom: 1px;
+    margin-top: 10px;
+    padding: 12px 25px;
     background-color: var(--primary-color);
     color: var(--light-text-color);
     border-radius: 50px;
     font-weight: 600;
-    transition: all 0.3s ease;
     border: none;
-		cursor: pointer;
-	}
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-	.cta-button:hover {
+.cta-button:hover {
     background-color: var(--warnabirutua-color);
-	color: var(--light-text-color);
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-	}
+}
 
-	.full-width-images {
+/* Full image */
+.full-width-images {
     width: 100%;
-    margin-top: 20px;
-    margin-bottom: 30px;
-	}
-	.item-overlay h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-	margin-left: 40px;
-	margin-right: 40px;
-	}
+    margin: 20px 0;
+}
 
-	.item-overlay p {
-    margin-bottom: 20px;
-	margin-left: 20px;
-	margin-right: 20px;
-	
-	}
+/* Overlay text */
+.item-overlay h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    padding: 0 10px;
+}
+
+.item-overlay p {
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
 
 /* Sembunyikan setiap karakter di awal */
 /* style.css */
