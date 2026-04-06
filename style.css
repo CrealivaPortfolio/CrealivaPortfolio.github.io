@@ -2312,7 +2312,8 @@ text-align: center;
 } 
 
 .hero-content { 
-margin-bottom: 40px; } 
+margin-bottom: 40px; 
+} 
 
 .hero-title { 
 font-size: 2.7rem; 
@@ -2325,9 +2326,12 @@ font-weight: 700;
 
 .hero-subtitle { 
 font-size: 1.2rem; 
-margin-bottom: 15px; } 
+margin-bottom: 15px; 
+} 
 
-.hero-image { display: none; } 
+.hero-image { 
+display: none; 
+} 
 
 .cta-button { 
 display: inline-block; 
@@ -2337,29 +2341,36 @@ background-color: var(--primary-color);
 color: var(--light-text-color); 
 border-radius: 50px; 
 font-weight: 600; 
-transition: all 0.3s ease; border: none; cursor: pointer; } 
+transition: all 0.3s ease; 
+border: none; 
+cursor: pointer; 
+} 
 
 .cta-button:hover { 
 background-color: var(--warnabirutua-color); 
 color: var(--light-text-color); 
 transform: translateY(-3px); 
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); } 
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+} 
 
 .full-width-images { 
 width: 100%; 
 margin-top: 20px; 
-margin-bottom: 30px; } 
+margin-bottom: 30px; 
+} 
 
 .item-overlay h3 { 
 font-size: 1.5rem; 
 margin-bottom: 10px; 
 margin-left: 40px; 
-margin-right: 40px; } 
+margin-right: 40px; 
+} 
 
 .item-overlay p { 
 margin-bottom: 20px; 
 margin-left: 20px; 
-margin-right: 20px; }
+margin-right: 20px; 
+}
 
 /* Sembunyikan setiap karakter di awal */
 /* style.css */
