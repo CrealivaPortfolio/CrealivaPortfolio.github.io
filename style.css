@@ -1551,7 +1551,7 @@ a:hover {
 }
 
 .contact-section h2 {
-	transform: translateX(50px);
+	transform: translateX(-80px);
 }
 
 .contact-section p {
@@ -2279,7 +2279,9 @@ body.modal-open {
 
 
 	
-
+.contact-section h2 {
+	transform: translateX(50px);
+}
 	
 
 	
@@ -2357,7 +2359,6 @@ body.modal-open {
     .hero-content p {
   	font-size: 1rem;
   	line-height: 1.7;
-  	color: #555;
 	margin-left: 10px;
 	margin-right: 10px;
  	margin-bottom: 20px;
@@ -2404,6 +2405,7 @@ body.modal-open {
 	margin-right: 20px;
 	
 	}
+}
 /* Sembunyikan setiap karakter di awal */
 /* style.css */
 .animated-char {
