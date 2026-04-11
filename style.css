@@ -2344,8 +2344,6 @@ body.modal-open {
         font-size: 5rem;
     	margin-bottom: 10px;
 		margin-top: 25px;
-		margin-left: 55px;
-		margin-right: 55px;
 		font-weight: 600;
     }
 
@@ -2407,6 +2405,19 @@ body.modal-open {
 	
 	}
 }
+
+@media (max-width: 450px) {
+    .hero-title {
+        font-size: 4rem;
+    }
+
+	    .hero .container {
+        flex-direction: column;
+        text-align: center;
+		overflow: hidden;
+    }
+}
+
 /* Sembunyikan setiap karakter di awal */
 /* style.css */
 .animated-char {
