@@ -2172,6 +2172,343 @@ body.modal-open {
     transform: translateY(0);
     visibility: visible;
 }
+
+
+
+
+
+
+
+/* === CITRA KULINER CAROUSEL — scoped styles === */
+ 
+  .ck-section {
+    position: relative;
+    width: 100%;
+    padding: 64px 0 72px;
+    overflow: hidden;
+    background-color: #fff;
+    background-image:
+linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(rgba(0,0,0,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.07) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+    background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+    font-family: 'DM Sans', sans-serif;
+  }
+ 
+  /* vignette fade on edges */
+  .ck-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 90% 80% at 50% 50%, transparent 50%, rgba(247,246,241,0.65) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+ 
+  /* ── Header ── */
+  .ck-head {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: 0 auto 48px;
+    padding: 0 40px;
+  }
+ 
+  .ck-head-block { line-height: 1; }
+  .ck-head-block.ck-right { text-align: right; }
+ 
+  .ck-label {
+    display: block;
+	font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #111110;
+    margin-bottom: 2px;
+  }
+ 
+  .ck-script {
+    display: block;
+    font-family: 'Kalam', cursive;
+    font-size: clamp(30px, 5vw, 52px);
+    font-weight: 700;
+    color: #1e1b6e;
+    line-height: 1.05;
+	transform: rotate(-5deg)
+  }
+ 
+  .ck-arrow-hint {
+    display: block;
+    margin-top: 10px;
+    width: 48px;
+    height: 24px;
+    position: relative;
+    opacity: 0.45;
+  }
+  .ck-arrow-hint::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px;
+    width: 36px;
+    border-top: 2px dashed #1e1b6e;
+  }
+  .ck-arrow-hint::after {
+    content: '';
+    position: absolute;
+    right: 4px; top: 3px;
+    width: 10px; height: 10px;
+    border-right: 2px dashed #1e1b6e;
+    border-bottom: 2px dashed #1e1b6e;
+    transform: rotate(45deg);
+  }
+ 
+  /* ── Carousel outer ── */
+  .ck-outer {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    overflow: hidden;
+    padding: 24px 0 16px;
+  }
+ 
+  /* Track — JS applies translateX to center active card */
+  .ck-track {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    will-change: transform;
+    /* transition set/unset by JS */
+  }
+ 
+  /* ── Cards ── */
+  /* Ganti .ck-item yang sudah ada jadi ini */
+.ck-item {
+  flex: 0 0 auto;
+  width: auto;
+  height: 420px;       /* tinggi di desktop */
+  aspect-ratio: unset;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition:
+    transform 0.45s cubic-bezier(0.4,0,0.2,1),
+    opacity   0.45s cubic-bezier(0.4,0,0.2,1),
+    filter    0.45s cubic-bezier(0.4,0,0.2,1),
+    box-shadow 0.45s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform, filter;
+  transform:  scale(0.78) translateY(20px);
+  opacity:    0.52;
+  filter:     blur(2px) brightness(0.72);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+  z-index: 1;
+}
+
+.ck-item img {
+  width: auto;
+  height: 100%;
+  object-fit: unset;
+  display: block;
+}
+
+/* Di dalam @media (max-width: 700px) tambahkan: */
+@media (max-width: 700px) {
+  .ck-item {
+    height: 300px;          /* biarkan tinggi mengikuti foto */
+    width: 300px;           /* lebar 80% layar */
+	max-width: auto;
+  }
+
+  .ck-item img {
+    width: 400px;           /* foto penuh selebar card */
+    height: 400px;          /* tinggi mengikuti rasio asli */
+    object-fit: unset;
+  }
+}
+ 
+  .ck-item.ck-active {
+    transform:  scale(1) translateY(0);
+    opacity:    1;
+    filter:     none;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.10);
+    z-index: 10;
+  }
+ 
+  .ck-item.ck-near {
+    transform:  scale(0.84) translateY(14px);
+    opacity:    0.70;
+    filter:     blur(1px) brightness(0.80);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+    z-index: 5;
+  }
+ 
+  .ck-item.ck-far {
+    transform:  scale(0.66) translateY(28px);
+    opacity:    0.30;
+    filter:     blur(3px) brightness(0.60);
+    z-index: 1;
+  }
+ 
+  @media (hover: hover) {
+    .ck-item.ck-active:hover {
+      transform:  scale(1.04) translateY(-4px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 6px 20px rgba(0,0,0,0.12);
+    }
+  }
+ 
+  /* Images inside cards */
+  .ck-item img {
+    width: auto;
+    height: 100%;
+    object-fit: unset;
+    display: block;
+  }
+ 
+  /* Placeholder card (delete once you add real images) */
+  .ck-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #1a1200, #2d2000, #1a1200);
+    color: #f0c020;
+    text-align: center;
+    padding: 24px;
+    user-select: none;
+  }
+  .ck-ph-icon {
+    width: 52px; height: 52px;
+    border: 2.5px dashed rgba(240,192,32,0.45);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ck-ph-icon svg { opacity: 0.65; }
+  .ck-ph-num  { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: rgba(240,192,32,0.55); text-transform: uppercase; }
+  .ck-ph-title { font-size: 15px; font-weight: 700; color: #f0c020; line-height: 1.3; }
+  .ck-ph-badge {
+    font-size: 10px; font-weight: 500;
+    background: rgba(240,192,32,0.12); color: rgba(240,192,32,0.75);
+    border: 1px solid rgba(240,192,32,0.22);
+    border-radius: 20px; padding: 3px 10px; letter-spacing: 0.05em;
+  }
+ 
+  /* ── Arrow buttons ── */
+  .ck-arrow {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    z-index: 20;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    color: #111110;
+  }
+  .ck-arrow:hover {
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+    transform: translateY(-50%) scale(1.08);
+  }
+  .ck-arrow:active { transform: translateY(-50%) scale(0.95); }
+  .ck-arrow.ck-prev { left:  clamp(10px, 3vw, 32px); }
+  .ck-arrow.ck-next { right: clamp(10px, 3vw, 32px); }
+  .ck-arrow svg { width: 20px; height: 20px; stroke: #111110; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+ 
+  /* ── Dots ── */
+  .ck-dots {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+    gap: 7px; margin-top: 28px;
+  }
+  .ck-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(0,0,0,0.20); cursor: pointer; border: none;
+    transition: background 0.3s, width 0.3s, border-radius 0.3s;
+  }
+  .ck-dot.ck-dot-active {
+    background: #1e1b6e;
+    width: 22px; border-radius: 4px;
+  }
+ 
+  /* ── Instagram bar ── */
+  .ck-ig-bar {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center;
+    margin-top: 32px;
+  }
+.ck-ig-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  width: clamp(320px, 92%, 480px);   /* lebih lebar */
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 60px;
+  padding: 14px 28px;                /* padding lebih besar */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.ck-ig-left { display: flex; align-items: center; gap: 28px; }
+  .ck-ig-btn {
+    background: none; border: none; cursor: pointer; padding: 4px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.18s;
+  }
+  .ck-ig-btn:hover  { transform: scale(1.18); }
+  .ck-ig-btn:active { transform: scale(0.90); }
+.ck-ig-btn svg {
+  width: 32px;    /* dari 24px → 32px */
+  height: 32px;
+  stroke: #111110; stroke-width: 1.8; fill: none;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke 0.2s, fill 0.2s;
+  display: block;
+}
+  /* Like — active state */
+  .ck-ig-btn.ck-liked svg { fill: #e0192a !important; stroke: #e0192a !important; }
+  @keyframes ck-heart-pop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.45); }
+    70%  { transform: scale(0.88); }
+    100% { transform: scale(1); }
+  }
+  .ck-ig-btn.ck-pop { animation: ck-heart-pop 0.38s ease-out forwards; }
+  /* Save — active state */
+  .ck-ig-btn.ck-saved svg { fill: #111110 !important; }
+ 
+  /* ── Responsive ── */
+  @media (max-width: 700px) {
+    .ck-head { padding: 0 20px; margin-bottom: 32px; }
+    .ck-script { font-size: clamp(26px, 9vw, 40px); }
+    .ck-item { width: 240px; }
+    .ck-item.ck-near { transform: scale(0.76) translateY(18px); opacity: 0.50; filter: blur(2px) brightness(0.72); }
+    .ck-item.ck-far  { transform: scale(0.58) translateY(30px); opacity: 0.20; filter: blur(4px) brightness(0.55); }
+    .ck-arrow { width: 38px; height: 38px; }
+    .ck-arrow.ck-prev { left:  6px; }
+    .ck-arrow.ck-next { right: 6px; }
+  }
+  @media (max-width: 400px) {
+    .ck-item { width: 200px; }
+  }
+
+
+
+
+
+
+
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
 
@@ -2406,7 +2743,7 @@ body.modal-open {
 	}
 }
 
-@media (max-width: 450px) {
+@media (max-width: 430px) {
     .hero-title {
         font-size: 4rem;
     }
@@ -2416,6 +2753,10 @@ body.modal-open {
         text-align: center;
 		overflow: hidden;
     }
+
+		.section-title2 .accent {
+	left: 8%;
+	}
 }
 
 /* Sembunyikan setiap karakter di awal */
