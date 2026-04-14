@@ -2030,9 +2030,6 @@ body.modal-open {
 	transform: translateX(-125px);
 }
 
-.adjustword {
-	transform: translateX(-80px);
-}
 
 /* ... Section 3 Images ... */
 
@@ -2763,10 +2760,6 @@ linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
 		.section-title2 .accent {
 	left: 8%;
 	}
-
-	.adjustword {
-	transform: translateX(-110px);
-}
 	
 }
 
