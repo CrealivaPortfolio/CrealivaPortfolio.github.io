@@ -2030,6 +2030,10 @@ body.modal-open {
 	transform: translateX(-125px);
 }
 
+.adjustword {
+	transform: translateX(-80px);
+}
+
 /* ... Section 3 Images ... */
 
 .full-width-images {
@@ -2271,8 +2275,8 @@ linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
     position: relative;
     z-index: 2;
     width: 100%;
-    overflow: hidden;
-    padding: 24px 0 16px;
+    overflow: visible;
+    padding: 24px 0 40px;
   }
  
   /* Track — JS applies translateX to center active card */
@@ -2498,7 +2502,9 @@ linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
     .ck-arrow.ck-next { right: 6px; }
   }
   @media (max-width: 400px) {
-    .ck-item { width: 200px; }
+    width: 68vw;      /* lebih kecil lagi di HP sempit */
+    max-width: 240px;
+	}
   }
 
 
@@ -2757,6 +2763,11 @@ linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
 		.section-title2 .accent {
 	left: 8%;
 	}
+
+	.adjustword {
+	transform: translateX(-110px);
+}
+	
 }
 
 /* Sembunyikan setiap karakter di awal */
