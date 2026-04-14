@@ -2498,11 +2498,18 @@ linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
     .ck-arrow.ck-prev { left:  6px; }
     .ck-arrow.ck-next { right: 6px; }
   }
+
   @media (max-width: 400px) {
-    width: 68vw;      /* lebih kecil lagi di HP sempit */
+    .ck-item { 
+	width: 68vw;      /* lebih kecil lagi di HP sempit */
     max-width: 240px;
 	}
-  }
+	
+	.adjustword {
+	transform: translateX(-120px);
+	}
+}
+
 
 
 
@@ -2612,6 +2619,12 @@ linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
 		transform: translateX(-100px) scale(0.8);
 }
 
+
+.adjustword {
+	transform: translateX(-80px);
+}
+
+	
 
 	.video-section h2 {
   	 	transform: scale(0.9);
