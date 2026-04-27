@@ -2780,27 +2780,78 @@ linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
 
 
 /* ================================================ */
-/* PATCH MOBILE 370px — tambahkan di paling bawah  */
+/* PATCH MOBILE — tambahkan di paling bawah        */
 /* Tidak mengubah kode lain sama sekali             */
 /* ================================================ */
 
-@media (max-width: 370px) {
+@media (max-width: 768px) {
 
-  /* --- Section Title (Kata / Testimonial heading) --- */
+  /* --- Fix "Kata Mereka" section title di mobile --- */
   .section-title {
-    font-size: 58px;
-    margin-bottom: 60px;
-    transform: translateX(-20px);
+    font-size: 60px;
+    margin-bottom: 120px;        /* beri ruang untuk .accent yang absolute */
+    transform: translateX(0px);  /* reset offset desktop */
+    min-height: 80px;
   }
 
   .section-title .main {
-    font-size: 58px;
+    font-size: 60px;
+    display: block;
   }
 
   .section-title .accent {
-    font-size: 68px;
-    top: 8px;
-    transform: translateY(44px) rotate(-5deg);
+    font-size: 72px;
+    left: 50%;
+    transform: translateX(-50%) translateY(55px) rotate(-5deg);
+    white-space: nowrap;
+  }
+
+  .section-title .accent:hover {
+    transform: translateX(-50%) translateY(55px) scale(1.1) rotate(-8deg);
+  }
+
+}
+
+@media (max-width: 430px) {
+
+  .section-title {
+    font-size: 50px;
+    margin-bottom: 110px;
+  }
+
+  .section-title .main {
+    font-size: 50px;
+  }
+
+  .section-title .accent {
+    font-size: 60px;
+    transform: translateX(-50%) translateY(50px) rotate(-5deg);
+  }
+
+  .section-title .accent:hover {
+    transform: translateX(-50%) translateY(50px) scale(1.1) rotate(-8deg);
+  }
+
+}
+
+@media (max-width: 370px) {
+
+  .section-title {
+    font-size: 42px;
+    margin-bottom: 100px;
+  }
+
+  .section-title .main {
+    font-size: 42px;
+  }
+
+  .section-title .accent {
+    font-size: 50px;
+    transform: translateX(-50%) translateY(44px) rotate(-5deg);
+  }
+
+  .section-title .accent:hover {
+    transform: translateX(-50%) translateY(44px) scale(1.1) rotate(-8deg);
   }
 
   /* --- Testimonial Slider --- */
