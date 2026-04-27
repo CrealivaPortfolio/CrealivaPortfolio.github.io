@@ -2786,7 +2786,87 @@ linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
 }
 
 
+/* ================================================ */
+/* PATCH MOBILE 370px — tambahkan di paling bawah  */
+/* Tidak mengubah kode lain sama sekali             */
+/* ================================================ */
 
+@media (max-width: 370px) {
+
+  /* --- Section Title (Kata / Testimonial heading) --- */
+  .section-title {
+    font-size: 58px;
+    margin-bottom: 60px;
+    transform: translateX(-20px);
+  }
+
+  .section-title .main {
+    font-size: 58px;
+  }
+
+  .section-title .accent {
+    font-size: 68px;
+    top: 8px;
+    transform: translateY(44px) rotate(-5deg);
+  }
+
+  /* --- Testimonial Slider --- */
+  .slider-container {
+    padding: 0 6px;
+  }
+
+  .testimonial-card {
+    padding: 16px 12px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem;
+  }
+
+  .slider-btn {
+    font-size: 26px;
+  }
+
+  /* --- Hero --- */
+  .hero-title {
+    font-size: 3.2rem;
+  }
+
+  .hero-title2 {
+    font-size: 1.1rem;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .hero-content p {
+    font-size: 0.88rem;
+    margin-right: 0;
+  }
+
+  /* --- Nav agar tidak overflow --- */
+  .nav li {
+    margin: 0 6px;
+  }
+
+  .nav a {
+    font-size: 0.82rem;
+  }
+
+  /* --- Section Title2 --- */
+  .section-title2 .main {
+    font-size: 48px;
+    transform: translateX(-50px);
+  }
+
+  .section-title2 .accent {
+    font-size: 68px;
+    left: 6%;
+    transform: translateY(72px) rotate(-5deg);
+  }
+
+}
 
 
 
