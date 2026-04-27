@@ -2505,9 +2505,6 @@ linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
     max-width: 240px;
 	}
 	
-	.adjustword {
-	transform: translateX(-120px);
-	}
 }
 
 
