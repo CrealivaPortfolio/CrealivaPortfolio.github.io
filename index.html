@@ -280,7 +280,7 @@ img { display:block; max-width:100%; }
   border:1px solid rgba(255,255,255,.22);
   font-size:.78rem; font-weight:500; color:rgba(255,255,255,.9);
   letter-spacing:.08em; text-transform:uppercase;
-  margin-bottom:20px;
+  margin-bottom:50px;
   animation:fadeInDown .8s var(--ease) .1s both;
 }
 .hero-badge span { width:7px; height:7px; border-radius:50%; background:#4ade80; animation:pulse 2s infinite; }
@@ -994,10 +994,6 @@ body.modal-open { overflow:hidden; }
   }
   .section-title2 .accent:hover { transform:translateX(-50%) translateY(52px) scale(1.1) rotate(-8deg); }
 
-  /* adjustword fix */
-  .adjustword { position:relative; display:inline-block; }
-  .adjustword .accent { left:0 !important; transform:translateY(52px) rotate(-5deg) !important; white-space:nowrap; }
-  .adjustword .accent:hover { transform:translateY(52px) scale(1.1) rotate(-8deg) !important; }
 
   /* Commitment */
   .commitment-section { padding:80px 0 60px; }
@@ -1028,7 +1024,7 @@ body.modal-open { overflow:hidden; }
   .video-row { grid-template-columns:1fr; gap:36px; }
 
   /* Gallery */
-  .gallery-section { padding:60px 0; }
+  .gallery-section { padding:0px 0; }
   .gallery-grid { display:flex; flex-direction:column; gap:12px; }
   .item-1,.item-3,.item-6 { grid-column:auto; grid-row:auto; }
   .gallery-item { height:200px; }
@@ -1056,12 +1052,17 @@ body.modal-open { overflow:hidden; }
    ═══════════════════════════════════════════════════ */
 @media(max-width:430px) {
   .hero-title { font-size:clamp(2.6rem,11vw,3.8rem); }
-  .hero .container { overflow:hidden; }
-  .section-title { font-size:clamp(32px,9vw,46px); margin-bottom:90px; }
-  .section-title .accent { font-size:clamp(38px,11vw,56px); transform:translateX(-50%) translateY(44px) rotate(-5deg); }
+  .hero .container { margin-bottom: 50px; }
+  .section-title { font-size:clamp(45px,9vw,46px); margin-bottom:90px; }
+  .section-title .accent { font-size:clamp(60px,11vw,56px); transform:translateX(-50%) translateY(44px) rotate(-5deg); }
   .section-title .accent:hover { transform:translateX(-50%) translateY(44px) scale(1.1) rotate(-8deg); }
-  .section-title2 { font-size:clamp(30px,9vw,42px); margin-bottom:90px; }
-  .section-title2 .accent { font-size:clamp(36px,11vw,52px); }
+  .section-title2 { font-size:clamp(45px,9vw,42px); margin-bottom:90px; }
+  .section-title2 .accent { font-size:clamp(50px,11vw,52px); }
+  .section-title-wrap { margin-bottom:90px; }
+  .video-section { padding: 60px 6%; margin-bottom:-40px;}
+  .contact-section { width: 90%; }
+  .photos-360 { padding: 60px 6% 0; margin-bottom: -40px; }
+  .category-title2 { font-size: clamp(1.5rem, 2.5vw, 1.5rem);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -1218,7 +1219,6 @@ body.modal-open { overflow:hidden; }
     </h2>
   </div>
   <div class="container">
-    <p class="section-eyebrow section-eyebrow--light reveal" style="justify-content:center;margin-bottom:8px;">Karya Terbaru</p>
     <h3 class="category-title2">Proyek Terbaru</h3>
     <p class="description-section2">Biarkan proyek-proyek terbaru Saya menjadi sumber inspirasi bagi Kamu. Saya siap berkolaborasi untuk mewujudkan ide besar Kamu selanjutnya.</p>
     <div class="portfolio-grid reveal" id="latest-projects">
@@ -1267,7 +1267,6 @@ body.modal-open { overflow:hidden; }
 <!-- ═══════════ ALL PROJECTS ═══════════ -->
 <section class="All-Project2">
   <div class="container">
-    <p class="section-eyebrow section-eyebrow--light reveal" style="justify-content:center;margin-bottom:8px;">Best Work</p>
     <h3 class="category-title2 reveal">Proyek Keseluruhan</h3>
     <p class="description-section2 reveal">Kumpulan lengkap karya terbaik Saya. Jelajahi beragam proyek dari berbagai industri yang menampilkan solusi kreatif yang telah Saya hadirkan untuk klien.</p>
     <div class="portfolio-grid" id="all-projects">
