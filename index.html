@@ -568,6 +568,90 @@ body.modal-open { overflow:hidden; }
   .ck-item { height:300px; width:300px; }
   .ck-item img { width:auto; height:300px; object-fit:contain; }
 }
+
+
+/* ================================================
+   PATCH — Fix background dekoratif di GitHub Pages
+   Tempelkan di paling bawah <style> di HTML kamu
+   ================================================ */
+
+/* 1. Sembunyikan logo lama yang pakai position:fixed
+      (tidak reliable di GitHub Pages / berbagai browser) */
+.commitment-background-logo,
+.commitment-background-logo2 {
+  display: none !important;
+}
+
+/* 2. Ganti dengan pseudo-element di .contact-section2
+      agar background orbs muncul di balik form contact */
+.contact-section2 {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Orb besar kiri atas */
+.contact-section2::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  left: -100px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 83, 156, 0.55) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Orb besar kanan bawah */
+.contact-section2::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: -80px;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(44, 59, 126, 0.6) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Pastikan konten di atas orb */
+.contact-section2 .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Orb tambahan tengah untuk kedalaman */
+.contact-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 64, 120, 0.3) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Form dan konten tetap di atas */
+.contact-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+  
+  
 </style>
 </head>
 <body>
