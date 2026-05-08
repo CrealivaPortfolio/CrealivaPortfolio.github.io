@@ -586,15 +586,16 @@ body.modal-open { overflow:hidden; }
   z-index: 0 !important;
 
   /* Ukuran besar seperti semula */
-  width: 95vw !important;
+  width: 55vw !important;
   height: auto !important;
 
   /* Opacity cukup agar terlihat di bg apapun */
-  opacity: 0.15 !important;
+  opacity: 0.8 !important;
 
   /* mix-blend-mode: multiply agar terlihat di bg putih */
   /* dan tetap subtle di bg biru */
-  mix-blend-mode: screen !important;
+  mix-blend-mode: normal !important;
+  filter: brightness(0) invert(1) !important;
 
   /* Matikan display:none dari patch sebelumnya */
   display: block !important;
