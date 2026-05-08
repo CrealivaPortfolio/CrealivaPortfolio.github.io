@@ -571,46 +571,47 @@ body.modal-open { overflow:hidden; }
 
 
 /* ================================================
-   PATCH v3 — Background Logo Fix
-   - Beku/fixed di viewport (tidak scroll)
-   - Terlihat di section biru maupun putih
-   - Ukuran besar seperti semula
+   PATCH FINAL — Background Logo Adaptive Opacity
    ================================================ */
-
+ 
+/* Reset CSS lama yang ada di atas */
 .commitment-background-logo,
 .commitment-background-logo2 {
   position: fixed !important;
   pointer-events: none !important;
   z-index: 0 !important;
-  width: 55vw !important;
   height: auto !important;
-  opacity: 0.07 !important;       /* ← turun dari 0.8, warna asli logo */
-  mix-blend-mode: normal !important;
-  filter: none !important;        /* ← hapus brightness/invert yang burik */
   display: block !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  margin: 0 !important;
+  transform: none !important;
+ 
+  /* opacity TANPA !important → biar JS bisa override */
+  opacity: 0.07;
+ 
+  /* transisi halus saat opacity berubah */
+  transition: opacity 0.6s ease !important;
 }
-
+ 
 /* Logo 1 (cvteam.png) — pojok kanan bawah */
 .commitment-background-logo {
+  width: 55vw !important;
   bottom: 5vh !important;
   right: -5vw !important;
   top: auto !important;
   left: auto !important;
-  transform: none !important;
-  margin: 0 !important;
 }
-
+ 
 /* Logo 2 (personcv.png) — pojok kiri atas */
 .commitment-background-logo2 {
+  width: 30vw !important;
   top: 8vh !important;
   left: -3vw !important;
   bottom: auto !important;
   right: auto !important;
-  transform: none !important;
-  margin: 0 !important;
-  width: 30vw !important;
 }
-
+ 
 body {
   overflow-x: hidden;
 }
@@ -1246,43 +1247,51 @@ function kirimPesanWhatsApp(){
 new FinisherHeader({"count":10,"size":{"min":1300,"max":1500,"pulse":0},"speed":{"x":{"min":0.1,"max":0.6},"y":{"min":0.1,"max":0.6}},"colors":{"particles":["#00254A","#004078","#004078","#00539C","#00254A"]},"blending":"overlay","opacity":{"center":0.4,"edge":0.02},"skew":0,"shapes":["c"]});
 
 
-  /* --- Background Logo Adaptive Opacity --- */
+/* --- Background Logo Adaptive Opacity --- */
 (function(){
   var logo1 = document.querySelector('.commitment-background-logo');
   var logo2 = document.querySelector('.commitment-background-logo2');
   if(!logo1 || !logo2) return;
-
-  /* Tentukan section mana yang bg-nya gelap (navy/biru) */
+ 
+  /* Section yang background-nya GELAP (navy/biru) */
   var darkSections = [
+    document.getElementById('hero'),
     document.getElementById('portfolio'),
     document.querySelector('.All-Project2'),
     document.querySelector('.contact-section2'),
     document.querySelector('.footer')
   ].filter(Boolean);
-
-  function isInDarkSection(){
-    var scrollY = window.scrollY + window.innerHeight / 2;
-    return darkSections.some(function(sec){
+ 
+  /* Section yang background-nya TERANG (putih/abu) */
+  /* Tidak perlu didaftarkan — semua yang bukan dark = terang */
+ 
+  function getOpacity(){
+    /* Posisi tengah viewport */
+    var scrollMid = window.scrollY + window.innerHeight / 2;
+ 
+    var inDark = darkSections.some(function(sec){
       var top    = sec.offsetTop;
       var bottom = top + sec.offsetHeight;
-      return scrollY >= top && scrollY <= bottom;
+      return scrollMid >= top && scrollMid <= bottom;
     });
+ 
+    return inDark ? '0.18' : '0.07';
   }
-
+ 
   function updateOpacity(){
-    if(isInDarkSection()){
-      /* bg gelap → opacity lebih tinggi agar terlihat */
-      logo1.style.opacity = '0.18';
-      logo2.style.opacity = '0.18';
-    } else {
-      /* bg terang → opacity rendah, subtle */
-      logo1.style.opacity = '0.07';
-      logo2.style.opacity = '0.07';
-    }
+    var op = getOpacity();
+    logo1.style.opacity = op;
+    logo2.style.opacity = op;
   }
-
+ 
+  /* Update saat scroll */
   window.addEventListener('scroll', updateOpacity, { passive: true });
-  updateOpacity(); /* jalankan sekali saat load */
+ 
+  /* Update saat resize (kalau tinggi section berubah) */
+  window.addEventListener('resize', updateOpacity, { passive: true });
+ 
+  /* Jalankan sekali saat halaman pertama load */
+  updateOpacity();
 })();
 
 
