@@ -575,29 +575,18 @@ body.modal-open { overflow:hidden; }
    - Beku/fixed di viewport (tidak scroll)
    - Terlihat di section biru maupun putih
    - Ukuran besar seperti semula
-   Tempelkan di paling bawah <style> HTML
    ================================================ */
 
-/* Hapus implementasi lama */
 .commitment-background-logo,
 .commitment-background-logo2 {
   position: fixed !important;
   pointer-events: none !important;
   z-index: 0 !important;
-
-  /* Ukuran besar seperti semula */
   width: 55vw !important;
   height: auto !important;
-
-  /* Opacity cukup agar terlihat di bg apapun */
-  opacity: 0.8 !important;
-
-  /* mix-blend-mode: multiply agar terlihat di bg putih */
-  /* dan tetap subtle di bg biru */
+  opacity: 0.07 !important;       /* ← turun dari 0.8, warna asli logo */
   mix-blend-mode: normal !important;
-  filter: brightness(0) invert(1) !important;
-
-  /* Matikan display:none dari patch sebelumnya */
+  filter: none !important;        /* ← hapus brightness/invert yang burik */
   display: block !important;
 }
 
@@ -622,7 +611,6 @@ body.modal-open { overflow:hidden; }
   width: 30vw !important;
 }
 
-/* Pastikan semua section tidak clip elemen fixed */
 body {
   overflow-x: hidden;
 }
