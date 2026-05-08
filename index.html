@@ -571,54 +571,61 @@ body.modal-open { overflow:hidden; }
 
 
 /* ================================================
-   PATCH v4 — Background Logo Final Fix
-   - Tidak menutupi konten (z-index: -1)
-   - Terlihat di bg biru gelap maupun putih/terang
-   - Beku di viewport (position: fixed)
+   PATCH v3 — Background Logo Fix
+   - Beku/fixed di viewport (tidak scroll)
+   - Terlihat di section biru maupun putih
+   - Ukuran besar seperti semula
    Tempelkan di paling bawah <style> HTML
    ================================================ */
 
+/* Hapus implementasi lama */
 .commitment-background-logo,
 .commitment-background-logo2 {
   position: fixed !important;
   pointer-events: none !important;
+  z-index: 0 !important;
 
-  /* z-index: -1 agar selalu di belakang semua konten */
-  z-index: -1 !important;
-
-  display: block !important;
+  /* Ukuran besar seperti semula */
+  width: 95vw !important;
   height: auto !important;
 
-  /* screen: bagian gelap jadi transparan → terlihat di bg apapun */
-  mix-blend-mode: screen !important;
+  /* Opacity cukup agar terlihat di bg apapun */
+  opacity: 0.15 !important;
 
-  opacity: 0.12 !important;
+  /* mix-blend-mode: multiply agar terlihat di bg putih */
+  /* dan tetap subtle di bg biru */
+  mix-blend-mode: multiply !important;
 
-  margin: 0 !important;
-  transform: none !important;
+  /* Matikan display:none dari patch sebelumnya */
+  display: block !important;
 }
 
-/* Logo 1 (cvteam.png) — kanan bawah */
+/* Logo 1 (cvteam.png) — pojok kanan bawah */
 .commitment-background-logo {
-  width: 45vw !important;
   bottom: 5vh !important;
   right: -5vw !important;
   top: auto !important;
   left: auto !important;
+  transform: none !important;
+  margin: 0 !important;
 }
 
-/* Logo 2 (personcv.png) — kiri atas */
+/* Logo 2 (personcv.png) — pojok kiri atas */
 .commitment-background-logo2 {
-  width: 30vw !important;
   top: 8vh !important;
   left: -3vw !important;
   bottom: auto !important;
   right: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  width: 30vw !important;
 }
 
-/* Pastikan semua section tidak clip fixed element */
-body { overflow-x: hidden; }
-
+/* Pastikan semua section tidak clip elemen fixed */
+body {
+  overflow-x: hidden;
+}
+  
    
 </style>
 </head>
