@@ -77,6 +77,7 @@ img { display:block; max-width:100%; }
 .section-eyebrow--light { color:rgba(255,255,255,.65); }
 .section-eyebrow--light::before { background:rgba(255,255,255,.4); }
 
+/* ── SECTION TITLE (light bg) ── */
 .section-title {
   position:relative; font-family:'Poppins',sans-serif;
   font-size:clamp(54px,8vw,90px); font-weight:700;
@@ -94,21 +95,44 @@ img { display:block; max-width:100%; }
 .section-title .accent:hover { transform:translateY(52px) scale(1.12) rotate(-8deg); }
 .section-title::after { display:none; }
 
-.section-title2 {
-  position:relative; font-family:'Poppins',sans-serif;
-  font-size:clamp(54px,8vw,90px); font-weight:700;
-  line-height:1; margin-bottom:100px; display:inline-block;
-}
+/* ── SECTION TITLE 2 (dark bg) — FIX: accent tengah ── */
 .section-title2-wrap { text-align:center; }
-.section-title2 .main { display:inline-block; color:#fff; transition:transform .8s var(--ease); }
-.section-title2 .main:hover { transform:scale(.9) rotate(-3deg); }
-.section-title2 .accent {
-  position:absolute; left:55%; top:0; display:inline-block; white-space:nowrap;
-  transform:translateY(52px) rotate(-5deg); transition:transform .8s var(--ease);
-  font-family:'Kalam',cursive; font-size:clamp(64px,9.5vw,120px);
-  color:rgba(255,255,255,.92); line-height:1;
+
+.section-title2 {
+  font-family:'Poppins',sans-serif;
+  font-size:clamp(54px,8vw,90px); font-weight:700;
+  line-height:1; margin-bottom:100px;
+  /* Blok penuh agar accent bisa center */
+  display:block;
+  width:100%;
+  text-align:center;
 }
-.section-title2 .accent:hover { transform:translateY(52px) scale(1.12) rotate(-8deg); }
+
+.section-title2 .main {
+  display:inline-block;
+  color:#fff;
+  transition:transform .8s var(--ease);
+}
+.section-title2 .main:hover { transform:scale(.9) rotate(-3deg); }
+
+.section-title2 .accent {
+  /* Ganti dari absolute ke relative+block agar bisa center */
+  display:block;
+  position:relative;
+  left:auto; top:auto;
+  /* Tarik sedikit ke atas agar overlap dengan .main */
+  margin-top:-18px;
+  transform:rotate(-5deg);
+  transform-origin:center center;
+  transition:transform .8s var(--ease);
+  font-family:'Kalam',cursive;
+  font-size:clamp(64px,9.5vw,120px);
+  color:rgba(255,255,255,.92);
+  line-height:1;
+  white-space:nowrap;
+  text-align:center;
+}
+.section-title2 .accent:hover { transform:scale(1.12) rotate(-8deg); }
 
 /* ═══ BUTTONS ═══ */
 .cta-button {
@@ -168,39 +192,29 @@ img { display:block; max-width:100%; }
 .scroll-hint__line { width:1px; height:40px; background:linear-gradient(rgba(255,255,255,.5),transparent); animation:scrollLine 1.6s ease-in-out infinite; }
 @keyframes scrollLine { 0%,100%{transform:scaleY(1);opacity:.5} 50%{transform:scaleY(.5);opacity:1} }
 
-/* ═══════════════════════════════════════════════════
-   IMAGE STRIP — Square, tidak hilang saat scroll
-   Desktop: 3 foto berderet square
-   Mobile : 1 foto sekaligus, auto-swipe via JS
-   ═══════════════════════════════════════════════════ */
+/* ═══ IMAGE STRIP ═══ */
 .full-width-images { width:100%; overflow:hidden; line-height:0; }
-
 .full-width-image-container {
   display:flex;
-  /* PENTING: JANGAN pakai transition di sini —
-     konflik dengan JS translateX di mobile */
   overflow: visible;
   will-change:transform;
 }
-
-/* Desktop: 3 foto berderet, ukuran SQUARE */
 .full-width-image-container img {
   width:calc(100% / 3);
-  aspect-ratio:1 / 1;        /* ← SQUARE */
-  object-fit:cover;           /* ← cover agar foto penuh & tidak gepeng */
+  aspect-ratio:1 / 1;
+  object-fit:cover;
   object-position:center;
   flex-shrink:0;
   display:block;
-  transition: filter 1s var(--ease), transform 1s ease, box-shadow 0.5s ease;;
+  transition: filter 1s var(--ease), transform 1s ease, box-shadow 0.5s ease;
   filter:brightness(.6);
 }
 .full-width-image-container img:hover { filter:brightness(1); transform: scale(1.1); box-shadow: 0 20px 40px rgba(0,0,0,0.35) }
 
-/* Mobile: 1 foto SQUARE sekaligus, dikontrol JS */
 @media(max-width:767px) {
   .full-width-image-container img {
     width:100vw;
-    aspect-ratio:1 / 1;      /* ← tetap SQUARE di mobile */
+    aspect-ratio:1 / 1;
     object-fit:cover;
     flex-shrink:0;
   }
@@ -220,9 +234,61 @@ img { display:block; max-width:100%; }
 .commitment-item:hover img { transform:scale(1.2) rotate(8deg); }
 .commitment-item h3 { font-size:1.15rem; font-weight:700; color:var(--ink); margin-bottom:12px; letter-spacing:-.01em; }
 .commitment-item p { font-size:.9rem; color:var(--ink-2); line-height:1.7; }
-.commitment-background-logo, .commitment-background-logo2 { position:fixed; pointer-events:none; opacity:.04; z-index:0; }
-.commitment-background-logo  { width:37%; top:50%; left:50%; transform:translate(-50%,-50%); }
-.commitment-background-logo2 { width:50%; top:50%; left:20%; transform:translate(-50%,-50%); }
+
+/* ═══════════════════════════════════════════════════
+   BACKGROUND LOGO — FIX: mantap di semua section
+   ═══════════════════════════════════════════════════ */
+.commitment-background-logo,
+.commitment-background-logo2 {
+  position: fixed !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  display: block !important;
+
+  /* Opacity cukup terlihat tapi tidak mengganggu */
+  opacity: 0.14 !important;
+
+  /* overlay: terlihat di bg biru & putih */
+  mix-blend-mode: overlay !important;
+
+  /* saturate(0) = grayscale → brightness(3) = putih bersih */
+  filter: saturate(0) brightness(3) !important;
+
+  /* Float halus */
+  animation: bgLogoFloat 14s ease-in-out infinite !important;
+}
+
+@keyframes bgLogoFloat {
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  33%      { transform: translateY(-14px) rotate(1.2deg); }
+  66%      { transform: translateY(9px)   rotate(-1deg); }
+}
+
+/* Logo 1 (cvteam.png) — pojok kanan bawah */
+.commitment-background-logo {
+  width: 52vw !important;
+  height: auto !important;
+  bottom: 3vh !important;
+  right: -6vw !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  animation-delay: 0s !important;
+}
+
+/* Logo 2 (personcv.png) — pojok kiri atas */
+.commitment-background-logo2 {
+  width: 26vw !important;
+  height: auto !important;
+  top: 7vh !important;
+  left: -2vw !important;
+  bottom: auto !important;
+  right: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  animation-delay: -5s !important;
+}
 
 /* ═══ CITRA KULINER CAROUSEL ═══ */
 .ck-section { position:relative; width:100%; padding:80px 0; overflow:hidden; background:#fff; background-image: linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px), linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px), linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px), linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px); background-size:80px 80px,80px 80px,16px 16px,16px 16px; }
@@ -238,23 +304,18 @@ img { display:block; max-width:100%; }
 .ck-outer  { position:relative; z-index:2; width:100%; overflow:visible; padding:28px 0 44px; }
 .ck-track  { display:flex; align-items:center; gap:20px; will-change:transform; }
 
-/* ═══════════════════════════════════════════════════
-   FIX 2 — CAROUSEL ITEM FOTO TIDAK GEPENG
-   Foto tidak terpotong: object-fit:contain, background netral
-   ═══════════════════════════════════════════════════ */
 .ck-item {
   flex:0 0 auto; width:auto; height:420px;
   border-radius:var(--radius-md); overflow:hidden; cursor:pointer; position:relative;
   transition:transform .45s var(--ease), opacity .45s var(--ease), filter .45s var(--ease), box-shadow .45s var(--ease);
   transform:scale(.78) translateY(20px); opacity:.5; filter:blur(2px) brightness(.72);
   box-shadow:var(--shadow-sm); z-index:1;
-  background:#f0f0f0; /* background saat foto lebih kecil dari card */
+  background:#f0f0f0;
 }
 .ck-item img {
   width:auto;
   height:100%;
-  /* FIX: contain agar rasio asli terjaga, tidak gepeng */
-  object-fit:contain;    /* ← CHANGED */
+  object-fit:contain;
   object-position:center;
   display:block;
   max-width:none;
@@ -317,17 +378,11 @@ img { display:block; max-width:100%; }
 .view-detail-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 20px; background:rgba(255,255,255,.15); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.35); color:#fff; border-radius:var(--radius-xl); font-size:.82rem; font-weight:600; transition:all .25s var(--ease); align-self:flex-start; }
 .view-detail-btn:hover { background:rgba(255,255,255,.28); color:#fff; transform:scale(1.04); }
 
-/* ═══════════════════════════════════════════════════
-   FIX 1 — PORTFOLIO HIDDEN: gunakan display:none
-   Sehingga tidak ada space kosong saat belum di-unhide
-   Fungsi JS show() tetap sama, hanya hapus class .hidden
-   ═══════════════════════════════════════════════════ */
 .portfolio-item.hidden {
-  display:none !important;   /* ← CHANGED: tidak ada ruang kosong */
+  display:none !important;
 }
 .portfolio-item:not(.hidden) {
   opacity:1; transform:none; visibility:visible;
-  /* tambahkan animasi masuk saat di-unhide via JS */
   animation:fadeInUp .5s var(--ease) both;
 }
 
@@ -401,7 +456,17 @@ img { display:block; max-width:100%; }
 
 /* ═══ CONTACT ═══ */
 .contact-section2 { background:var(--grad-navy); padding:1px 0; }
+
+/* ── FIX: contact card — section-title2 lebih kompak ── */
 .contact-section { width:100%; max-width:680px; margin:80px auto; padding:60px 52px; background:rgba(255,255,255,.04); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.1); border-radius:var(--radius-lg); box-shadow:0 24px 80px rgba(0,0,0,.25); text-align:center; }
+.contact-section .section-title2 {
+  font-size:clamp(36px,7vw,72px);
+  margin-bottom:28px;
+}
+.contact-section .section-title2 .accent {
+  font-size:clamp(40px,8vw,88px);
+  margin-top:-14px;
+}
 .contact-section > p { font-size:.95rem; color:rgba(255,255,255,.6); margin-bottom:40px; line-height:1.7; }
 .contact-form { display:flex; flex-direction:column; gap:16px; }
 .form-group { text-align:left; }
@@ -493,10 +558,9 @@ body.modal-open { overflow:hidden; }
   .section-title .main { display:block; }
   .section-title .accent { font-size:clamp(44px,12vw,72px); left:50%; transform:translateX(-50%) translateY(48px) rotate(-5deg); white-space:nowrap; }
   .section-title .accent:hover { transform:translateX(-50%) translateY(48px) scale(1.1) rotate(-8deg); }
+  /* section-title2 mobile */
   .section-title2 { font-size:clamp(36px,9vw,56px); margin-bottom:100px; }
-  .section-title2 .main { display:block; }
-  .section-title2 .accent { font-size:clamp(44px,12vw,68px); left:50%; transform:translateX(-50%) translateY(52px) rotate(-5deg); white-space:nowrap; }
-  .section-title2 .accent:hover { transform:translateX(-50%) translateY(52px) scale(1.1) rotate(-8deg); }
+  .section-title2 .accent { font-size:clamp(44px,12vw,68px); margin-top:-14px; }
   .commitment-section { padding:80px 0 60px; }
   .commitment-grid { grid-template-columns:1fr; gap:20px; }
   .ck-head { padding:0 24px; margin-bottom:32px; }
@@ -527,19 +591,24 @@ body.modal-open { overflow:hidden; }
   .slider-btn { width:40px; height:40px; font-size:16px; }
   .contact-section { margin:40px 16px; padding:40px 28px; }
   .footer-content { flex-direction:column; align-items:center; text-align:center; }
+  /* bg logo mobile */
+  .commitment-background-logo  { width:80vw !important; }
+  .commitment-background-logo2 { width:40vw !important; }
 }
 
-/* ═══ RESPONSIVE 430px ═══ */  /* ← FIX: brace penutup yang hilang di versi sebelumnya */
+/* ═══ RESPONSIVE 430px ═══ */
 @media(max-width:430px) {
   .hero-title { font-size:clamp(2.6rem,11vw,3.8rem); }
   .section-title { font-size:clamp(45px,9vw,46px); margin-bottom:90px; }
   .section-title .accent { font-size:clamp(60px,11vw,56px); transform:translateX(-50%) translateY(44px) rotate(-5deg); }
   .section-title .accent:hover { transform:translateX(-50%) translateY(44px) scale(1.1) rotate(-8deg); }
-  .section-title2 { font-size:clamp(45px,9vw,42px); margin-bottom:90px; }
-  .section-title2 .accent { font-size:clamp(50px,11vw,52px); }
+  .section-title2 { font-size:clamp(38px,9vw,46px); margin-bottom:80px; }
+  .section-title2 .accent { font-size:clamp(44px,11vw,56px); margin-top:-12px; }
   .section-title-wrap { margin-bottom: -40px; }
   .video-section { padding:60px 6%; margin-bottom:-40px; }
   .contact-section { width:90%; }
+  .contact-section .section-title2 { font-size:clamp(32px,9vw,44px); }
+  .contact-section .section-title2 .accent { font-size:clamp(36px,10vw,52px); }
   .photos-360 { padding:60px 6% 0; margin-bottom:55px; left:0; }
   .category-title2 { font-size:clamp(1.5rem,2.5vw,1.5rem); }
 }
@@ -564,6 +633,7 @@ body.modal-open { overflow:hidden; }
   .ck-item { height:300px; width:300px; }
   .ck-item img { width:auto; height:300px; object-fit:contain; }
 }
+
 </style>
 </head>
 <body>
@@ -611,10 +681,7 @@ body.modal-open { overflow:hidden; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     FIX 3: IMAGE STRIP dengan auto-swipe di mobile
-     Data-index dipakai JS untuk track posisi slide
-     ═══════════════════════════════════════════════════ -->
+<!-- IMAGE STRIP -->
 <section class="full-width-images" aria-hidden="true" id="strip-section">
   <div class="full-width-image-container" id="strip-container">
     <img src="giftcardcrealiva.jpg" alt="">
@@ -979,11 +1046,7 @@ body.modal-open { overflow:hidden; }
   });
 })();
 
-/* ═══════════════════════════════════════════════════
-   FIX 3 — IMAGE STRIP AUTO-SWIPE MOBILE
-   Di mobile: geser otomatis tiap 2.8 detik
-   Di desktop: semua 3 gambar tampil berderet (normal)
-   ═══════════════════════════════════════════════════ */
+/* --- Image Strip Auto-swipe Mobile --- */
 (function(){
   var cont = document.getElementById('strip-container');
   if(!cont) return;
@@ -996,19 +1059,17 @@ body.modal-open { overflow:hidden; }
 
   function goTo(idx){
     cur = (idx + total) % total;
-    /* geser container secara manual dengan translateX */
     cont.style.transform = 'translateX(-' + (cur * 100) + '%)';
     cont.style.transition = 'transform .65s cubic-bezier(.4,0,.2,1)';
   }
 
   function startAuto(){
     stopAuto();
-    if(!isMobile()) return; /* hanya mobile */
+    if(!isMobile()) return;
     timer = setInterval(function(){ goTo(cur + 1); }, 2800);
   }
   function stopAuto(){ clearInterval(timer); }
 
-  /* Reset ke desktop layout saat resize */
   window.addEventListener('resize', function(){
     if(!isMobile()){
       cont.style.transform = '';
@@ -1020,7 +1081,6 @@ body.modal-open { overflow:hidden; }
     }
   }, {passive:true});
 
-  /* Touch swipe support */
   var tx=0;
   cont.addEventListener('touchstart', function(e){ tx=e.touches[0].clientX; stopAuto(); },{passive:true});
   cont.addEventListener('touchend',   function(e){
@@ -1029,7 +1089,6 @@ body.modal-open { overflow:hidden; }
     startAuto();
   },{passive:true});
 
-  /* Init */
   if(isMobile()){ goTo(0); startAuto(); }
 })();
 
@@ -1083,16 +1142,12 @@ body.modal-open { overflow:hidden; }
   requestAnimationFrame(function(){ render(false); sa(); });
 })();
 
-/* ═══════════════════════════════════════════════════
-   FIX 1 — SEE MORE: hapus class .hidden (display:none → block)
-   Tambahkan event listener ke tombol-tombol yang baru muncul
-   ═══════════════════════════════════════════════════ */
+/* --- See More --- */
 (function(){
   var grid=document.getElementById('all-projects'),btn=document.getElementById('see-more-btn');
   if(!grid||!btn) return;
 
   function bindNewBtns(){
-    /* bind view-detail-btn yang baru muncul setelah unhide */
     grid.querySelectorAll('.view-detail-btn').forEach(function(b){
       if(b._bound) return;
       b._bound = true;
@@ -1103,7 +1158,7 @@ body.modal-open { overflow:hidden; }
   function show(){
     var h=grid.querySelectorAll('.portfolio-item.hidden');
     for(var i=0;i<3&&i<h.length;i++){
-      h[i].classList.remove('hidden'); /* display:none hilang → muncul dengan animasi fadeInUp */
+      h[i].classList.remove('hidden');
     }
     bindNewBtns();
     if(!grid.querySelectorAll('.portfolio-item.hidden').length) btn.style.display='none';
@@ -1113,7 +1168,7 @@ body.modal-open { overflow:hidden; }
 })();
 
 /* --- Project Modal --- */
-var showModal; /* expose ke fungsi see-more */
+var showModal;
 (function(){
   var modal=document.getElementById('project-modal'),closeBtn=document.querySelector('.close-btn'),
       fio=document.getElementById('full-image-overlay'),fi=document.getElementById('full-image'),
@@ -1142,7 +1197,6 @@ var showModal; /* expose ke fungsi see-more */
 
   function hide(){ modal.classList.remove('show'); document.body.classList.remove('modal-open'); }
 
-  /* Bind tombol yang sudah ada di DOM saat load */
   document.querySelectorAll('.view-detail-btn').forEach(function(b){
     b._bound = true;
     b.addEventListener('click',function(e){ e.preventDefault(); showModal(this.getAttribute('data-project')); });
