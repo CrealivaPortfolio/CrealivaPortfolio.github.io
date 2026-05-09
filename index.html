@@ -179,7 +179,7 @@ img { display:block; max-width:100%; }
   display:flex;
   /* PENTING: JANGAN pakai transition di sini —
      konflik dengan JS translateX di mobile */
-  overflow:hidden;
+  overflow: visible;
   will-change:transform;
 }
 
@@ -191,10 +191,10 @@ img { display:block; max-width:100%; }
   object-position:center;
   flex-shrink:0;
   display:block;
-  transition:filter .4s var(--ease);
+  transition: filter 1s var(--ease), transform 1s ease, box-shadow 0.5s ease;;
   filter:brightness(.6);
 }
-.full-width-image-container img:hover { filter:brightness(1); transform:scaleX(1) }
+.full-width-image-container img:hover { filter:brightness(1); transform: scale(1.1); box-shadow: 0 20px 40px rgba(0,0,0,0.35) }
 
 /* Mobile: 1 foto SQUARE sekaligus, dikontrol JS */
 @media(max-width:767px) {
@@ -537,10 +537,10 @@ body.modal-open { overflow:hidden; }
   .section-title .accent:hover { transform:translateX(-50%) translateY(44px) scale(1.1) rotate(-8deg); }
   .section-title2 { font-size:clamp(45px,9vw,42px); margin-bottom:90px; }
   .section-title2 .accent { font-size:clamp(50px,11vw,52px); }
-  .section-title-wrap { margin-bottom:90px; }
+  .section-title-wrap { margin-bottom: -40px; }
   .video-section { padding:60px 6%; margin-bottom:-40px; }
   .contact-section { width:90%; }
-  .photos-360 { padding:60px 6% 0; margin-bottom:-40px; left:0; }
+  .photos-360 { padding:60px 6% 0; margin-bottom:55px; left:0; }
   .category-title2 { font-size:clamp(1.5rem,2.5vw,1.5rem); }
 }
 
