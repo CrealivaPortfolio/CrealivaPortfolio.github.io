@@ -227,7 +227,7 @@ img { display:block; max-width:100%; }
   margin-bottom: 25px;
 }
 .tentang-bio-name {
-  font-family:'Poppins',sans-serif;
+  font-family: 'Kalam', cursive;
   font-size: clamp(2.4rem, 4.5vw, 3.8rem);
   font-weight: 700;
   color: #fff;
@@ -341,15 +341,52 @@ img { display:block; max-width:100%; }
   background: var(--grad-blue);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
+
+/* Profile photo */
+.tentang-profile-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.tentang-profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(0,123,255,.7);
+  box-shadow: 0 0 0 5px rgba(0,123,255,.18), 0 8px 28px rgba(0,0,0,.35);
+  display: block;
+  margin-bottom: 10px;
+  transition: transform .4s var(--ease-spring), box-shadow .4s;
+}
+.tentang-profile-img:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 0 7px rgba(0,123,255,.28), 0 12px 36px rgba(0,0,0,.4);
+}
+.tentang-profile-name {
+  font-size: .82rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.75);
+  letter-spacing: .06em;
+}
+.tentang-profile-role {
+  font-size: .72rem;
+  color: rgba(255,255,255,.4);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
 .tentang-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 28px;
+  gap: 14px;
+  margin-bottom: 24px;
 }
 .tentang-stat {
   text-align: center;
-  padding: 16px 12px;
+  padding: 14px 10px;
   background: rgba(255,255,255,.04);
   border: 1px solid rgba(255,255,255,.08);
   border-radius: var(--radius-md);
@@ -362,29 +399,29 @@ img { display:block; max-width:100%; }
 .tentang-stat .num {
   display: block;
   font-family: 'Kalam', cursive;
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
   font-weight: 700;
   color: #fff;
   line-height: 1;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 .tentang-stat .label {
-  font-size: .72rem;
+  font-size: .68rem;
   font-weight: 500;
   color: rgba(255,255,255,.45);
-  letter-spacing: .06em;
+  letter-spacing: .05em;
   text-transform: uppercase;
 }
 .tentang-divider {
   border: none;
   border-top: 1px solid rgba(255,255,255,.1);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 .tentang-highlight-box > p {
-  font-size: .88rem;
+  font-size: .86rem;
   color: rgba(255,255,255,.52);
   line-height: 1.75;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 /* Social section at bottom */
@@ -446,8 +483,18 @@ img { display:block; max-width:100%; }
 @media(max-width:768px){
   .tentang-section { padding: 80px 0 60px; }
   .skills-grid { grid-template-columns: 1fr; }
-  .tentang-social-section { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+  .tentang-social-section { flex-direction: column; align-items: center; padding: 28px 24px; text-align: center; }
+  .tentang-social-left { text-align: center; }
+  .tentang-social-left p { margin: 0 auto; }
+  .tentang-social-links { justify-content: center; }
   .tentang-stats { grid-template-columns: 1fr 1fr; }
+  .tentang-bio { text-align: center; }
+  .tentang-bio h3 { text-align: center; }
+  .tentang-bio-name { display: block; text-align: center; }
+  .tentang-bio > p { text-align: center; }
+  .tentang-skills-label { justify-content: center; }
+  .tentang-highlight-box { text-align: center; }
+  .tentang-profile-wrap { align-items: center; }
 }
 @media(max-width:430px){
   .tentang-social-links { gap: 8px; }
@@ -740,12 +787,12 @@ body.modal-open { overflow:hidden; }
   .section-title .accent { font-size:clamp(60px,11vw,56px); transform:translateX(-50%) translateY(44px) rotate(-5deg); }
   .section-title .accent:hover { transform:translateX(-50%) translateY(44px) scale(1.1) rotate(-8deg); }
   .section-title2 { font-size:clamp(38px,9vw,46px); margin-bottom:80px; }
-  .section-title2 .accent { font-size:clamp(60px,11vw,56px); margin-top:5px; }
+  .section-title2 .accent { font-size:clamp(44px,11vw,56px); margin-top:-12px; }
   .section-title-wrap { margin-bottom:-40px; }
   .video-section { padding:60px 6%; margin-bottom:-40px; }
   .contact-section { width:90%; }
-  .contact-section .section-title2 { font-size:clamp(50px,9vw,44px); }
-  .contact-section .section-title2 .accent { font-size:clamp(50px,11vw,56px); margin-top:5px; }
+  .contact-section .section-title2 { font-size:clamp(32px,9vw,44px); }
+  .contact-section .section-title2 .accent { font-size:clamp(36px,10vw,52px); }
   .photos-360 { padding:60px 6% 0; margin-bottom:55px; left:0; }
   .category-title2 { font-size:clamp(1.5rem,2.5vw,1.5rem); }
 }
@@ -845,8 +892,8 @@ body.modal-open { overflow:hidden; }
       <div class="tentang-bio reveal">
         <h3>Creative Freelancer</h3>
         <span class="tentang-bio-name">Willyam Qibson</span>
-        <p>Halo semua! Perkenalkan nama saya Willyam Qibson mahasiswa aktif di Universitas Terbuka dan memiliki pengalaman berkerja sebagai Graphic Design & Advertiser selama lebih dari 2 tahun. Saya memiliki keahilan dibidang digital kreatif seperti layout design (poster, banner, dll), photo editing, video editing, dan juga 3D Modeling dan visualisasi seperti Sketchup dan Enscape. </p>
-        <p>Saya dikenal banyak orang memiliki sikap adaptif,  karena itu saya percaya bahwa keahilan yang saya miliki dapat memberikan dampak positif untuk membangun serta mengembangkan potensi di dunia digital saat ini..</p>
+        <p>Dengan pengalaman lebih dari 3 tahun menjadi Freelancer di bidang digital kreatif seperti poster layout design, photo &amp; video editing, 3D model generalis (SketchUp), dan visualisasi menggunakan aplikasi Enscape, saya bersama tim sudah membantu klien-klien di luar sana yang memiliki tantangan dan permasalahan terhadap tantangan digitalisasi.</p>
+        <p>Selain itu juga memiliki pengalaman 1 tahun menjadi digital marketing seperti Meta Ads dan Google Ads serta optimasi SEO website agar masuk ke dalam mesin pencarian internet.</p>
 
         <!-- Skills -->
         <div class="tentang-skills-label">Personal Skills</div>
@@ -898,6 +945,14 @@ body.modal-open { overflow:hidden; }
 
       <!-- RIGHT: Stats box + CTA -->
       <div class="tentang-highlight-box reveal" style="transition-delay:.18s">
+
+        <!-- Profile Photo -->
+        <div class="tentang-profile-wrap">
+          <img src="Foto Shoot Willyam 2.png" alt="Willyam Qibson" class="tentang-profile-img">
+          <span class="tentang-profile-name">Willyam Qibson</span>
+          <span class="tentang-profile-role">Creative Freelancer</span>
+        </div>
+
         <div class="tentang-stats">
           <div class="tentang-stat">
             <span class="num">3+</span>
