@@ -206,7 +206,7 @@ img { display:block; max-width:100%; }
   z-index:1;
 }
 .hero .container, .hero-content, .hero-image { position:relative; z-index:3; }
-.hero .container { display:flex; align-items:center; justify-content:space-between; gap:60px; }
+.hero .container { display:flex; align-items:center; justify-content:space-between; gap:350px; }
 .hero-content { max-width:600px; }
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px; padding:6px 16px;
@@ -1063,6 +1063,442 @@ body.modal-open { overflow:hidden; }
     font-size: .78rem;
   }
 }
+/* ═══ FIX: CK carousel mobile ═══ */
+@media(max-width:768px) {
+  .ck-section {
+    padding: 48px 0;
+  }
+
+  .ck-outer {
+    padding: 16px 0 32px;
+  }
+
+  .ck-item {
+    height: 340px;
+    width: 260px;
+  }
+
+  .ck-item img {
+    height: 340px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .ck-arrow {
+    width: 36px;
+    height: 36px;
+    top: 50%;
+    z-index: 20;
+  }
+
+  .ck-arrow.ck-prev {
+    left: 4px;
+  }
+
+  .ck-arrow.ck-next {
+    right: 4px;
+  }
+
+  .ck-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .ck-head {
+    padding: 0 16px;
+    margin-bottom: 24px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ck-head-block.ck-right {
+    text-align: left;
+  }
+
+  .ck-ig-inner {
+    width: calc(100% - 32px);
+    padding: 12px 20px;
+  }
+}
+
+/* ═══ FIX: CK carousel mobile v2 ═══ */
+@media(max-width:768px) {
+  .ck-section {
+    padding: 48px 0;
+  }
+
+  .ck-head {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 16px;
+    margin-bottom: 24px;
+    gap: 0;
+  }
+
+  .ck-head-block.ck-right {
+    text-align: right;
+  }
+
+  .ck-label {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+
+  .ck-script {
+    font-size: clamp(18px, 5vw, 28px);
+  }
+
+  .ck-outer {
+    padding: 16px 0 32px;
+    position: relative;
+  }
+
+  .ck-item {
+    height: 320px;
+    width: 240px;
+  }
+
+  .ck-item img {
+    height: 320px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .ck-arrow {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 36px !important;
+    height: 36px !important;
+    z-index: 20 !important;
+  }
+
+  .ck-arrow:hover {
+    transform: translateY(-50%) scale(1.1) !important;
+  }
+
+  .ck-arrow.ck-prev {
+    left: 6px !important;
+  }
+
+  .ck-arrow.ck-next {
+    right: 6px !important;
+  }
+
+  .ck-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .ck-ig-inner {
+    width: calc(100% - 32px);
+    padding: 12px 20px;
+  }
+}
+
+/* ═══ INSTAGRAM POST DESIGN SECTION ═══ */
+.igpost-section {
+  padding: 120px 0 100px;
+  background: transparent;
+  position: relative;
+}
+
+.igpost-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 52px;
+}
+
+.igpost-tab {
+  padding: 9px 22px;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(26,111,255,.3);
+  background: rgba(26,111,255,.08);
+  color: rgba(255,255,255,.55);
+  font-family: 'Poppins', sans-serif;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s var(--ease);
+}
+
+.igpost-tab:hover {
+  background: rgba(26,111,255,.2);
+  border-color: rgba(26,111,255,.5);
+  color: #fff;
+}
+
+.igpost-tab--active {
+  background: var(--grad-blue);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: var(--shadow-blue);
+}
+
+.igpost-slider-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.igpost-slider {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  transition: transform .55s cubic-bezier(.4,0,.2,1), opacity .4s ease;
+}
+
+.igpost-slider.slide-out-left  { transform: translateX(-60px); opacity: 0; }
+.igpost-slider.slide-out-right { transform: translateX(60px);  opacity: 0; }
+.igpost-slider.slide-in-left   { transform: translateX(60px);  opacity: 0; }
+.igpost-slider.slide-in-right  { transform: translateX(-60px); opacity: 0; }
+.igpost-slider.slide-active    { transform: translateX(0);      opacity: 1; }
+
+/* Instagram card */
+.igpost-card {
+  background: rgba(22,32,53,.9);
+  border: 1px solid rgba(26,111,255,.12);
+  border-radius: 20px;
+  width: calc(33.333% - 14px);
+  max-width: 340px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform .4s var(--ease-spring), box-shadow .4s var(--ease), border-color .4s;
+  position: relative;
+  isolation: isolate;
+  flex-shrink: 0;
+}
+
+.igpost-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(26,111,255,.35);
+}
+
+.igpost-card-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s var(--ease);
+}
+
+.igpost-card:hover .igpost-card-img {
+  transform: scale(1.04);
+}
+
+.igpost-card-img-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.igpost-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 14px;
+}
+
+.igpost-actions-left {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.igpost-action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: transform .2s var(--ease-spring);
+}
+
+.igpost-action-btn:hover { transform: scale(1.2); }
+
+.igpost-action-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: rgba(255,255,255,.7);
+  stroke-width: 1.8;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+}
+
+.igpost-action-btn.liked svg  { fill: #e0192a; stroke: #e0192a; }
+.igpost-action-btn.saved svg  { fill: rgba(255,255,255,.7); }
+
+@media(max-width:900px) {
+  .igpost-card { width: calc(50% - 10px); max-width: 100%; }
+  .igpost-slider { flex-wrap: wrap; }
+  .igpost-card:last-child { display: none; }
+}
+
+@media(max-width:600px) {
+  .igpost-section { padding: 80px 0 60px; }
+  .igpost-card { width: 100%; max-width: 100%; }
+  .igpost-card:last-child { display: block; }
+  .igpost-slider { flex-direction: column; }
+  .igpost-tabs { gap: 8px; }
+  .igpost-tab { font-size: .75rem; padding: 8px 14px; }
+}
+
+/* ═══ FIX: igpost shadow tidak terpotong ═══ */
+.igpost-slider-wrap {
+  overflow: visible;
+  padding: 12px 4px 50px;
+}
+
+.igpost-section .container {
+  overflow: hidden;
+}
+
+/* ═══ FIX: igpost card glass shine border ═══ */
+.igpost-card {
+  position: relative;
+  isolation: isolate;
+  transition-property: transform, box-shadow, border-color, background, filter;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(.25,.8,.25,1);
+}
+
+.igpost-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--shine-angle),
+      transparent 0deg,
+      transparent 65deg,
+      rgba(170,205,255,.35) 88deg,
+      rgba(255,255,255,.75) 98deg,
+      rgba(170,205,255,.35) 108deg,
+      transparent 130deg,
+      transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: .85;
+  pointer-events: none;
+  z-index: 6;
+  transition: opacity .5s cubic-bezier(.25,.8,.25,1);
+}
+
+.igpost-card:hover::after {
+  opacity: 1;
+  animation: glassShineMove 3.2s linear infinite;
+}
+
+.igpost-card:hover {
+  box-shadow: 0 0 14px 0 rgba(140,185,255,.16), 0 10px 28px rgba(0,0,0,.32);
+}
+
+/* ═══ FIX: portfolio card before hover — always show title ═══ */
+
+/* Hapus "Click Me" lama */
+.portfolio-item::before {
+  content: none;
+}
+
+/* Gradient bawah selalu tampil */
+.item-overlay,
+.portfolio-overlay {
+  opacity: 1;
+  background: linear-gradient(
+    to top,
+    rgba(11,17,32,.95) 0%,
+    rgba(11,17,32,.6)  35%,
+    rgba(11,17,32,.15) 65%,
+    transparent        100%
+  );
+}
+
+
+/* Sebelum hover: judul + kategori tampil, tombol tersembunyi */
+.item-overlay h3,
+.portfolio-overlay h4 {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform .35s var(--ease);
+}
+
+.item-overlay p,
+.portfolio-overlay p {
+  opacity: 1;
+  transition: opacity .35s var(--ease);
+}
+
+.view-detail-btn {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .4s var(--ease) .1s, transform .4s var(--ease) .1s,
+              background .25s, border-color .25s, color .25s;
+}
+
+/* ═══ overlay default ═══ */
+.item-overlay,
+.portfolio-overlay {
+  opacity: 1;
+  justify-content: flex-end;
+  padding-bottom: 24px;
+  transform: translateY(50px);
+  transition: transform .5s var(--ease), opacity .35s var(--ease), background .35s var(--ease);
+  background: linear-gradient(
+    to top,
+    rgba(11,17,32,1)   0%,
+    rgba(11,17,32,.88) 35%,
+    rgba(11,17,32,.5)  60%,
+    transparent        100%
+  );
+}
+
+/* ═══ overlay hover ═══ */
+.portfolio-item:hover .item-overlay,
+.portfolio-item:hover .portfolio-overlay {
+  transform: translateY(0);
+  opacity: 1;
+  background: linear-gradient(
+    to top,
+    rgba(11,17,32,1)   0%,
+    rgba(11,17,32,.92) 45%,
+    rgba(11,17,32,.55) 75%,
+    transparent        100%
+  );
+}
+
+.portfolio-item:hover .view-detail-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ═══ FIX: igpost slide transition ═══ */
+.igpost-slider {
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+.igpost-slider.slide-out-left  { transform: translateX(-50px); opacity: 0; transition: opacity .3s ease, transform .3s ease; }
+.igpost-slider.slide-out-right { transform: translateX(50px);  opacity: 0; transition: opacity .3s ease, transform .3s ease; }
+.igpost-slider.slide-in-left   { transform: translateX(50px);  opacity: 0; transition: none; }
+.igpost-slider.slide-in-right  { transform: translateX(-50px); opacity: 0; transition: none; }
+.igpost-slider.slide-active    { transform: translateX(0);     opacity: 1; transition: opacity .4s ease, transform .4s ease; }
+
+/* ═══ FIX: igpost card stagger fade transition ═══ */
+.igpost-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+
+.igpost-card.card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 </style>
 </head>
@@ -1081,6 +1517,7 @@ body.modal-open { overflow:hidden; }
     <nav class="nav" aria-label="Navigasi utama">
       <ul>
         <li><a href="#tentang-saya">About</a></li>
+        <li><a href="#igpost">InstaPost</a></li>
         <li><a href="#portfolio">Works</a></li>
         <li><a href="#contact-section2">Contact</a></li>
       </ul>
@@ -1257,6 +1694,30 @@ body.modal-open { overflow:hidden; }
   </div>
 </section>
 
+
+<!-- INSTAGRAM POST DESIGN -->
+<section id="igpost" class="igpost-section">
+  <div class="container">
+    <div class="section-title2-wrap">
+      <h2 class="section-title2 reveal">
+        <span class="main">Instagram</span>
+        <span class="accent">Post Design</span>
+      </h2>
+    </div>
+    <div class="igpost-tabs reveal">
+      <button class="igpost-tab igpost-tab--active" data-cat="fnb">Design FnB</button>
+      <button class="igpost-tab" data-cat="kecantikan">Design Kecantikan</button>
+      <button class="igpost-tab" data-cat="corporate">Design Formal Corporate</button>
+      <button class="igpost-tab" data-cat="creative">Creative Industry</button>
+    </div>
+    <div class="igpost-slider-wrap">
+      <div class="igpost-slider" id="igpostSlider"></div>
+    </div>
+  </div>
+</section>
+
+
+
 <!-- CITRA KULINER CAROUSEL -->
 <section class="ck-section">
   <div class="ck-head">
@@ -1307,26 +1768,26 @@ body.modal-open { overflow:hidden; }
     <p class="description-section2">Biarkan proyek-proyek terbaru Saya menjadi sumber inspirasi bagi Kamu. Saya siap berkolaborasi untuk mewujudkan ide besar Kamu selanjutnya.</p>
     <div class="portfolio-grid reveal" id="latest-projects">
       <div class="portfolio-item">
-        <img src="Cover Project/coversmplpostermantaray.png" alt="Proyek 1">
+        <img src="Gedung Vincent 1.jpg" alt="Proyek 1">
         <div class="item-overlay">
-          <h3>MantaCore Property - Marketing Gallery</h3>
-          <p>Poster Design · Januari 2026</p>
+          <h3>Rental Office Building - Vincent's Project</h3>
+          <p>3D Visualization · June 2026</p>
           <a href="#" class="view-detail-btn" data-project="1">Lihat Detail →</a>
         </div>
       </div>
       <div class="portfolio-item">
-        <img src="Cover Project/citrakulinermldcitrakulinermld.jpg" alt="Proyek 2">
+        <img src="Pesan Menu Ini Aja.jpg" alt="Proyek 2">
         <div class="item-overlay">
-          <h3>Marketplace Layout Design Citra Kuliner</h3>
-          <p>Layout Design · Oktober 2025</p>
+          <h3>Instagram Post Design - Citra Kuliner's Project</h3>
+          <p>Layout Design · May 2025</p>
           <a href="#" class="view-detail-btn" data-project="2">Lihat Detail →</a>
         </div>
       </div>
       <div class="portfolio-item">
-        <img src="Cover Project/covermahmud3dm&v.jpg" alt="Proyek 3">
+        <img src="Citra Kuliner's E-Commerce.jpg" alt="Proyek 3">
         <div class="item-overlay">
-          <h3>Interior Office 3D Model &amp; Visual</h3>
-          <p>3D Visualization · November 2025</p>
+          <h3>Campaign Design "Ramadhan" - Citra Kuliner's Project</h3>
+          <p>Layout Design · Maret - April 2026</p>
           <a href="#" class="view-detail-btn" data-project="3">Lihat Detail →</a>
         </div>
       </div>
@@ -1354,13 +1815,13 @@ body.modal-open { overflow:hidden; }
     <h3 class="category-title2 reveal">Proyek Keseluruhan</h3>
     <p class="description-section2 reveal">Kumpulan lengkap karya terbaik Saya. Jelajahi beragam proyek dari berbagai industri yang menampilkan solusi kreatif yang telah Saya hadirkan untuk klien.</p>
     <div class="portfolio-grid" id="all-projects">
-		<div class="portfolio-item hidden"><img src="Cover Project/coverarindafoodpd.png" alt="P1"><div class="portfolio-overlay"><h4>Arinda Food Packaging Design</h4><p>Packaging · 2025</p><a href="#" class="view-detail-btn" data-project="5">Lihat Detail →</a></div></div>
-		<div class="portfolio-item hidden"><img src="Cover Project/coverarindafoodpd.png" alt="P2"><div class="portfolio-overlay"><h4>Arinda Food Packaging Design</h4><p>Packaging · 2025</p><a href="#" class="view-detail-btn" data-project="6">Lihat Detail →</a></div></div>
-		<div class="portfolio-item hidden"><img src="Cover Project/coverarindafoodpd.png" alt="P3"><div class="portfolio-overlay"><h4>Arinda Food Packaging Design</h4><p>Packaging · 2025</p><a href="#" class="view-detail-btn" data-project="7">Lihat Detail →</a></div></div>
-		<div class="portfolio-item hidden"><img src="Cover Project/Instapost.jpg" alt="P4"><div class="portfolio-overlay"><h4>Instagram Feeds Arinda Food</h4><p>Visual Layout · 2025</p><a href="#" class="view-detail-btn" data-project="8">Lihat Detail →</a></div></div>
-		<div class="portfolio-item hidden"><img src="Cover Project/ensrenindah.jpg" alt="P5"><div class="portfolio-overlay"><h4>Poliklinik 3D Visualization</h4><p>3D Render · 2025</p><a href="#" class="view-detail-btn" data-project="9">Lihat Detail →</a></div></div>
-		<div class="portfolio-item hidden"><img src="Cover Project/covergideon3dv.png" alt="P6"><div class="portfolio-overlay"><h4>Exterior Render Gideon's Project</h4><p>Architectural VIZ · 2025</p><a href="#" class="view-detail-btn" data-project="10">Lihat Detail →</a></div></div>
-		<div class="portfolio-item hidden"><img src="Cover Project/WebAF.jpg" alt="P7"><div class="portfolio-overlay"><h4>Arinda Food Website Design</h4><p>Web Design · 2025</p><a href="#" class="view-detail-btn" data-project="7">Lihat Detail →</a></div></div>
+		<div class="portfolio-item hidden"><img src="Cover Project/coversmplpostermantaray.png" alt="P1"><div class="portfolio-overlay"><h4>MantaCore Property - Marketing Gallery</h4><p>Poster Design · Januari 2026</p><a href="#" class="view-detail-btn" data-project="4">Lihat Detail →</a></div></div>
+		<div class="portfolio-item hidden"><img src="Cover Project/citrakulinermldcitrakulinermld.jpg" alt="P2"><div class="portfolio-overlay"><h4>Marketplace Layout Design Citra Kuliner</h4><p>Layout Design · Oktober 2025</p><a href="#" class="view-detail-btn" data-project="5">Lihat Detail →</a></div></div>
+		<div class="portfolio-item hidden"><img src="Cover Project/covermahmud3dm&v.jpg" alt="P3"><div class="portfolio-overlay"><h4>Interior Office 3D Model &amp; Visual</h4><p>3D Visualization · November 2025</p><a href="#" class="view-detail-btn" data-project="6">Lihat Detail →</a></div></div>
+		<div class="portfolio-item hidden"><img src="Cover Project/Instapost.jpg" alt="P4"><div class="portfolio-overlay"><h4>Instagram Feeds Arinda Food</h4><p>Visual Layout · 2025</p><a href="#" class="view-detail-btn" data-project="7">Lihat Detail →</a></div></div>
+		<div class="portfolio-item hidden"><img src="Cover Project/ensrenindah.jpg" alt="P5"><div class="portfolio-overlay"><h4>Poliklinik 3D Visualization</h4><p>3D Render · 2025</p><a href="#" class="view-detail-btn" data-project="8">Lihat Detail →</a></div></div>
+		<div class="portfolio-item hidden"><img src="Cover Project/covergideon3dv.png" alt="P6"><div class="portfolio-overlay"><h4>Exterior Render Gideon's Project</h4><p>Architectural VIZ · 2025</p><a href="#" class="view-detail-btn" data-project="9">Lihat Detail →</a></div></div>
+		<div class="portfolio-item hidden"><img src="Cover Project/WebAF.jpg" alt="P7"><div class="portfolio-overlay"><h4>Arinda Food Website Design</h4><p>Web Design · 2025</p><a href="#" class="view-detail-btn" data-project="10">Lihat Detail →</a></div></div>
 		<div class="portfolio-item hidden"><img src="Cover Project/coverazhura3dv.png" alt="P8"><div class="portfolio-overlay"><h4>Interior Render Azzhura's Project</h4><p>Interior VIZ · 2025</p><a href="#" class="view-detail-btn" data-project="11">Lihat Detail →</a></div></div>
 		<div class="portfolio-item hidden"><img src="Cover Project/coverarindafoodpd.png" alt="P9"><div class="portfolio-overlay"><h4>Arinda Food Packaging Design</h4><p>Packaging · 2025</p><a href="#" class="view-detail-btn" data-project="12">Lihat Detail →</a></div></div>
 
@@ -1368,7 +1829,7 @@ body.modal-open { overflow:hidden; }
     <div class="text-center"><button id="see-more-btn" class="text-link">Lihat Semua Karya</button></div>
   </div>
 </section>
-
+s
 <!-- Lightbox -->
 <div id="full-image-overlay" class="image-overlay">
   <span id="overlay-close-btn" class="close-overlay">&times;</span>
@@ -1672,9 +2133,9 @@ var showModal;
       fio=document.getElementById('full-image-overlay'),fi=document.getElementById('full-image'),
       ocb=document.getElementById('overlay-close-btn');
   var P={
-    1:{t:"Arinda Food's Packaging Box Design — February 2025",d:"Proyek desain kemasan ini bertujuan memperkuat identitas brand Arinda Food melalui desain box yang menarik dan fungsional.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd1.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd2.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd3.png?raw=true"]},
-	2:{t:"Arinda Food's Packaging Box Design — February 2025",d:"Proyek desain kemasan ini bertujuan memperkuat identitas brand Arinda Food melalui desain box yang menarik dan fungsional.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd1.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd2.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd3.png?raw=true"]},
-	3:{t:"Arinda Food's Packaging Box Design — February 2025",d:"Proyek desain kemasan ini bertujuan memperkuat identitas brand Arinda Food melalui desain box yang menarik dan fungsional.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd1.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd2.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd3.png?raw=true"]},
+    1:{t:"Rental Office Building - Vincent's Project 3D Visualization · June 2026",d:"Pada proyek 3D Visualisasi ini, bertanggung jawab melakukan komposisi adegan, pengaturan material, pencahayaan, kamera, serta proses final rendering berdasarkan model 3D yang telah disediakan oleh klien. Fokus utama adalah menghasilkan visual yang realistis dan siap digunakan untuk kebutuhan presentasi.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Kak%20Vincent/Gedung%20Vincent%201.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Kak%20Vincent/Gedung%20Vincent%202.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Kak%20Vincent/Gedung%20Vincent%203.jpg?raw=true"]},
+	2:{t:"Instagram Post Design - Citra Kuliner's Project · May 2025",d:"Proyek desain konten Instagram untuk Citra Kuliner yang berfokus pada promosi produk unggulan, peningkatan daya tarik visual, dan penyampaian informasi secara efektif agar mampu meningkatkan click through rate pada akun serta memperkuat identitas brand.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Post%20Ig%20Citra%20Kuliner/Artboard%204.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Post%20Ig%20Citra%20Kuliner/Pesan%20Menu%20Ini%20Aja%20-%20Copy.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Post%20Ig%20Citra%20Kuliner/Artboard%205.jpg?raw=true"]},
+	3:{t:"Ramadan Campaign Layout Design – Citra Kuliner Project · Maret - April 2026",d:"Proyek ini mencakup perancangan berbagai materi promosi digital untuk kampanye Ramadan Citra Kuliner. Bertanggung jawab dalam menyusun layout, mengatur hierarki informasi, serta mengombinasikan elemen visual agar setiap desain mampu menyampaikan pesan promosi secara efektif. Seluruh materi dirancang dengan memperhatikan konsistensi identitas brand, daya tarik visual, dan kebutuhan pemasaran selama periode Ramadan.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Copy%20of%20banner.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Banner%20Payday%20Ramadhan.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Citra%20Kuliner's%20E-Commerce.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Citra%20Kuliner's%20E-Commerce.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Citra%20Kuliner's%20E-Commerce.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Citra%20Kuliner's%20E-Commerce.jpg?raw=true"]},
 	4:{t:"Poster Design Sample MantaCore Property — Januari 2026",d:"Project ini saya kerjakan sebagai bentuk latihan untuk mengasah kemampuan desain sekaligus pengembangan diri secara konsisten.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/smplpostermantaray/mantaraycrealivasmple%201.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/smplpostermantaray/mantaraycrealivasmple%202.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/smplpostermantaray/mantaraycrealivasmple%203.png?raw=true"]},
     5:{t:"Marketplace Layout Design Citra Kuliner — Oktober 2025",d:"Desain layout marketplace ini bertujuan meningkatkan visibilitas produk serta navigasi pengguna pada marketplace online Citra Kuliner.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/kue%20kukusan%20nusantara.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/Paket%20Bento%20Anak%20Citra%20Kuliner.jpg?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/Slide%201%20Tumini%20Citra%20Kuliner.jpg?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/Tumpeng%20Premium%201.jpg?raw=true"]},
     6:{t:"Interior Office 3D Modelling & Visualization — November 2025",d:"Proyek ini mencakup pembuatan visualisasi interior kantor 3D yang realistis untuk membantu klien memahami perencanaan ruang.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20skp%201.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20skp%202.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20ens%201.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20ens%202.png?raw=true"]},
@@ -1791,6 +2252,127 @@ function kirimPesanWhatsApp(){
 
   requestAnimationFrame(tick);
 })();
+
+
+/* ─── INSTAGRAM POST DESIGN ─── */
+(function(){
+  /* ── Ganti path gambar sesuai file kamu ── */
+  var data = {
+    fnb: [
+      { img: 'Bete Cari Konsumsi.jpg', alt: 'FnB Design 1' },
+      { img: 'Catering Nasi Paket Nasi Kuning.jpg', alt: 'FnB Design 2' },
+      { img: 'Dapur Sat Set, Nasi Kuning Dateng Cepet.jpg', alt: 'FnB Design 3' }
+    ],
+    kecantikan: [
+      { img: 'igpost/kecantikan1.jpg', alt: 'Kecantikan Design 1' },
+      { img: 'igpost/kecantikan2.jpg', alt: 'Kecantikan Design 2' },
+      { img: 'igpost/kecantikan3.jpg', alt: 'Kecantikan Design 3' }
+    ],
+    corporate: [
+      { img: 'igpost/corporate1.jpg', alt: 'Corporate Design 1' },
+      { img: 'igpost/corporate2.jpg', alt: 'Corporate Design 2' },
+      { img: 'igpost/corporate3.jpg', alt: 'Corporate Design 3' }
+    ],
+    creative: [
+      { img: 'coverberkahramadhan.jpg', alt: 'Creative Design 1' },
+      { img: 'gebyarakhirtahun.jpg', alt: 'Creative Design 2' },
+      { img: 'promo121223.jpg', alt: 'Creative Design 3' }
+    ]
+  };
+
+  var cats   = ['fnb','kecantikan','corporate','creative'];
+  var slider = document.getElementById('igpostSlider');
+  var tabs   = document.querySelectorAll('.igpost-tab');
+  if(!slider || !tabs.length) return;
+
+  var curCat = 'fnb';
+
+  function buildCards(cat) {
+  slider.innerHTML = '';
+  (data[cat] || []).forEach(function(item) {
+    var card = document.createElement('div');
+    card.className = 'igpost-card';
+    card.innerHTML =
+      '<div class="igpost-card-img-wrap">' +
+        '<img class="igpost-card-img" src="' + item.img + '" alt="' + item.alt + '" loading="lazy">' +
+      '</div>' +
+      '<div class="igpost-card-actions">' +
+        '<div class="igpost-actions-left">' +
+          '<button class="igpost-action-btn ig-like" aria-label="Like">' +
+            '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' +
+          '</button>' +
+          '<button class="igpost-action-btn" aria-label="Comment">' +
+            '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
+          '</button>' +
+          '<button class="igpost-action-btn" aria-label="Share">' +
+            '<svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>' +
+          '</button>' +
+        '</div>' +
+        '<button class="igpost-action-btn ig-save" aria-label="Save">' +
+          '<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>' +
+        '</button>' +
+      '</div>';
+
+    card.querySelector('.ig-like').addEventListener('click', function(){ this.classList.toggle('liked'); });
+    card.querySelector('.ig-save').addEventListener('click', function(){ this.classList.toggle('saved'); });
+    slider.appendChild(card);
+  });
+
+  /* stagger fade in tiap card */
+  var cards = slider.querySelectorAll('.igpost-card');
+  cards.forEach(function(card, i){
+    setTimeout(function(){
+      card.classList.add('card-visible');
+    }, 80 + i * 120);
+  });
+
+  curIdx = 0;
+}
+
+  function switchCat(newCat, dir) {
+    if(newCat === curCat) return;
+
+    var outClass = dir === 'right' ? 'slide-out-left' : 'slide-out-right';
+    var inClass  = dir === 'right' ? 'slide-in-right' : 'slide-in-left';
+
+    slider.classList.add(outClass);
+
+    setTimeout(function(){
+      slider.classList.remove(outClass, 'slide-active');
+      buildCards(newCat);
+      curCat = newCat;
+      slider.classList.add(inClass);
+
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          slider.classList.remove(inClass);
+          slider.classList.add('slide-active');
+        });
+      });
+    }, 320);
+  }
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function(){
+      var newCat = this.getAttribute('data-cat');
+      var oldIdx = cats.indexOf(curCat);
+      var newIdx = cats.indexOf(newCat);
+      var dir    = newIdx > oldIdx ? 'right' : 'left';
+
+      tabs.forEach(function(t){ t.classList.remove('igpost-tab--active'); });
+      this.classList.add('igpost-tab--active');
+
+      switchCat(newCat, dir);
+    });
+  });
+
+  /* init */
+  buildCards(curCat);
+  slider.classList.add('slide-active');
+})();
+
+
+
 </script>
 
 </body>
