@@ -1707,7 +1707,6 @@ body.modal-open { overflow:hidden; }
     <div class="igpost-tabs reveal">
       <button class="igpost-tab igpost-tab--active" data-cat="fnb">Design FnB</button>
       <button class="igpost-tab" data-cat="kecantikan">Design Kecantikan</button>
-      <button class="igpost-tab" data-cat="corporate">Design Formal Corporate</button>
       <button class="igpost-tab" data-cat="creative">Creative Industry</button>
     </div>
     <div class="igpost-slider-wrap">
@@ -2264,14 +2263,9 @@ function kirimPesanWhatsApp(){
       { img: 'Dapur Sat Set, Nasi Kuning Dateng Cepet.jpg', alt: 'FnB Design 3' }
     ],
     kecantikan: [
-      { img: 'igpost/kecantikan1.jpg', alt: 'Kecantikan Design 1' },
-      { img: 'igpost/kecantikan2.jpg', alt: 'Kecantikan Design 2' },
-      { img: 'igpost/kecantikan3.jpg', alt: 'Kecantikan Design 3' }
-    ],
-    corporate: [
-      { img: 'igpost/corporate1.jpg', alt: 'Corporate Design 1' },
-      { img: 'igpost/corporate2.jpg', alt: 'Corporate Design 2' },
-      { img: 'igpost/corporate3.jpg', alt: 'Corporate Design 3' }
+      { img: 'Citra SR12 poster 1.jpg', alt: 'Kecantikan Design 1' },
+      { img: 'Citra SR12 poster 2.jpg', alt: 'Kecantikan Design 2' },
+      { img: 'Citra SR12 poster 3.jpg', alt: 'Kecantikan Design 3' }
     ],
     creative: [
       { img: 'coverberkahramadhan.jpg', alt: 'Creative Design 1' },
@@ -2280,7 +2274,7 @@ function kirimPesanWhatsApp(){
     ]
   };
 
-  var cats   = ['fnb','kecantikan','corporate','creative'];
+  var cats   = ['fnb','kecantikan','creative'];
   var slider = document.getElementById('igpostSlider');
   var tabs   = document.querySelectorAll('.igpost-tab');
   if(!slider || !tabs.length) return;
@@ -2366,9 +2360,52 @@ function kirimPesanWhatsApp(){
     });
   });
 
-  /* init */
+/* init */
   buildCards(curCat);
   slider.classList.add('slide-active');
+
+  /* ── auto switch kategori tiap 5 detik ── */
+  var catTimer = setInterval(function(){
+    var curIdx = cats.indexOf(curCat);
+    var nextIdx = (curIdx + 1) % cats.length;
+    var nextCat = cats[nextIdx];
+
+    tabs.forEach(function(t){ t.classList.remove('igpost-tab--active'); });
+    document.querySelector('.igpost-tab[data-cat="' + nextCat + '"]').classList.add('igpost-tab--active');
+
+    switchCat(nextCat, 'right');
+  }, 5000);
+
+  /* pause saat hover, lanjut saat keluar */
+  var wrap = document.querySelector('.igpost-slider-wrap');
+  if(wrap){
+    wrap.addEventListener('mouseenter', function(){ clearInterval(catTimer); });
+    wrap.addEventListener('mouseleave', function(){
+      catTimer = setInterval(function(){
+        var curIdx = cats.indexOf(curCat);
+        var nextIdx = (curIdx + 1) % cats.length;
+        var nextCat = cats[nextIdx];
+        tabs.forEach(function(t){ t.classList.remove('igpost-tab--active'); });
+        document.querySelector('.igpost-tab[data-cat="' + nextCat + '"]').classList.add('igpost-tab--active');
+        switchCat(nextCat, 'right');
+      }, 5000);
+    });
+  }
+
+  /* reset timer saat klik tab manual */
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      clearInterval(catTimer);
+      catTimer = setInterval(function(){
+        var curIdx = cats.indexOf(curCat);
+        var nextIdx = (curIdx + 1) % cats.length;
+        var nextCat = cats[nextIdx];
+        tabs.forEach(function(t){ t.classList.remove('igpost-tab--active'); });
+        document.querySelector('.igpost-tab[data-cat="' + nextCat + '"]').classList.add('igpost-tab--active');
+        switchCat(nextCat, 'right');
+      }, 5000);
+    });
+  });
 })();
 
 
