@@ -1621,6 +1621,388 @@ body.modal-open { overflow:hidden; }
 }
 .lang-flag { font-size: .9rem; line-height: 1; }
 
+
+/* ═══ LANG TOGGLE COMPACT ═══ */
+.lang-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.lang-icon-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(26,111,255,.12);
+  border: 1px solid rgba(26,111,255,.25);
+  color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem; line-height: 1;
+  transition: all .3s var(--ease);
+  flex-shrink: 0;
+}
+.lang-icon-btn:hover {
+  background: rgba(26,111,255,.28);
+  border-color: rgba(26,111,255,.5);
+  transform: scale(1.08);
+}
+
+.lang-toggle {
+  position: absolute;
+  right: 38px; top: 50%;
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: right center;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .35s var(--ease), opacity .3s var(--ease);
+  white-space: nowrap;
+  margin-left: 0;
+}
+
+.lang-wrapper.open .lang-toggle {
+  transform: translateY(-50%) scaleX(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media(max-width: 768px) {
+  .lang-wrapper { margin-left: 0; }
+  .lang-toggle {
+    right: auto;
+    left: 38px;
+    transform-origin: left center;
+    transform: translateY(-50%) scaleX(0);
+  }
+  .lang-wrapper.open .lang-toggle {
+    transform: translateY(-50%) scaleX(1);
+  }
+}
+
+/* ═══ LANG MOBILE HEADER LAYOUT — FINAL ═══ */
+@media(max-width: 768px) {
+  .header .container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    padding: 14px 20px !important;
+    height: auto !important;
+  }
+
+  .logo {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    flex: unset !important;
+    white-space: nowrap !important;
+    pointer-events: auto !important;
+    z-index: 1 !important;
+  }
+
+  .lang-wrapper {
+    position: absolute !important;
+    right: 20px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 6px !important;
+    z-index: 10 !important;
+    margin: 0 !important;
+  }
+
+  /* Toggle tersembunyi, expand ke KIRI */
+  .lang-toggle {
+    position: static !important;
+    transform: none !important;
+    transform-origin: right center !important;
+    opacity: 0 !important;
+    max-width: 0 !important;
+    overflow: hidden !important;
+    padding: 6px 0 !important;
+    pointer-events: none !important;
+    transition: max-width .35s var(--ease),
+                opacity .3s var(--ease),
+                padding .35s var(--ease) !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+  }
+
+  .lang-wrapper.open .lang-toggle {
+    opacity: 1 !important;
+    max-width: 100px !important;
+    padding: 6px 14px !important;
+    pointer-events: auto !important;
+  }
+
+  .nav {
+    flex-basis: 100% !important;
+    width: 100% !important;
+    margin-top: 10px !important;
+    order: 10 !important;
+  }
+
+  .nav ul {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+
+/* ═══ FIX: geser logo ke kiri saat toggle bahasa (mobile) dibuka ═══ */
+@media(max-width:768px){
+  .logo {
+    transition: transform .35s var(--ease) !important;
+  }
+  .logo.lang-open {
+    transform: translateX(calc(-50% - 36px)) !important;
+  }
+}
+
+/* ═══ FIX: posisi & tampilan tombol bahasa versi desktop ═══ */
+@media(min-width:769px){
+  .header .container { gap: 24px; }
+  .nav { order: 1; }
+  .lang-wrapper { order: 2; margin-left: 12px; }
+
+  .lang-icon-btn {
+    width: 36px; height: 36px;
+    font-size: .95rem;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.14);
+  }
+  .lang-icon-btn:hover {
+    background: rgba(26,111,255,.22);
+    border-color: rgba(61,142,255,.55);
+    box-shadow: 0 6px 18px rgba(26,111,255,.3);
+  }
+
+  .lang-toggle {
+    background: rgba(22,32,53,.9);
+    border: 1px solid rgba(61,142,255,.3);
+    box-shadow: 0 10px 28px rgba(0,0,0,.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .lang-toggle:hover {
+    background: rgba(26,111,255,.25);
+    border-color: rgba(61,142,255,.6);
+  }
+}
+
+
+
+/* ═══ FIX: header stacked layout diperluas ke tablet (769px–1024px) agar tidak tabrakan ═══ */
+@media(min-width:769px) and (max-width:1024px){
+  .header .container {
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:wrap !important;
+    align-items:center !important;
+    justify-content:center !important;
+    position:relative !important;
+    padding:16px 20px !important;
+    height:auto !important;
+  }
+
+  .logo {
+    position:absolute !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    flex:unset !important;
+    white-space:nowrap !important;
+    z-index:1 !important;
+    transition: transform .35s var(--ease) !important;
+  }
+
+  .logo.lang-open {
+    transform: translateX(calc(-50% - 36px)) !important;
+  }
+
+  .lang-wrapper {
+    position:absolute !important;
+    right:20px !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+    margin:0 !important;
+    order:initial !important;
+  }
+
+  .nav {
+    flex-basis:100% !important;
+    width:100% !important;
+    margin-top:12px !important;
+    order:10 !important;
+  }
+
+  .nav ul {
+    width:100% !important;
+    justify-content:center !important;
+    gap:6px !important;
+  }
+}
+
+
+
+/* ═══ FIX FINAL: lang-toggle jadi in-flow, tidak overlap nav di lebar berapapun ═══ */
+.lang-toggle {
+  position: static !important;
+  transform: none !important;
+  opacity: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  padding: 6px 0 !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+  transition: max-width .35s var(--ease), opacity .3s var(--ease), padding .35s var(--ease) !important;
+}
+
+.lang-wrapper.open .lang-toggle {
+  opacity: 1 !important;
+  max-width: 120px !important;
+  padding: 6px 14px !important;
+  pointer-events: auto !important;
+}
+
+.lang-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Jaring pengaman: kalau ruang tetap kurang di lebar tertentu, header boleh wrap
+   daripada elemen-elemennya numpuk satu sama lain */
+.header .container {
+  flex-wrap: wrap !important;
+  row-gap: 10px !important;
+}
+
+/* ═══ FIX DEFINITIF: header stacked di SEMUA ukuran layar, lang-toggle solid ═══ */
+.header .container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  height: auto !important;
+  min-height: 70px !important;
+  padding: 14px 24px !important;
+}
+
+.logo {
+  position: absolute !important;
+  left: 50% !important;
+  top: 14px !important;
+  transform: translateX(-50%) !important;
+  flex: unset !important;
+  white-space: nowrap !important;
+  z-index: 2 !important;
+  transition: transform .35s var(--ease) !important;
+}
+.logo.lang-open {
+  transform: translateX(calc(-50% - 42px)) !important;
+}
+
+.lang-wrapper {
+  position: absolute !important;
+  right: 20px !important;
+  top: 14px !important;
+  transform: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  z-index: 10 !important;
+  margin: 0 !important;
+}
+
+.lang-toggle {
+  position: static !important;
+  transform: none !important;
+  opacity: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  padding: 6px 0 !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+  background: rgba(11,17,32,.97) !important;   /* ← solid, tidak transparan lagi */
+  border: 1px solid rgba(61,142,255,.4) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.5) !important;
+  transition: max-width .35s var(--ease), opacity .3s var(--ease), padding .35s var(--ease) !important;
+}
+.lang-wrapper.open .lang-toggle {
+  opacity: 1 !important;
+  max-width: 110px !important;
+  padding: 6px 14px !important;
+  pointer-events: auto !important;
+}
+
+.nav {
+  flex-basis: 100% !important;
+  width: 100% !important;
+  margin-top: 52px !important;
+  order: 10 !important;
+}
+.nav ul {
+  width: 100% !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  row-gap: 6px !important;
+}
+
+/* ═══ FIX: kembalikan layout desktop (logo, nav, lang-toggle sejajar satu baris) ═══ */
+@media(min-width:769px){
+  .header .container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    height: 70px !important;
+    min-height: 70px !important;
+    padding: 0 32px !important;
+  }
+
+  .logo {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: auto !important;
+    order: 0 !important;
+  }
+  .logo.lang-open {
+    transform: none !important;
+  }
+
+  .nav {
+    flex-basis: auto !important;
+    width: auto !important;
+    margin-top: 0 !important;
+    order: 1 !important;
+  }
+  .nav ul {
+    width: auto !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    row-gap: 0 !important;
+  }
+
+  .lang-wrapper {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    transform: none !important;
+    margin-left: 16px !important;
+    order: 2 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1635,6 +2017,13 @@ body.modal-open { overflow:hidden; }
       <img src="personcv.png" alt="Ikon Crealiva">
       <a href="index.html">Crealiva</a>
     </h1>
+    <div class="lang-wrapper" id="langWrapper">
+  <button class="lang-toggle" id="langToggle" aria-label="Switch Language">
+    <span class="lang-flag">🇮🇩</span>
+    <span id="langText">ID</span>
+  </button>
+  <button class="lang-icon-btn" id="langIconBtn" aria-label="Language">🌐</button>
+</div>
     <nav class="nav" aria-label="Navigasi utama">
       <ul>
         <li><a href="#tentang-saya">About</a></li>
@@ -1643,10 +2032,6 @@ body.modal-open { overflow:hidden; }
         <li><a href="#contact-section2">Contact</a></li>
       </ul>
     </nav>
-    <button class="lang-toggle" id="langToggle" aria-label="Switch Language">
-      <span class="lang-flag">🇮🇩</span>
-      <span id="langText">ID</span>
-    </button>
   </div>
 </header>
 
@@ -2800,7 +3185,32 @@ function kirimPesanWhatsApp(){
   });
 })();
 
+/* ─── LANG ICON TOGGLE ─── */
+(function(){
+  var wrapper = document.getElementById('langWrapper');
+  var iconBtn = document.getElementById('langIconBtn');
+  var logo    = document.querySelector('.logo');
+  if(!wrapper || !iconBtn) return;
 
+  iconBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var isOpen = wrapper.classList.toggle('open');
+    if(logo) logo.classList.toggle('lang-open', isOpen);
+  });
+
+  document.addEventListener('click', function(){
+    wrapper.classList.remove('open');
+    if(logo) logo.classList.remove('lang-open');
+  });
+
+  document.getElementById('langToggle').addEventListener('click', function(e){
+    e.stopPropagation();
+    setTimeout(function(){
+      wrapper.classList.remove('open');
+      if(logo) logo.classList.remove('lang-open');
+    }, 300);
+  });
+})();
 
 </script>
 
