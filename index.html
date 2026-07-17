@@ -252,7 +252,7 @@ img { display:block; max-width:100%; }
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
 }
 .hero-title2 { font-size:clamp(1rem,2.5vw,1.5rem); font-weight:500; letter-spacing:.04em; color:rgba(255,255,255,.65); margin-bottom:20px; animation:fadeInUp .9s var(--ease) .35s both; }
-.hero-content > p { font-size:1rem; line-height:1.75; color:rgba(255,255,255,.65); margin-bottom:36px; max-width:480px; animation:fadeInUp .9s var(--ease) .5s both; }
+.hero-content > p { font-size:0.78rem; line-height:1.75; color:rgba(255,255,255,.65); margin-bottom:36px; max-width:480px; animation:fadeInUp .9s var(--ease) .5s both; }
 .hero-cta-row { display:flex; align-items:center; gap:20px; flex-wrap:wrap; animation:fadeInUp .9s var(--ease) .65s both; }
 .hero-image { position:relative; flex-shrink:0; animation:fadeInLeft 1s var(--ease) .4s both; }
 .hero-image img { width:clamp(200px,22vw,300px); filter:drop-shadow(0 24px 48px rgba(0,0,0,.5)); }
@@ -634,7 +634,7 @@ img { display:block; max-width:100%; }
 .footer-content { display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap; margin-bottom:40px; }
 .footer-brand h3 { font-size:1.6rem; font-weight:700; color:#fff; letter-spacing:-.02em; margin-bottom:8px; }
 .footer-brand p  { font-size:.85rem; color:rgba(255,255,255,.35); }
-.footer-contact h3 { font-size:1rem; font-weight:600; color:rgba(255,255,255,.55); margin-bottom:12px; }
+.footer-contact h3 { font-size:0.88rem; font-weight:600; color:rgba(255,255,255,.55); margin-bottom:12px; }
 .footer-contact ul { list-style:none; }
 .footer-contact ul li { margin-bottom:6px; font-size:.88rem; color:rgba(255,255,255,.4); }
 .footer-contact ul li a { color:rgba(255,255,255,.55); transition:color var(--dur); }
@@ -676,7 +676,7 @@ body.modal-open { overflow:hidden; }
 @media(max-width:992px){ .container{padding:0 24px;} .skills-grid{grid-template-columns:1fr;gap:16px;} }
 @media(max-width:768px){
   .header .container{flex-direction:column;height:auto;padding:16px 24px;gap:12px;}
-  .nav ul{gap:2px;} .nav a{padding:8px 12px;font-size:.88rem;}
+  .nav ul{gap:2px;} .nav a{padding:8px 12px;font-size:.78rem;}
   .hero .container{flex-direction:column;text-align:center;gap:32px;padding-top:40px;}
   .hero-content{max-width:100%;} .hero-content > p{max-width:100%;}
   .hero-cta-row{justify-content:center;}
@@ -1892,6 +1892,7 @@ body.modal-open { overflow:hidden; }
   height: auto !important;
   min-height: 70px !important;
   padding: 14px 24px !important;
+  margin-top: 9px;
 }
 
 .logo {
