@@ -116,6 +116,22 @@ a:hover { color:#fff; }
 img { display:block; max-width:100%; }
 .container { max-width:1200px; margin:0 auto; padding:0 32px; }
 
+/* ═══ FIX: perbesar card Recent Projects di desktop ═══ */
+#portfolio .container {
+  max-width: 1500px;
+}
+#latest-projects {
+  gap: 28px;
+}
+#latest-projects .portfolio-item > img {
+  aspect-ratio: 3/2;
+}
+@media(max-width:1600px){
+  #portfolio .container {
+    max-width: 92vw;
+  }
+}
+
 /* ═══ SCROLL REVEAL ═══ */
 .reveal { opacity:0; transform:translateY(40px); transition:opacity .75s var(--ease), transform .75s var(--ease); }
 .reveal.visible { opacity:1; transform:none; }
@@ -219,13 +235,17 @@ img { display:block; max-width:100%; }
 .hero::before {
   content:""; position:absolute; inset:0;
   background:url('iphone crealiva sample3.gif') center/cover no-repeat;
-  z-index:0; filter:brightness(.45) blur(3px); transform:scale(1.04);
+  z-index:0; filter:brightness(.45) blur(3px);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
 }
+
 .hero::after {
   content:""; position:absolute; inset:0;
-  background:linear-gradient(135deg,rgba(11,17,32,.88) 0%,rgba(0,55,130,.6) 55%,rgba(0,20,60,.4) 100%);
+  background:linear-gradient(to bottom,rgba(11,17,32,.88) 0%,rgba(0,55,130,.6) 55%,rgba(0,55,130,.45) 100%);
   z-index:1;
 }
+
 .hero .container, .hero-content, .hero-image { position:relative; z-index:3; }
 .hero .container { display:flex; align-items:center; justify-content:space-between; gap:350px; }
 .hero-content { max-width:600px; }
@@ -262,15 +282,69 @@ img { display:block; max-width:100%; }
 .scroll-hint__line { width:1px; height:40px; background:linear-gradient(rgba(255,255,255,.4),transparent); animation:scrollLine 1.6s ease-in-out infinite; }
 @keyframes scrollLine { 0%,100%{transform:scaleY(1);opacity:.5} 50%{transform:scaleY(.5);opacity:1} }
 
-/* ═══ IMAGE STRIP ═══ */
-.full-width-images { width:100%; overflow:hidden; line-height:0; }
-.full-width-image-container { display:flex; overflow:visible; will-change:transform; }
-.full-width-image-container img {
-  width:calc(100% / 3); aspect-ratio:1/1; object-fit:cover; object-position:center;
-  flex-shrink:0; display:block;
-  transition:filter 1s var(--ease), transform 1s ease, box-shadow .5s ease;
-  filter:brightness(.45) grayscale(.3);
+
+
+
+
+
+/* ═══ HERO TRANSITION — Wave + Rising Particles ═══ */
+.hero-transition{
+  position:relative;
+  height:226px;
+  margin-top:0px;
+  z-index:2;
+  overflow:hidden;
+  pointer-events:none;
+  background:linear-gradient(to bottom, rgba(0,55,130,.45) 0%, rgba(0,40,100,.22) 35%, transparent 70%);
 }
+
+.ht-wave{
+  position:absolute;
+  left:0; right:0; top:0;
+  line-height:0;
+  z-index:2;
+}
+.ht-wave svg{ width:100%; height:150px; display:block; }
+.ht-glow-line{
+  fill:none;
+  stroke:url(#htGrad);
+  stroke-width:2;
+  filter:drop-shadow(0 0 10px rgba(61,142,255,.75));
+  animation:htFlow 6s ease-in-out infinite;
+}
+
+@keyframes htFlow{
+  0%,100%{ stroke-dashoffset:0; }
+  50%{ stroke-dashoffset:40; }
+}
+.ht-particles{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:220px;
+  z-index:3;
+  pointer-events:none;
+  overflow:visible;
+}
+.ht-dot{
+  position:absolute;
+  bottom:-10px;
+  width:4px; height:4px;
+  border-radius:50%;
+  background:var(--blue-bright);
+  box-shadow:0 0 8px 2px rgba(61,142,255,.9);
+  animation:htRise linear infinite;
+}
+@keyframes htRise{
+  0%{ transform:translateY(0) scale(1); opacity:0; }
+  12%{ opacity:1; }
+  88%{ opacity:.4; }
+  100%{ transform:translateY(-280px) scale(.3); opacity:0; }
+}
+@media(max-width:768px){
+  .hero-transition{ height:100px; }
+  .ht-wave svg{ height:100px; }
+}
+
 .full-width-image-container img:hover { filter:brightness(.85) grayscale(0); transform:scale(1.06); box-shadow:0 20px 40px rgba(0,0,0,.5); }
 @media(max-width:767px) { .full-width-image-container img { width:100vw; aspect-ratio:1/1; object-fit:cover; flex-shrink:0; } }
 
@@ -466,13 +540,56 @@ img { display:block; max-width:100%; }
 }
 
 /* ═══ CITRA KULINER CAROUSEL ═══ */
+
+
 .ck-section {
   position:relative; width:100%; padding:80px 0; overflow:hidden;
   background:transparent;
+}
+.ck-section::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
   background-image:linear-gradient(rgba(26,111,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(26,111,255,.05) 1px,transparent 1px);
   background-size:60px 60px;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  ),
+  linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  ),
+  linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  mask-composite: intersect;
 }
-.ck-section::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 90% 80% at 50% 50%,transparent 60%,rgba(11,17,32,.3) 100%); pointer-events:none; z-index:0; }
+
+
+
+
+.ck-section::after { content:''; position:absolute; inset:0; background:none); pointer-events:none; z-index:0; }
 .ck-head { position:relative; z-index:2; display:flex; justify-content:space-between; align-items:flex-start; max-width:1100px; margin:0 auto 52px; padding:0 48px; }
 .ck-head-block { line-height:1; }
 .ck-head-block.ck-right { text-align:right; }
@@ -518,6 +635,22 @@ img { display:block; max-width:100%; }
 .description-section  { font-size:.95rem; color:var(--ink-2); line-height:1.75; text-align:center; max-width:680px; margin:0 auto 56px; }
 .description-section2 { font-size:.95rem; color:rgba(255,255,255,.5); line-height:1.75; text-align:center; max-width:680px; margin:0 auto 56px; }
 .portfolio-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
+/* ═══ FIX: Recent Projects selalu rapi, tidak ada kartu sendirian ═══ */
+#latest-projects {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media(max-width:992px){
+  #latest-projects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media(max-width:600px){
+  #latest-projects {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 .portfolio-item {
   background:var(--surface); border-radius:var(--radius-md); overflow:hidden;
   position:relative; box-shadow:var(--shadow-sm);
@@ -659,7 +792,14 @@ img { display:block; max-width:100%; }
 .project-description { font-size:.95rem; line-height:1.75; color:var(--ink-2); margin-bottom:32px; }
 .project-gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
 .project-gallery-grid a { display:block; border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow-sm); }
-.project-gallery-grid img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; transition:transform .4s var(--ease); }
+.project-gallery-grid img {
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:contain;
+  background:#0a1220;
+  display:block;
+  transition:transform .4s var(--ease);
+}
 .project-gallery-grid a:hover img { transform:scale(1.06); }
 body.modal-open { overflow:hidden; }
 .image-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.95); z-index:2000; justify-content:center; align-items:center; cursor:pointer; animation:fadeIn .25s var(--ease); }
@@ -1285,8 +1425,8 @@ body.modal-open { overflow:hidden; }
 
 /* Instagram card */
 .igpost-card {
-  background: rgba(22,32,53,.9);
-  border: 1px solid rgba(26,111,255,.12);
+  background: #ffffff;  
+  border: 1px solid rgba(0,0,0,.08);
   border-radius: 20px;
   width: calc(33.333% - 14px);
   max-width: 340px;
@@ -1349,7 +1489,7 @@ body.modal-open { overflow:hidden; }
 .igpost-action-btn svg {
   width: 24px;
   height: 24px;
-  stroke: rgba(255,255,255,.7);
+  stroke: rgba(0,0,0,.75);
   stroke-width: 1.8;
   fill: none;
   stroke-linecap: round;
@@ -2025,6 +2165,152 @@ body.modal-open { overflow:hidden; }
   opacity: .09 !important;
 }
 
+/* ═══ PANORAMA GALLERY — Karya 360° ═══ */
+.pg-section{
+  padding:1px 0;
+  background:transparent;
+  position:relative;
+}
+.pg-stage{
+  width:100%;
+  max-width:1200px;
+  height:640px;
+  margin:0 auto;
+  margin-top: -150px;
+  position:relative;
+  perspective:1700px;
+  cursor:grab;
+  user-select:none;
+  touch-action:pan-y;
+  transform: scale(1.15);
+
+-webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 250px,
+    black calc(100% - 250px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 250px,
+    black calc(100% - 250px),
+    transparent 100%
+  );
+
+}
+.pg-stage:active{ cursor:grabbing; }
+
+.pg-cylinder{
+  width:100%;
+  height:100%;
+  position:absolute;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+.pg-cluster{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+}
+.pg-panel{
+  position:absolute;
+  border-radius:14px;
+  overflow:hidden;
+  background:#0d1526;
+  border:1px solid rgba(61,142,255,.22);
+  box-shadow:0 24px 56px rgba(0,0,0,.5);
+  display:flex;
+  align-items:flex-end;
+  backface-visibility:hidden;
+}
+.pg-panel img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(.78);
+}
+.pg-panel-inner{
+  position:relative;
+  width:100%;
+  padding:16px 18px;
+  background:linear-gradient(to top, rgba(11,17,32,.96) 0%, rgba(11,17,32,.2) 65%, transparent 100%);
+}
+.pg-panel .pg-tag{
+  font-size:.68rem;
+  color:var(--blue-bright);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:600;
+  display:none;
+  margin-bottom:3px;
+}
+.pg-panel h3{
+  font-size:.98rem;
+  font-weight:600;
+  line-height:1.3;
+  color:#fff;
+}
+.pg-glowcore{
+  position:absolute;
+  top:50%; left:50%;
+  width:70px;height:70px;
+  margin:-35px 0 0 -35px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(61,142,255,.5) 0%, transparent 70%);
+  filter:blur(12px);
+  animation:pgCoreGlow 3s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes pgCoreGlow{
+  0%,100%{ opacity:.5; transform:scale(1); }
+  50%{ opacity:.9; transform:scale(1.3); }
+}
+.pg-hint{
+  margin-top:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-size:.78rem;
+  color:var(--ink-2);
+  letter-spacing:.05em;
+}
+.pg-hint .pg-arrow{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:26px;height:26px;
+  border-radius:50%;
+  background:rgba(26,111,255,.15);
+  border:1px solid rgba(61,142,255,.35);
+  font-size:.78rem;
+  animation:pgPulseArrow 1.8s ease-in-out infinite;
+}
+@keyframes pgPulseArrow{
+  0%,100%{ transform:translateX(0); opacity:.6; }
+  50%{ transform:translateX(4px); opacity:1; }
+}
+@media (max-width:1023px){
+  .pg-stage{ height:520px;  margin-top: -50px; transform: scale(1.35);}
+    .pg-panel h3{ font-size:.88rem; }
+  .pg-panel .pg-tag{ font-size:.62rem; }
+  .pg-panel-inner{ padding:14px 16px; }
+}
+@media (max-width:640px){
+  .pg-stage{ height:420px; }
+  .pg-hint{ font-size:.68rem; text-align:center; padding:0 12px; }
+  .pg-panel h3{ font-size:.5rem; line-height:1.25; }
+  .pg-panel .pg-tag{ font-size:.4rem; }
+  .pg-panel-inner{ padding:12px 14px; }
+}
+
+
 </style>
 </head>
 <body>
@@ -2073,18 +2359,43 @@ body.modal-open { overflow:hidden; }
       <img src="LogoCrealiva22.png" alt="Logo Crealiva" class="logo-animated">
     </div>
   </div>
+  
+
   <div class="scroll-hint" aria-hidden="true">
     <div class="scroll-hint__line"></div>
     <span>SCROLL</span>
   </div>
 </section>
 
-<!-- IMAGE STRIP -->
-<section class="full-width-images" aria-hidden="true" id="strip-section">
-  <div class="full-width-image-container" id="strip-container">
-    <img src="giftcardcrealiva.jpg" alt="">
-    <img src="totbagcrealiva.jpg"   alt="">
-    <img src="phonecrealiva.jpg"    alt="">
+
+<!-- HERO TRANSITION — Wave + Rising Particles -->
+<div class="hero-transition">
+  <div class="ht-particles" id="htParticles"></div>
+  <div class="ht-wave">
+    <svg viewBox="0 0 1440 220" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="htGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#3D8EFF" stop-opacity="0"/>
+          <stop offset="50%" stop-color="#3D8EFF" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#3D8EFF" stop-opacity="0"/>
+        </linearGradient>
+          <linearGradient id="htFadeFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0B1120" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#0B1120" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,65 C240,125 480,5 720,55 C960,105 1200,15 1440,65 L1440,220 L0,220 Z" fill="url(#htFadeFill)"/>
+      <path class="ht-glow-line" d="M0,65 C240,125 480,5 720,55 C960,105 1200,15 1440,65" stroke-dasharray="6 10"/>
+    </svg>
+  </div>
+</div>
+
+
+<!-- PANORAMA GALLERY — Karya 360° -->
+<section class="pg-section">
+  <div class="pg-stage" id="pgStage">
+    <div class="pg-glowcore"></div>
+    <div class="pg-cylinder" id="pgCylinder"></div>
   </div>
 </section>
 
@@ -2175,7 +2486,7 @@ body.modal-open { overflow:hidden; }
         <p>Jadikan ini sebagai kesempatan kita untuk tumbuh dan bangun bersama-sama menuju digital yang sehat!</p>
       </div>
       <div class="tentang-social-links">
-        <a href="https://www.linkedin.com/in/willyamqibson" target="_blank" class="tentang-social-btn">
+        <a href="https://www.linkedin.com/in/willyam-qibson" target="_blank" class="tentang-social-btn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           Willyam Qibson
         </a>
@@ -2297,28 +2608,36 @@ body.modal-open { overflow:hidden; }
   <div class="container">
     <h3 class="category-title2">Proyek Terbaru</h3>
     <p class="description-section2">Biarkan proyek-proyek terbaru Saya menjadi sumber inspirasi bagi Kamu. Saya siap berkolaborasi untuk mewujudkan ide besar Kamu selanjutnya.</p>
-    <div class="portfolio-grid reveal" id="latest-projects">
+      <div class="portfolio-grid reveal" id="latest-projects">
       <div class="portfolio-item">
-        <img src="Gedung Vincent 1.jpg" alt="Proyek 1">
+        <img src="Mayenda 1.jpg" alt="Proyek Baru">
         <div class="item-overlay">
-          <h3>Rental Office Building - Vincent's Project</h3>
-          <p>3D Visualization · June 2026</p>
+          <h3>Perumahan Akselia Residence 2 - Mayenda's Project</h3>
+          <p>3D Visualization · Agustus 2026</p>
+          <a href="#" class="view-detail-btn" data-project="13">Lihat Detail →</a>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <img src="cover juli 2026.jpg" alt="Proyek 1">
+        <div class="item-overlay">
+          <h3>Campaign Spesial Hari Kemerdekaan Citra Kuliner</h3>
+          <p>Layout Design · Juli 2026</p>
           <a href="#" class="view-detail-btn" data-project="1">Lihat Detail →</a>
         </div>
       </div>
       <div class="portfolio-item">
-        <img src="Pesan Menu Ini Aja.jpg" alt="Proyek 2">
+        <img src="Gedung Vincent 1.jpg" alt="Proyek 2">
         <div class="item-overlay">
-          <h3>Instagram Post Design - Citra Kuliner's Project</h3>
-          <p>Layout Design · May 2025</p>
+          <h3>Rental Office Building - Vincent's Project</h3>
+          <p>3D Visualization · June 2026</p>
           <a href="#" class="view-detail-btn" data-project="2">Lihat Detail →</a>
         </div>
       </div>
       <div class="portfolio-item">
-        <img src="Citra Kuliner's E-Commerce.jpg" alt="Proyek 3">
+        <img src="Pesan Menu Ini Aja.jpg" alt="Proyek 3">
         <div class="item-overlay">
-          <h3>Campaign Design "Ramadhan" - Citra Kuliner's Project</h3>
-          <p>Layout Design · Maret - April 2026</p>
+          <h3>Instagram Post Design - Citra Kuliner's Project</h3>
+          <p>Layout Design · May 2025</p>
           <a href="#" class="view-detail-btn" data-project="3">Lihat Detail →</a>
         </div>
       </div>
@@ -2346,7 +2665,7 @@ body.modal-open { overflow:hidden; }
     <h3 class="category-title2 reveal">Proyek Keseluruhan</h3>
     <p class="description-section2 reveal">Kumpulan lengkap karya terbaik Saya. Jelajahi beragam proyek dari berbagai industri yang menampilkan solusi kreatif yang telah Saya hadirkan untuk klien.</p>
     <div class="portfolio-grid" id="all-projects">
-		<div class="portfolio-item hidden"><img src="Cover Project/coversmplpostermantaray.png" alt="P1"><div class="portfolio-overlay"><h4>MantaCore Property - Marketing Gallery</h4><p>Poster Design · Januari 2026</p><a href="#" class="view-detail-btn" data-project="4">Lihat Detail →</a></div></div>
+    <div class="portfolio-item hidden"><img src="Citra Kuliner's E-Commerce.jpg" alt="P1"><div class="portfolio-overlay"><h4>Campaign Design "Ramadhan" - Citra Kuliner's Project</h4><p>Layout Design · Maret - April 2026</p><a href="#" class="view-detail-btn" data-project="4">Lihat Detail →</a></div></div>
 		<div class="portfolio-item hidden"><img src="Cover Project/citrakulinermldcitrakulinermld.jpg" alt="P2"><div class="portfolio-overlay"><h4>Marketplace Layout Design Citra Kuliner</h4><p>Layout Design · Oktober 2025</p><a href="#" class="view-detail-btn" data-project="5">Lihat Detail →</a></div></div>
 		<div class="portfolio-item hidden"><img src="Cover Project/covermahmud3dm&v.jpg" alt="P3"><div class="portfolio-overlay"><h4>Interior Office 3D Model &amp; Visual</h4><p>3D Visualization · November 2025</p><a href="#" class="view-detail-btn" data-project="6">Lihat Detail →</a></div></div>
 		<div class="portfolio-item hidden"><img src="Cover Project/Instapost.jpg" alt="P4"><div class="portfolio-overlay"><h4>Instagram Feeds Arinda Food</h4><p>Visual Layout · 2025</p><a href="#" class="view-detail-btn" data-project="7">Lihat Detail →</a></div></div>
@@ -2705,18 +3024,18 @@ var showModal;
       fio=document.getElementById('full-image-overlay'),fi=document.getElementById('full-image'),
       ocb=document.getElementById('overlay-close-btn');
   var P={
-    1:{t:"Rental Office Building - Vincent's Project 3D Visualization · June 2026",d:"Pada proyek 3D Visualisasi ini, bertanggung jawab melakukan komposisi adegan, pengaturan material, pencahayaan, kamera, serta proses final rendering berdasarkan model 3D yang telah disediakan oleh klien. Fokus utama adalah menghasilkan visual yang realistis dan siap digunakan untuk kebutuhan presentasi.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Kak%20Vincent/Gedung%20Vincent%201.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Kak%20Vincent/Gedung%20Vincent%202.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Kak%20Vincent/Gedung%20Vincent%203.jpg?raw=true"]},
-	2:{t:"Instagram Post Design - Citra Kuliner's Project · May 2025",d:"Proyek desain konten Instagram untuk Citra Kuliner yang berfokus pada promosi produk unggulan, peningkatan daya tarik visual, dan penyampaian informasi secara efektif agar mampu meningkatkan click through rate pada akun serta memperkuat identitas brand.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Post%20Ig%20Citra%20Kuliner/Artboard%204.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Post%20Ig%20Citra%20Kuliner/Pesan%20Menu%20Ini%20Aja%20-%20Copy.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Post%20Ig%20Citra%20Kuliner/Artboard%205.jpg?raw=true"]},
-	3:{t:"Ramadan Campaign Layout Design – Citra Kuliner Project · Maret - April 2026",d:"Proyek ini mencakup perancangan berbagai materi promosi digital untuk kampanye Ramadan Citra Kuliner. Bertanggung jawab dalam menyusun layout, mengatur hierarki informasi, serta mengombinasikan elemen visual agar setiap desain mampu menyampaikan pesan promosi secara efektif. Seluruh materi dirancang dengan memperhatikan konsistensi identitas brand, daya tarik visual, dan kebutuhan pemasaran selama periode Ramadan.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Copy%20of%20banner.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Banner%20Payday%20Ramadhan.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Citra%20Kuliner's%20E-Commerce.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Nasi%20Liwet%20Spesial%20Ramadhan%20Citra%20Kuliner%201.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Ucapan%20Selamat%20Hari%20Raya%20Citra%20Kuliner.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Nasi%20Tumpeng%20Spesial%20Ramadhan%20Citra%20Kuliner.jpg?raw=true"]},
-	4:{t:"Poster Design Sample MantaCore Property — Januari 2026",d:"Project ini saya kerjakan sebagai bentuk latihan untuk mengasah kemampuan desain sekaligus pengembangan diri secara konsisten.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/smplpostermantaray/mantaraycrealivasmple%201.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/smplpostermantaray/mantaraycrealivasmple%202.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/smplpostermantaray/mantaraycrealivasmple%203.png?raw=true"]},
-    5:{t:"Marketplace Layout Design Citra Kuliner — Oktober 2025",d:"Desain layout marketplace ini bertujuan meningkatkan visibilitas produk serta navigasi pengguna pada marketplace online Citra Kuliner.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/kue%20kukusan%20nusantara.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/Paket%20Bento%20Anak%20Citra%20Kuliner.jpg?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/Slide%201%20Tumini%20Citra%20Kuliner.jpg?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/Tumpeng%20Premium%201.jpg?raw=true"]},
+        1:{t:"Campaign Spesial Hari Kemerdekaan - Citra Kuliner's Project · Juli 2026",d:"Proyek ini merupakan rangkaian materi promosi digital untuk memperingati Hari Kemerdekaan Indonesia bersama Citra Kuliner. Bertanggung jawab dalam merancang layout, memilih elemen visual bertema kemerdekaan, serta menyusun pesan promosi yang menarik dan sesuai dengan identitas brand.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/citra%20kuliner%20juli%202026/Nasi%20Tumpeng%20Kemerdekaan%20Citra%20Kuliner%201.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/citra%20kuliner%20juli%202026/Nasi%20Tumpeng%20Kemerdekaan%20Citra%20Kuliner%202.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/citra%20kuliner%20juli%202026/Nasi%20Tumpeng%20Kemerdekaan%20Citra%20Kuliner%203.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/citra%20kuliner%20juli%202026/Design%20Catering%20Harian%20Citra%20Kuliner.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/citra%20kuliner%20juli%202026/Design%20Catering%20Harian%20Citra%20Kuliner%202.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/citra%20kuliner%20juli%202026/Design%20Catering%20Harian%20Citra%20Kuliner%203.jpg?raw=true"]},
+	2:{t:"Rental Office Building - Vincent's Project 3D Visualization · June 2026",d:"Pada proyek 3D Visualisasi ini, bertanggung jawab melakukan komposisi adegan, pengaturan material, pencahayaan, kamera, serta proses final rendering berdasarkan model 3D yang telah disediakan oleh klien. Fokus utama adalah menghasilkan visual yang realistis dan siap digunakan untuk kebutuhan presentasi.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Kak%20Vincent/Gedung%20Vincent%201.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Kak%20Vincent/Gedung%20Vincent%202.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Kak%20Vincent/Gedung%20Vincent%203.jpg?raw=true"]},
+	3:{t:"Instagram Post Design - Citra Kuliner's Project · May 2025",d:"Proyek desain konten Instagram untuk Citra Kuliner yang berfokus pada promosi produk unggulan, peningkatan daya tarik visual, dan penyampaian informasi secara efektif agar mampu meningkatkan click through rate pada akun serta memperkuat identitas brand.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Post%20Ig%20Citra%20Kuliner/Artboard%204.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Post%20Ig%20Citra%20Kuliner/Pesan%20Menu%20Ini%20Aja%20-%20Copy.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Post%20Ig%20Citra%20Kuliner/Artboard%205.jpg?raw=true"]},
+	4:{t:"Ramadan Campaign Layout Design – Citra Kuliner Project · Maret - April 2026",d:"Proyek ini mencakup perancangan berbagai materi promosi digital untuk kampanye Ramadan Citra Kuliner. Bertanggung jawab dalam menyusun layout, mengatur hierarki informasi, serta mengombinasikan elemen visual agar setiap desain mampu menyampaikan pesan promosi secara efektif. Seluruh materi dirancang dengan memperhatikan konsistensi identitas brand, daya tarik visual, dan kebutuhan pemasaran selama periode Ramadan.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Copy%20of%20banner.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Banner%20Payday%20Ramadhan.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Citra%20Kuliner's%20E-Commerce.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Nasi%20Liwet%20Spesial%20Ramadhan%20Citra%20Kuliner%201.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Ucapan%20Selamat%20Hari%20Raya%20Citra%20Kuliner.png?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Ramadhan%20Campaign/Nasi%20Tumpeng%20Spesial%20Ramadhan%20Citra%20Kuliner.jpg?raw=true"]},5:{t:"Marketplace Layout Design Citra Kuliner — Oktober 2025",d:"Desain layout marketplace ini bertujuan meningkatkan visibilitas produk serta navigasi pengguna pada marketplace online Citra Kuliner.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/kue%20kukusan%20nusantara.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/Paket%20Bento%20Anak%20Citra%20Kuliner.jpg?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/Slide%201%20Tumini%20Citra%20Kuliner.jpg?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/citrakulinermld/Tumpeng%20Premium%201.jpg?raw=true"]},
     6:{t:"Interior Office 3D Modelling & Visualization — November 2025",d:"Proyek ini mencakup pembuatan visualisasi interior kantor 3D yang realistis untuk membantu klien memahami perencanaan ruang.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20skp%201.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20skp%202.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20ens%201.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/mahmud3dm&v/mahmud3dm&v%20ens%202.png?raw=true"]},
     7:{t:"Instagram Feeds | Arinda Food | August 2025",d:"Proyek Instagram Feeds ini bertujuan meningkatkan citra brand Arinda Food melalui desain visual yang konsisten dan menarik.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodld/hari%20anak%20nasional.jpg?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodld/Ayam%20Bakar%20Arinda%20Food.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodld/Merdeka%20Di%20Satu%20Rasa%20Nusantara.png?raw=true"]},
     8:{t:"Poliklinik 3D Visualization",d:"Proyek visualisasi 3D Poliklinik ini dirancang untuk menampilkan lingkungan layanan kesehatan yang bersih dan profesional.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/poliklinik3dv/poliklinik3dv1.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/poliklinik3dv/poliklinik3dv2.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/poliklinik3dv/poliklinik3dv3.png?raw=true"]},
     9:{t:"Exterior Render Visualization Gideon's Project — June 2025",d:"Visualisasi render eksterior ini bertujuan menampilkan detail arsitektur serta estetika bangunan secara realistis.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/gideon3dv/gideon3dv1.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/gideon3dv/gideon3dv2.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/gideon3dv/gideon3dv3.png?raw=true"]},
     10:{t:"Website Design | Arinda Food | July 2025",d:'Proyek ini merupakan pengembangan desain website Arinda Food yang dibangun menggunakan platform Hostinger. <a href="https://www.arindafood.com/" target="_blank" style="color:var(--blue-bright)">arindafood.com →</a>',imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%201.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%202.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodwd/arindafoodwd%203.png?raw=true"]},
     11:{t:"Interior Render Visualization Azzhura's Project — Mei 2025",d:"Proyek ini berfokus pada visualisasi render interior untuk membantu klien memahami tata ruang dan pemilihan material.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/azhura3dv/Azhura3dv1.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/azhura3dv/Azhura3dv2.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/azhura3dv/Azhura3dv3.png?raw=true"]},
-    12:{t:"Arinda Food's Packaging Box Design — February 2025",d:"Proyek desain kemasan ini bertujuan memperkuat identitas brand Arinda Food melalui desain box yang menarik dan fungsional.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd1.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd2.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd3.png?raw=true"]}
+    12:{t:"Arinda Food's Packaging Box Design — February 2025",d:"Proyek desain kemasan ini bertujuan memperkuat identitas brand Arinda Food melalui desain box yang menarik dan fungsional.",imgs:["https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd1.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd2.png?raw=true","https://github.com/CrealivaBusiness/CrealivaBusiness.github.io/blob/main/arindafoodpd/arindafoodpd3.png?raw=true"]},
+	13:{t:"Perumahan Akselia Residence 2 - Mayenda's Project · Agustus 2026",d:"Proyek visualisasi 3D untuk Perumahan Akselia Residence 2 ini bertujuan menampilkan desain hunian secara realistis, membantu klien dan calon pembeli memahami tata letak serta estetika bangunan sebelum proses pembangunan dilakukan.",imgs:["https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Mayenda%201.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/Mayenda%202.jpg?raw=true","https://github.com/CrealivaPortfolio/CrealivaPortfolio.github.io/blob/main/before%20render.jpg?raw=true"]}
 	};
   showModal = function(id){
     var p=P[id]; if(!p) return;
@@ -3115,14 +3434,14 @@ function kirimPesanWhatsApp(){
       'portfolio.main': 'Personal', 'portfolio.accent': 'Portfolio',
       'portfolio.recent': 'Recent Projects',
       'portfolio.recent.desc': 'Let my latest projects inspire you. I\'m ready to collaborate and bring your next big idea to life.',
-      'portfolio.item1.p': '3D Visualization · June 2026',
-      'portfolio.item2.p': 'Layout Design · May 2025',
-      'portfolio.item3.p': 'Layout Design · March - April 2026',
-      'view.detail': 'View Detail →',
+      'portfolio.item1.p': '3D Visualization · August 2026',
+      'portfolio.item2.p': 'Layout Design · July 2026',
+      'portfolio.item3.p': '3D Visualization · June 2026',
+      'portfolio.item4.p': 'Layout Design · May 2025','view.detail': 'View Detail →',
       'allprojects.title': 'All Projects',
       'allprojects.desc': 'My complete collection of best works. Explore diverse projects across various industries showcasing the creative solutions I\'ve delivered for clients.',
       'allprojects.btn': 'View All Works',
-      'allprojects.item1.p': 'Poster Design · January 2026',
+      'allprojects.item1.p': 'Layout Design · March - April 2026',
       'allprojects.item2.p': 'Layout Design · October 2025',
       'video.main': 'Video', 'video.accent': 'Editing',
       'video.v1': 'Cardboard Chair Speedramp Transformation',
@@ -3159,14 +3478,14 @@ function kirimPesanWhatsApp(){
       'portfolio.main': 'Personal', 'portfolio.accent': 'Portofolio',
       'portfolio.recent': 'Proyek Terbaru',
       'portfolio.recent.desc': 'Biarkan proyek-proyek terbaru Saya menjadi sumber inspirasi bagi Kamu. Saya siap berkolaborasi untuk mewujudkan ide besar Kamu selanjutnya.',
-      'portfolio.item1.p': '3D Visualization · Juni 2026',
-      'portfolio.item2.p': 'Layout Design · Mei 2025',
-      'portfolio.item3.p': 'Layout Design · Maret - April 2026',
-      'view.detail': 'Lihat Detail →',
+      'portfolio.item2.p': '3D Visualization · Agustus 2026',
+      'portfolio.item1.p': 'Layout Design · Juli 2026',
+      'portfolio.item3.p': '3D Visualization · Juni 2026',
+      'portfolio.item4.p': 'Layout Design · Mei 2025','view.detail': 'Lihat Detail →',
       'allprojects.title': 'Proyek Keseluruhan',
       'allprojects.desc': 'Kumpulan lengkap karya terbaik Saya. Jelajahi beragam proyek dari berbagai industri yang menampilkan solusi kreatif yang telah Saya hadirkan untuk klien.',
       'allprojects.btn': 'Lihat Semua Karya',
-      'allprojects.item1.p': 'Poster Design · Januari 2026',
+      'allprojects.item1.p': 'Layout Design · Maret - April 2026',
       'allprojects.item2.p': 'Layout Design · Oktober 2025',
       'video.main': 'Video', 'video.accent': 'Editing',
       'video.v1': 'Speedramp Transformasi Kursi Kardus',
@@ -3214,7 +3533,7 @@ function kirimPesanWhatsApp(){
     ['#latest-projects .portfolio-item:nth-child(1) .item-overlay p', 'portfolio.item1.p', false],
     ['#latest-projects .portfolio-item:nth-child(2) .item-overlay p', 'portfolio.item2.p', false],
     ['#latest-projects .portfolio-item:nth-child(3) .item-overlay p', 'portfolio.item3.p', false],
-    ['.All-Project2 .category-title2',                         'allprojects.title',      false],
+    ['#latest-projects .portfolio-item:nth-child(4) .item-overlay p', 'portfolio.item4.p', false],['.All-Project2 .category-title2',                         'allprojects.title',      false],
     ['.All-Project2 .description-section2',                    'allprojects.desc',       false],
     ['#see-more-btn',                                          'allprojects.btn',        false],
     ['#all-projects .portfolio-item:nth-child(1) .portfolio-overlay p', 'allprojects.item1.p', false],
@@ -3311,6 +3630,29 @@ function kirimPesanWhatsApp(){
   });
 })();
 
+
+/* ─── WAVE & RISING ─── */
+(function(){
+  var wrap = document.getElementById('htParticles');
+  if(!wrap) return;
+  var count = 22;
+  for(var i=0;i<count;i++){
+    var dot = document.createElement('div');
+    dot.className = 'ht-dot';
+    var left = Math.random()*100;
+    var duration = 4.5 + Math.random()*5;
+    var delay = Math.random()*6;
+    var size = 2 + Math.random()*3;
+    dot.style.left = left + '%';
+    dot.style.width = size + 'px';
+    dot.style.height = size + 'px';
+    dot.style.animationDuration = duration + 's';
+    dot.style.animationDelay = '-' + delay + 's';
+    wrap.appendChild(dot);
+  }
+})();
+
+
 </script>
 
 <!-- FLOATING WHATSAPP BUTTON -->
@@ -3360,8 +3702,8 @@ function kirimPesanWhatsApp(){
 }
 
 @keyframes cursorGlowPulse {
-  0%, 100% { transform: scale(1);    filter: brightness(1)   blur(6px); }
-  50%      { transform: scale(1.15); filter: brightness(1.55) blur(4px); }
+  0%, 100% { transform: scale(1);    filter: brightness(1)   blur(16px); }
+  50%      { transform: scale(1.15); filter: brightness(1.55) blur(12px); }
 }
 
 @media (hover: none) and (pointer: coarse) {
@@ -3405,5 +3747,172 @@ function kirimPesanWhatsApp(){
 })();
 </script>
 	
+
+<script>
+(function(){
+  var works = [
+    { tag:'3D Visualization', title:'Rental Office Building', img: 'Gedung Vincent 1.jpg' },
+    { tag:'Poster Design', title:'Citra Kuliner Campaign', img: 'Citra Kuliner\'s E-Commerce.jpg' },
+    { tag:'Layout Design', title:'Instagram Feeds Arinda', img: 'Pesan Menu Ini Aja.jpg' },
+    { tag:'Interior Render', title:"Azzhura's Project", img: 'Cover Project/coverazhura3dv.png' },
+    { tag:'3D Model', title:'Mechanical Spider', img: 'Cover Project/Thumbnail Mechanical Spider.jpg' },
+    { tag:'Packaging', title:'Arinda Food Box', img: 'Cover Project/coverarindafoodpd.png' },
+    { tag:'Web Design', title:'Arinda Food Website', img: 'Cover Project/WebAF.jpg' },
+    { tag:'3D Visualization', title:'Poliklinik Render', img: 'Cover Project/ensrenindah.jpg' },
+    { tag:'Video Editing', title:'Speedramp Kursi Kardus', img: 'Cover Project/Speed Ramp Kursi.png' },
+    { tag:'Layout Design', title:'Marketplace Citra Kuliner', img: 'Cover Project/citrakulinermldcitrakulinermld.jpg' },
+    { tag:'Product Render', title:'Tote Bag Mockup', img: 'totbagcrealiva.jpg' },
+    { tag:'Graphic Design', title:'Gift Card Design', img: 'giftcardcrealiva.jpg' }
+  ];
+
+  var cylinder = document.getElementById('pgCylinder');
+  var stage = document.getElementById('pgStage');
+  if(!cylinder || !stage) return;
+
+  function getConfig(){
+    var w = window.innerWidth;
+    if(w >= 1024){
+      return { lw:300, lh:200, pw:280, ph:420, gap:16, ringGap:90, slots:20 };
+    }
+    if(w >= 640){
+      return { lw:230, lh:155, pw:210, ph:320, gap:14, ringGap:65, slots:8 };
+    }
+    return { lw:158, lh:106, pw:148, ph:222, gap:10, ringGap:34, slots:8 };
+  }
+
+  var rotY = 0;
+  var targetRotY = 0;
+  var currentRadius = 0;
+
+  function buildRing(){
+    cylinder.innerHTML = '';
+    var cfg = getConfig();
+    var wi = 0;
+    function nextWork(){ var w = works[wi % works.length]; wi++; return w; }
+
+    var avgW = (cfg.lw + cfg.pw) / 2;
+    var angleStep = 360 / cfg.slots;
+    var radius = (avgW + cfg.ringGap) / (2 * Math.tan(Math.PI / cfg.slots));
+
+    function makePanel(w, w_px, h_px, offsetLeft, offsetTop){
+      var div = document.createElement('div');
+      div.className = 'pg-panel';
+      div.style.width = w_px + 'px';
+      div.style.height = h_px + 'px';
+      div.style.left = offsetLeft + 'px';
+      div.style.top = offsetTop + 'px';
+      div.innerHTML =
+        '<img src="' + w.img + '" alt="' + w.title + '" loading="lazy">' +
+        '<div class="pg-panel-inner">' +
+          '<span class="pg-tag">' + w.tag + '</span>' +
+          '<h3>' + w.title + '</h3>' +
+        '</div>';
+      return div;
+    }
+
+    for(var i = 0; i < cfg.slots; i++){
+      var type = i % 2 === 0 ? 'stack' : 'tall';
+      var group = document.createElement('div');
+      group.className = 'pg-cluster';
+      group.style.transform = 'rotateY(' + (i * angleStep) + 'deg) translateZ(' + radius + 'px)';
+
+      if(type === 'tall'){
+        var w1 = nextWork();
+        group.appendChild(makePanel(w1, cfg.pw, cfg.ph, -cfg.pw/2, -cfg.ph/2));
+      } else {
+        var w2 = nextWork();
+        var w3 = nextWork();
+        group.appendChild(makePanel(w2, cfg.lw, cfg.lh, -cfg.lw/2, -(cfg.lh+cfg.gap/2)));
+        group.appendChild(makePanel(w3, cfg.lw, cfg.lh, -cfg.lw/2, cfg.gap/2));
+      }
+      cylinder.appendChild(group);
+    }
+
+    currentRadius = radius;
+  }
+
+  buildRing();
+
+  var dragging = false;
+  var startX = 0;
+  var startRotY = 0;
+  var autoRotate = true;
+  var autoSpeed = 0.045;
+
+  function render(){
+    if(autoRotate && !dragging){
+      targetRotY -= autoSpeed;
+    }
+    rotY += (targetRotY - rotY) * 0.12;
+    cylinder.style.transform = 'translateZ(-' + currentRadius + 'px) rotateY(' + rotY + 'deg)';
+    requestAnimationFrame(render);
+  }
+
+  function pointerDown(x){
+    dragging = true;
+    autoRotate = false;
+    startX = x;
+    startRotY = targetRotY;
+    stage.style.cursor = 'grabbing';
+  }
+  function pointerMove(x){
+    if(!dragging) return;
+    var dx = x - startX;
+    targetRotY = startRotY + dx * 0.25;
+  }
+  function pointerUp(){
+    dragging = false;
+    stage.style.cursor = 'grab';
+    setTimeout(function(){ autoRotate = true; }, 2200);
+  }
+
+  stage.addEventListener('mousedown', function(e){ pointerDown(e.clientX); });
+  window.addEventListener('mousemove', function(e){ pointerMove(e.clientX); });
+  window.addEventListener('mouseup', pointerUp);
+
+  var touchStartX = 0, touchStartY = 0, touchIntent = null;
+
+  stage.addEventListener('touchstart', function(e){
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchIntent = null;
+    autoRotate = false;
+    startRotY = targetRotY;
+  }, {passive:true});
+
+  stage.addEventListener('touchmove', function(e){
+    var dx = e.touches[0].clientX - touchStartX;
+    var dy = e.touches[0].clientY - touchStartY;
+
+    if(touchIntent === null){
+      if(Math.abs(dx) > 8 || Math.abs(dy) > 8){
+        touchIntent = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
+        if(touchIntent === 'horizontal') dragging = true;
+      }
+    }
+
+    if(touchIntent === 'horizontal'){
+      e.preventDefault();
+      targetRotY = startRotY + dx * 0.25;
+    }
+  }, {passive:false});
+
+  stage.addEventListener('touchend', function(){
+    dragging = false;
+    touchIntent = null;
+    setTimeout(function(){ autoRotate = true; }, 2200);
+  });
+
+  var pgResizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(pgResizeTimer);
+    pgResizeTimer = setTimeout(buildRing, 200);
+  });
+
+  requestAnimationFrame(render);
+})();
+</script>
+
+
 </body>
 </html>
