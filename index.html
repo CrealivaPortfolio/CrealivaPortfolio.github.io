@@ -542,89 +542,59 @@ img { display:block; max-width:100%; }
 /* ═══ CITRA KULINER CAROUSEL ═══ */
 
 
-.ck-section {
-  position:relative; width:100%; padding:80px 0; overflow:hidden;
-  background:transparent;
+/* ═══ POSTER ADS SHOWCASE (auto-rotating stack) ═══ */
+.ps-section{ padding:120px 0 100px; background:transparent; position:relative; }
+.ps-grid{ display:grid; grid-template-columns:1fr 1.15fr; gap:56px; align-items:center; }
+.ps-info{ text-align:left; }
+.ps-label{ display:block; font-family:'Poppins',sans-serif; font-size:clamp(30px,4vw,44px); font-weight:700; color:#fff; line-height:1; margin-bottom:2px; }
+.ps-script{ display:block; font-family:'Kalam',cursive; font-size:clamp(34px,5vw,58px); font-weight:700; line-height:1.05; margin-bottom:22px; transform:rotate(-5deg); transform-origin:left center;
+  background:linear-gradient(135deg,#60a5fa 0%,#1A6FFF 55%,#0043C7 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  filter:drop-shadow(0 0 10px rgba(26,111,255,.4));
 }
-.ck-section::before {
-  content:'';
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  background-image:linear-gradient(rgba(26,111,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(26,111,255,.05) 1px,transparent 1px);
-  background-size:60px 60px;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 15%,
-    black 85%,
-    transparent 100%
-  ),
-  linear-gradient(
-    to right,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 15%,
-    black 85%,
-    transparent 100%
-  ),
-  linear-gradient(
-    to right,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  mask-composite: intersect;
+.ps-desc{ font-size:.93rem; color:var(--ink-2); line-height:1.75; max-width:400px; margin-bottom:28px; }
+.ps-dots{ display:flex; gap:8px; }
+.ps-dot{ width:8px; height:8px; border-radius:4px; background:rgba(255,255,255,.15); border:none; cursor:pointer; transition:all .3s var(--ease); padding:0; }
+.ps-dot.ps-dot-active{ background:var(--blue-bright); width:24px; }
+
+.ps-stack-wrap{ position:relative; display:flex; flex-direction:column; align-items:flex-end; }
+.ps-brand-tag{ font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2); margin-bottom:16px; }
+.ps-brand-tag em{ font-style:normal; color:var(--blue-bright); }
+.ps-stack{ position:relative; width:100%; max-width:340px; height:420px; }
+.ps-card{ position:absolute; top:0; left:50%; width:78%; aspect-ratio:3/4; border-radius:var(--radius-md); overflow:hidden; background:#0d1a2e; border:1px solid rgba(26,111,255,.15); box-shadow:var(--shadow-sm); cursor:pointer;
+  transition:transform .6s var(--ease-spring), opacity .5s var(--ease), filter .5s var(--ease), box-shadow .5s var(--ease); }
+.ps-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+.ps-card.ps-active{ transform:translateX(-50%) scale(1) rotate(0deg); opacity:1; filter:none; box-shadow:0 24px 60px rgba(0,0,0,.55); z-index:3; }
+.ps-card.ps-prev{ transform:translateX(-95%) scale(.84) rotate(-8deg); opacity:.55; filter:brightness(.65); z-index:2; }
+.ps-card.ps-next{ transform:translateX(-5%) scale(.84) rotate(8deg); opacity:.55; filter:brightness(.65); z-index:2; }
+.ps-card.ps-hidden{ transform:translateX(-50%) scale(.7); opacity:0; z-index:1; pointer-events:none; }
+
+.ps-ig-bar{ position:relative; display:flex; justify-content:center; margin-top:40px; }
+.ps-ig-inner{ display:flex; align-items:center; justify-content:space-between; width:clamp(300px,88%,460px); background:rgba(255,255,255,.05); backdrop-filter:blur(12px); border:1px solid rgba(26,111,255,.2); border-radius:60px; padding:14px 28px; box-shadow:var(--shadow-md); }
+.ps-ig-left{ display:flex; align-items:center; gap:24px; }
+.ps-ig-btn{ background:none; border:none; cursor:pointer; padding:6px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:transform .2s var(--ease-spring), background .2s; }
+.ps-ig-btn:hover{ transform:scale(1.2); background:rgba(255,255,255,.08); }
+.ps-ig-btn svg{ width:28px; height:28px; stroke:rgba(255,255,255,.7); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; display:block; transition:stroke .2s, fill .2s; }
+.ps-ig-btn.ps-liked svg{ fill:#e0192a!important; stroke:#e0192a!important; }
+@keyframes ps-heart-pop{ 0%{transform:scale(1)} 40%{transform:scale(1.5)} 70%{transform:scale(.9)} 100%{transform:scale(1)} }
+.ps-ig-btn.ps-pop{ animation:ps-heart-pop .4s var(--ease-spring) forwards; }
+.ps-ig-btn.ps-saved svg{ fill:rgba(255,255,255,.7)!important; }
+
+@media(max-width:900px){
+  .ps-grid{ grid-template-columns:1fr; gap:36px; }
+  .ps-info{ text-align:center; }
+  .ps-script{ transform-origin:center; }
+  .ps-desc{ margin-left:auto; margin-right:auto; }
+  .ps-dots{ justify-content:center; }
+  .ps-stack-wrap{ align-items:center; }
+  .ps-stack-wrap .ps-brand-tag{ text-align:center; }
+  .ps-stack{ max-width:280px; height:360px; margin:0 auto; }
+}
+@media(max-width:768px){
+  .ps-section{ padding:70px 0 56px; }
+  .ps-stack{ max-width:250px; height:320px; }
 }
 
-
-
-
-.ck-section::after { content:''; position:absolute; inset:0; background:none); pointer-events:none; z-index:0; }
-.ck-head { position:relative; z-index:2; display:flex; justify-content:space-between; align-items:flex-start; max-width:1100px; margin:0 auto 52px; padding:0 48px; }
-.ck-head-block { line-height:1; }
-.ck-head-block.ck-right { text-align:right; }
-.ck-label  { display:block; font-family:'Poppins',sans-serif; font-size:clamp(28px,3.5vw,40px); font-weight:700; color:#fff; margin-bottom:4px; }
-.ck-script { display:block; font-family:'Kalam',cursive; font-size:clamp(30px,4.5vw,52px); font-weight:700; background:linear-gradient(135deg,#60a5fa 0%,#1A6FFF 55%,#0043C7 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 10px rgba(26,111,255,.45)); line-height:1.05; transform:rotate(-5deg); }
-.ck-arrow-hint { display:block; margin-top:10px; width:48px; height:24px; position:relative; opacity:.35; }
-.ck-arrow-hint::before { content:''; position:absolute; left:0; top:8px; width:36px; border-top:2px dashed var(--blue-bright); }
-.ck-arrow-hint::after  { content:''; position:absolute; right:4px; top:3px; width:10px; height:10px; border-right:2px dashed var(--blue-bright); border-bottom:2px dashed var(--blue-bright); transform:rotate(45deg); }
-.ck-outer  { position:relative; z-index:2; width:100%; overflow:visible; padding:28px 0 44px; }
-.ck-track  { display:flex; align-items:center; gap:20px; will-change:transform; }
-.ck-item { flex:0 0 auto; width:auto; height:420px; border-radius:var(--radius-md); overflow:hidden; cursor:pointer; position:relative; transition:transform .45s var(--ease), opacity .45s var(--ease), filter .45s var(--ease), box-shadow .45s var(--ease); transform:scale(.78) translateY(20px); opacity:.4; filter:blur(2px) brightness(.55); box-shadow:var(--shadow-sm); z-index:1; background:#0d1a2e; }
-.ck-item img { width:auto; height:100%; object-fit:contain; object-position:center; display:block; max-width:none; }
-.ck-item.ck-active { transform:scale(1) translateY(0); opacity:1; filter:none; box-shadow:0 24px 60px rgba(0,0,0,.6); z-index:10; }
-.ck-item.ck-near   { transform:scale(.84) translateY(14px); opacity:.6; filter:blur(1px) brightness(.7); z-index:5; }
-.ck-item.ck-far    { transform:scale(.66) translateY(28px); opacity:.22; filter:blur(3px) brightness(.45); z-index:1; }
-@media(hover:hover){ .ck-item.ck-active:hover { transform:scale(1.03) translateY(-5px); box-shadow:0 40px 80px rgba(0,0,0,.7); } }
-.ck-arrow { position:absolute; top:50%; transform:translateY(-50%); z-index:20; width:48px; height:48px; border-radius:50%; border:1px solid rgba(26,111,255,.3); background:rgba(26,111,255,.12); backdrop-filter:blur(8px); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-md); color:#fff; transition:all .25s var(--ease); }
-.ck-arrow:hover { background:var(--blue); transform:translateY(-50%) scale(1.1); box-shadow:var(--shadow-blue); border-color:var(--blue); }
-.ck-arrow.ck-prev { left:clamp(12px,3vw,36px); }
-.ck-arrow.ck-next { right:clamp(12px,3vw,36px); }
-.ck-arrow svg { width:20px; height:20px; stroke:#fff; stroke-width:2.2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
-.ck-dots { position:relative; z-index:2; display:flex; justify-content:center; gap:8px; margin-top:32px; }
-.ck-dot  { width:8px; height:8px; border-radius:4px; background:rgba(255,255,255,.15); cursor:pointer; border:none; transition:all .3s var(--ease); }
-.ck-dot.ck-dot-active { background:var(--blue-bright); width:24px; }
-.ck-ig-bar   { position:relative; z-index:2; display:flex; justify-content:center; margin-top:36px; }
-.ck-ig-inner { display:flex; align-items:center; justify-content:space-between; width:clamp(300px,88%,460px); background:rgba(255,255,255,.05); backdrop-filter:blur(12px); border:1px solid rgba(26,111,255,.2); border-radius:60px; padding:14px 28px; box-shadow:var(--shadow-md); }
-.ck-ig-left  { display:flex; align-items:center; gap:24px; }
-.ck-ig-btn   { background:none; border:none; cursor:pointer; padding:6px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:transform .2s var(--ease-spring), background .2s; }
-.ck-ig-btn:hover  { transform:scale(1.2); background:rgba(255,255,255,.08); }
-.ck-ig-btn:active { transform:scale(.9); }
-.ck-ig-btn svg { width:28px; height:28px; stroke:rgba(255,255,255,.7); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; display:block; transition:stroke .2s, fill .2s; }
-.ck-ig-btn.ck-liked svg { fill:#e0192a!important; stroke:#e0192a!important; }
-@keyframes ck-heart-pop { 0%{transform:scale(1)} 40%{transform:scale(1.5)} 70%{transform:scale(.9)} 100%{transform:scale(1)} }
-.ck-ig-btn.ck-pop  { animation:ck-heart-pop .4s var(--ease-spring) forwards; }
-.ck-ig-btn.ck-saved svg { fill:rgba(255,255,255,.7)!important; }
 
 /* ═══ PORTFOLIO ═══ */
 .portfolio { padding:120px 0 100px; background:transparent; position:relative; overflow:hidden; }
@@ -682,26 +652,180 @@ img { display:block; max-width:100%; }
 #pano { width:100%; height:100%; }
 #pano-icon { position:absolute; right:16px; bottom:16px; width:42px; height:42px; opacity:.7; z-index:10; pointer-events:none; }
 
-/* ═══ VIDEO ═══ */
-.video-section { padding:100px 8%; background:transparent; }
+/* ═══ VIDEO EDITING ═══ */
+.video-section { padding:100px 0 80px; background:transparent; }
 .video-section .section-title-wrap { margin-bottom:0; }
-.video-row { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-bottom:48px; }
-.video-item { display:flex; flex-direction:column; gap:14px; }
-.video-item h3 { font-size:.95rem; font-weight:600; color:var(--ink); line-height:1.4; }
-.video-thumb { display:block; border-radius:var(--radius-md); overflow:hidden; position:relative; box-shadow:var(--shadow-sm); border:1px solid rgba(26,111,255,.1); transition:transform var(--dur) var(--ease-spring), box-shadow var(--dur) var(--ease), border-color var(--dur); }
-.video-thumb:hover { transform:translateY(-6px) scale(1.01); box-shadow:var(--shadow-lg); border-color:rgba(26,111,255,.35); }
-.video-thumb img { width:100%; display:block; object-fit:cover; transition:transform .5s var(--ease); }
-.video-thumb.portrait  img { aspect-ratio:9/16; }
-.video-thumb.landscape img { aspect-ratio:16/9; }
-.video-thumb:hover img { transform:scale(1.06); }
-.video-thumb::after { content:""; position:absolute; inset:0; background:linear-gradient(rgba(0,0,0,.08),rgba(0,0,0,.4)); transition:background .35s; }
-.video-thumb:hover::after { background:linear-gradient(rgba(0,0,0,.04),rgba(0,0,0,.5)); }
-.play-btn { position:absolute; top:50%; left:50%; z-index:2; width:60px; height:42px; background:#ff0000; border-radius:10px; transform:translate(-50%,-50%); transition:transform var(--dur) var(--ease-spring), box-shadow var(--dur); box-shadow:0 4px 20px rgba(255,0,0,.45); }
-.play-btn::before { content:""; position:absolute; top:50%; left:52%; transform:translate(-50%,-50%); border-style:solid; border-width:10px 0 10px 16px; border-color:transparent transparent transparent #fff; }
-.video-thumb:hover .play-btn { transform:translate(-50%,-50%) scale(1.14); box-shadow:0 8px 32px rgba(255,0,0,.65); }
-.reels-icon { position:absolute; top:50%; left:50%; z-index:2; width:56px; height:56px; background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5); border-radius:16px; transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.4); transition:transform var(--dur) var(--ease-spring); }
-.reels-icon::after { content:""; border-style:solid; border-width:9px 0 9px 15px; border-color:transparent transparent transparent #fff; }
-.video-thumb:hover .reels-icon { transform:translate(-50%,-50%) scale(1.14); }
+
+/* Tabs */
+.vs-tabs { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:0 auto 40px; padding:0 16px; }
+.vs-tab {
+  padding:9px 22px; border-radius:var(--radius-xl);
+  border:1px solid rgba(26,111,255,.3); background:rgba(26,111,255,.08);
+  color:rgba(255,255,255,.6); font-family:'Poppins',sans-serif; font-size:.82rem; font-weight:600;
+  cursor:pointer; transition:all .3s var(--ease);
+}
+.vs-tab:hover { background:rgba(26,111,255,.2); border-color:rgba(26,111,255,.5); color:#fff; }
+.vs-tab.active { background:var(--grad-blue); border-color:transparent; color:#fff; box-shadow:var(--shadow-blue); }
+
+/* Group */
+.vs-group[hidden] { display:none; }
+.vs-group + .vs-group { margin-top:56px; }
+.vs-sub {
+  display:none; text-align:center; margin:0 0 14px;
+  font-size:.74rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3);
+}
+.vs-all .vs-sub { display:block; }
+
+/* Track dasar (short & long) */
+.vs-wrap { position:relative; }
+.vs-track {
+  --vs-w:220px;
+  display:flex; align-items:center; gap:18px;
+  overflow-x:auto; overflow-y:hidden;
+  scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain;
+  padding:14px calc(50% - var(--vs-w) / 2) 22px;
+  scrollbar-width:none; cursor:grab;
+}
+.vs-track::-webkit-scrollbar { display:none; }
+.vs-track.dragging { scroll-snap-type:none; scroll-behavior:auto; cursor:grabbing; }
+.vs-track.dragging .vs-card { pointer-events:none; }
+
+/* Long form: grid 2 baris */
+.vs-track-long {
+  --vl-w:480px;
+  display:grid;
+  grid-auto-flow:column;
+  grid-template-rows:repeat(2, auto);
+  grid-auto-columns:var(--vl-w);
+  gap:18px;
+  align-items:start;
+  padding:14px calc(50% - var(--vl-w) / 2) 22px;
+}
+
+/* Card */
+.vs-card {
+  position:relative; flex:0 0 auto; scroll-snap-align:center;
+  border:1px solid rgba(26,111,255,.15); border-radius:var(--radius-lg);
+  overflow:hidden; background:#0d1a2e; padding:0; cursor:pointer;
+  box-shadow:var(--shadow-sm); color:#fff; text-align:left; font-family:inherit;
+  user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent;
+  transition:transform .4s var(--ease-spring), box-shadow .4s var(--ease), border-color .4s var(--ease);
+  animation:vsIn .5s var(--ease) both;
+}
+.vs-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-lg); border-color:rgba(26,111,255,.4); }
+.vs-short { width:var(--vs-w); aspect-ratio:9/16; }
+.vs-long  { width:100%; aspect-ratio:16/9; }
+.vs-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); pointer-events:none; }
+.vs-card:hover img { transform:scale(1.06); }
+.vs-card::before {
+  content:''; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to top, rgba(11,17,32,.95) 0%, rgba(11,17,32,.35) 45%, transparent 75%);
+}
+.vs-badge {
+  position:absolute; top:12px; left:12px; z-index:2;
+  padding:3px 10px; border-radius:20px; font-size:.64rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  background:rgba(11,17,32,.7); backdrop-filter:blur(6px); border:1px solid rgba(61,142,255,.4); color:#9cc4ff;
+}
+.vs-play {
+  position:absolute; top:50%; left:50%; z-index:2; width:56px; height:56px; border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(26,111,255,.85); backdrop-filter:blur(6px);
+  box-shadow:0 8px 28px rgba(26,111,255,.5);
+  transition:transform .35s var(--ease-spring);
+}
+.vs-play::after {
+  content:''; position:absolute; top:50%; left:54%; transform:translate(-50%,-50%);
+  border-style:solid; border-width:9px 0 9px 15px; border-color:transparent transparent transparent #fff;
+}
+.vs-card:hover .vs-play { transform:translate(-50%,-50%) scale(1.12); }
+.vs-title { position:absolute; left:14px; right:14px; bottom:14px; z-index:2; font-size:.88rem; font-weight:600; line-height:1.35; }
+.vs-long .vs-title { font-size:.95rem; }
+@keyframes vsIn { from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none} }
+
+/* Arrows (desktop saja) */
+.vs-arrow {
+  position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+  width:46px; height:46px; border-radius:50%; cursor:pointer;
+  background:rgba(22,32,53,.85); border:1px solid rgba(26,111,255,.3); color:#fff; font-size:18px;
+  backdrop-filter:blur(8px); transition:all .25s var(--ease-spring);
+}
+.vs-arrow:hover { background:var(--blue); transform:translateY(-50%) scale(1.1); }
+.vs-prev { left:max(12px, calc(50vw - 420px)); }
+.vs-next { right:max(12px, calc(50vw - 420px)); }
+@media (hover:none), (max-width:768px){ .vs-arrow { display:none; } }
+
+/* Dots */
+.vs-dots { display:flex; justify-content:center; gap:7px; margin-top:6px; }
+.vs-dot { width:7px; height:7px; border-radius:4px; background:rgba(255,255,255,.18); transition:all .3s var(--ease); }
+.vs-dot.active { width:22px; background:var(--blue-bright); }
+
+/* Player modal */
+.vs-modal {
+  position:fixed; inset:0; z-index:2100; display:flex; align-items:center; justify-content:center;
+  padding:20px; background:rgba(5,9,20,.94); backdrop-filter:blur(12px);
+  opacity:0; visibility:hidden; transition:opacity .3s var(--ease), visibility .3s var(--ease);
+}
+.vs-modal.show { opacity:1; visibility:visible; }
+.vs-modal-inner { position:relative; max-width:min(96vw, 1100px); max-height:88vh; display:flex; flex-direction:column; align-items:center; gap:12px; }
+/* Frame player (embed YouTube / Instagram) */
+.vs-frame {
+  width:min(92vw, 1000px);
+  aspect-ratio:16/9;                                /* default: long form */
+  border-radius:var(--radius-md); overflow:hidden;
+  background:#000; box-shadow:0 30px 80px rgba(0,0,0,.7);
+}
+.vs-frame.is-short {                                /* short form 9:16 */
+  width:auto; height:min(78vh, 720px); max-width:92vw;
+  aspect-ratio:9/16;
+}
+.vs-frame.is-ig {                                   /* Instagram Reels */
+  width:min(92vw, 400px); height:min(80vh, 640px);
+  aspect-ratio:auto; background:#fff;
+}
+.vs-frame iframe { width:100%; height:100%; border:0; display:block; }
+.vs-modal video { max-width:100%; max-height:78vh; border-radius:var(--radius-md); background:#000; }
+
+
+.vs-modal-title { font-size:.92rem; font-weight:600; color:#fff; text-align:center; }
+.vs-close {
+  position:absolute; top:-6px; right:-6px; transform:translate(0,-100%);
+  width:40px; height:40px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(255,255,255,.1); color:#fff; font-size:24px; line-height:1;
+}
+.vs-close:hover { background:rgba(26,111,255,.5); }
+
+/* Mobile */
+@media (max-width:768px){
+  .video-section { padding:60px 0 50px; }
+  .vs-tabs { margin-bottom:26px; gap:8px; }
+  .vs-tab { padding:8px 16px; font-size:.76rem; }
+  .vs-track { --vs-w:min(62vw, 240px); gap:14px; }
+  .vs-track-long { --vl-w:min(84vw, 420px); gap:14px; }
+  .vs-close { top:8px; right:8px; transform:none; z-index:3; background:rgba(0,0,0,.55); }
+}
+
+/* ═══ FIX: panah video di luar frame kartu (desktop) ═══ */
+@media (min-width:769px){
+  .vs-wrap{ padding:0 72px; }
+  .vs-prev{ left:50px; }
+  .vs-next{ right:50px; }
+}
+
+/* Desktop: kartu sedikit → di tengah layar. Kartu banyak → mulai dari kiri & bisa digeser */
+@media (min-width:769px){
+  .vs-track:not(.vs-track-long){
+    padding:14px 24px 22px;
+  }
+  .vs-track:not(.vs-track-long) > .vs-card:first-child{ margin-left:auto; }
+  .vs-track:not(.vs-track-long) > .vs-card:last-child{ margin-right:auto; }
+
+  .vs-track-long{
+    padding:14px 24px 22px;
+    justify-content:safe center;
+  }
+}
+
 
 /* ═══ GALLERY ═══ */
 .gallery-section { padding:100px 0 80px; background:transparent; }
@@ -1231,138 +1355,7 @@ body.modal-open { overflow:hidden; }
     font-size: .78rem;
   }
 }
-/* ═══ FIX: CK carousel mobile ═══ */
-@media(max-width:768px) {
-  .ck-section {
-    padding: 48px 0;
-  }
 
-  .ck-outer {
-    padding: 16px 0 32px;
-  }
-
-  .ck-item {
-    height: 340px;
-    width: 260px;
-  }
-
-  .ck-item img {
-    height: 340px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .ck-arrow {
-    width: 36px;
-    height: 36px;
-    top: 50%;
-    z-index: 20;
-  }
-
-  .ck-arrow.ck-prev {
-    left: 4px;
-  }
-
-  .ck-arrow.ck-next {
-    right: 4px;
-  }
-
-  .ck-arrow svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .ck-head {
-    padding: 0 16px;
-    margin-bottom: 24px;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .ck-head-block.ck-right {
-    text-align: left;
-  }
-
-  .ck-ig-inner {
-    width: calc(100% - 32px);
-    padding: 12px 20px;
-  }
-}
-
-/* ═══ FIX: CK carousel mobile v2 ═══ */
-@media(max-width:768px) {
-  .ck-section {
-    padding: 48px 0;
-  }
-
-  .ck-head {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0 16px;
-    margin-bottom: 24px;
-    gap: 0;
-  }
-
-  .ck-head-block.ck-right {
-    text-align: right;
-  }
-
-  .ck-label {
-    font-size: clamp(16px, 4vw, 22px);
-  }
-
-  .ck-script {
-    font-size: clamp(18px, 5vw, 28px);
-  }
-
-  .ck-outer {
-    padding: 16px 0 32px;
-    position: relative;
-  }
-
-  .ck-item {
-    height: 320px;
-    width: 240px;
-  }
-
-  .ck-item img {
-    height: 320px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .ck-arrow {
-    position: absolute !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: 36px !important;
-    height: 36px !important;
-    z-index: 20 !important;
-  }
-
-  .ck-arrow:hover {
-    transform: translateY(-50%) scale(1.1) !important;
-  }
-
-  .ck-arrow.ck-prev {
-    left: 6px !important;
-  }
-
-  .ck-arrow.ck-next {
-    right: 6px !important;
-  }
-
-  .ck-arrow svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .ck-ig-inner {
-    width: calc(100% - 32px);
-    padding: 12px 20px;
-  }
-}
 
 /* ═══ INSTAGRAM POST DESIGN SECTION ═══ */
 .igpost-section {
@@ -2561,38 +2554,35 @@ body.modal-open { overflow:hidden; }
 
 
 <!-- CITRA KULINER CAROUSEL -->
-<section class="ck-section">
-  <div class="ck-head">
-    <div class="ck-head-block">
-      <span class="ck-label">Graphic Design</span>
-      <span class="ck-script">PosterAds</span>
-      <span class="ck-arrow-hint" aria-hidden="true"></span>
-    </div>
-    <div class="ck-head-block ck-right">
-      <span class="ck-label">Citra Kuliner</span>
-      <span class="ck-script">Brand</span>
-    </div>
-  </div>
-  <div class="ck-outer" id="ckOuter">
-    <button class="ck-arrow ck-prev" id="ckPrev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <div class="ck-track" id="ckTrack">
-      <div class="ck-item"><img src="posteradsimg/Catering Harian Kota Tangerang Selatan.png" alt="Poster 1"></div>
-      <div class="ck-item"><img src="posteradsimg/Long Kue Tampah Citra Kuliner 2.png"         alt="Poster 2"></div>
-      <div class="ck-item"><img src="posteradsimg/Promo Tumpeng April Combo Citra Kuliner.png" alt="Poster 3"></div>
-      <div class="ck-item"><img src="posteradsimg/Testing Iklan Prasmanan Halal Bihalal.png"   alt="Poster 4"></div>
-      <div class="ck-item"><img src="posteradsimg/Tumpeng Gratis Ongkir Citra Kuliner.png"     alt="Poster 5"></div>
-    </div>
-    <button class="ck-arrow ck-next" id="ckNext" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-  </div>
-  <div class="ck-dots" id="ckDots"></div>
-  <div class="ck-ig-bar">
-    <div class="ck-ig-inner">
-      <div class="ck-ig-left">
-        <button class="ck-ig-btn" id="ckLike" aria-label="Like"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        <button class="ck-ig-btn" aria-label="Comment"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
-        <button class="ck-ig-btn" aria-label="Share"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+<section class="ps-section">
+  <div class="container">
+    <div class="ps-grid">
+      <div class="ps-info reveal">
+        <span class="ps-label">Graphic Design</span>
+        <span class="ps-script">PosterAds</span>
+        <p class="ps-desc">Desain promosi harian untuk Citra Kuliner — dari feed sosial media sampai media cetak, dikerjakan cepat tanpa mengorbankan konsistensi identitas brand.</p>
+        <div class="ps-dots" id="psDots"></div>
       </div>
-      <button class="ck-ig-btn" id="ckSave" aria-label="Save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
+      <div class="ps-stack-wrap reveal" style="transition-delay:.15s">
+        <span class="ps-brand-tag">Citra Kuliner · <em>Brand</em></span>
+        <div class="ps-stack" id="psStack">
+          <div class="ps-card"><img src="desain iklan promo citra kuliner.png" alt="Poster 1"></div>
+          <div class="ps-card"><img src="Design Catering Harian Citra Kuliner.png" alt="Poster 2"></div>
+          <div class="ps-card"><img src="Long Kue Tampah Citra Kuliner 2.png" alt="Poster 3"></div>
+          <div class="ps-card"><img src="Tumpeng Gratis Ongkir Citra Kuliner.png" alt="Poster 4"></div>
+          <div class="ps-card"><img src="Catering Harian Kota Tangerang Selatan.png" alt="Poster 5"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ps-ig-bar">
+      <div class="ps-ig-inner">
+        <div class="ps-ig-left">
+          <button class="ps-ig-btn" id="psLike" aria-label="Like"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <button class="ps-ig-btn" aria-label="Comment"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+          <button class="ps-ig-btn" aria-label="Share"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        </div>
+        <button class="ps-ig-btn" id="psSave" aria-label="Save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
+      </div>
     </div>
   </div>
 </section>
@@ -2695,43 +2685,52 @@ body.modal-open { overflow:hidden; }
   </div>
 </div>
 
-<!-- VIDEO -->
-<section class="video-section">
+<!-- VIDEO EDITING -->
+<section class="video-section vs-all" id="video-section">
   <div class="section-title-wrap">
     <h2 class="section-title reveal">
       <span class="main">Video</span>
       <span class="accent">Editing</span>
     </h2>
   </div>
-  <div class="video-row portrait-row">
-    <div class="video-item">
-      <h3>Speedramp Transformasi Kursi Kardus</h3>
-      <a href="https://youtube.com/shorts/-4uSl3Tc4Us" target="_blank" class="video-thumb portrait"><img src="Cover Project/Speed Ramp Kursi.png" alt=""><span class="play-btn"></span></a>
-    </div>
-    <div class="video-item">
-      <h3>Tumpeng Ads Video For Citra Kuliner</h3>
-      <a href="https://youtube.com/shorts/2RVxAmBif5c" target="_blank" class="video-thumb portrait"><img src="Cover Project/Thumbnail Ads Tumpeng Citra Kuliner.png" alt=""><span class="play-btn"></span></a>
-    </div>
-    <div class="video-item">
-      <h3>Mechanical Spider 3D Model &amp; Render</h3>
-      <a href="https://www.instagram.com/p/C6OLi9ivT2I/" target="_blank" class="video-thumb portrait"><img src="Cover Project/Thumbnail Mechanical Spider.jpg" alt=""><span class="reels-icon"></span></a>
-    </div>
+
+  <div class="vs-tabs reveal" id="vsTabs" role="tablist">
+    <button class="vs-tab active" data-filter="all"   role="tab">Semua</button>
+    <button class="vs-tab"        data-filter="short" role="tab">Short Form</button>
+    <button class="vs-tab"        data-filter="long"  role="tab">Long Form</button>
   </div>
-  <div class="video-row landscape-row">
-    <div class="video-item">
-      <h3>Fan Art 3D Model &amp; Render</h3>
-      <a href="https://youtu.be/GrS9SaJko3o" target="_blank" class="video-thumb landscape"><img src="Cover Project/Thumbnail Fahrus Isbi.png" alt=""><span class="play-btn"></span></a>
+
+  <!-- SHORT FORM -->
+  <div class="vs-group" id="vsShortGroup">
+    <p class="vs-sub" data-k="short">Short Form</p>
+    <div class="vs-wrap">
+      <button class="vs-arrow vs-prev" id="vsPrev" aria-label="Sebelumnya">&#10094;</button>
+      <div class="vs-track" id="vsTrack"></div>
+      <button class="vs-arrow vs-next" id="vsNext" aria-label="Berikutnya">&#10095;</button>
     </div>
-    <div class="video-item">
-      <h3>Podcast Leo Giovani 2</h3>
-      <a href="https://www.youtube.com/watch?v=Fl7xqbogI5E" target="_blank" class="video-thumb landscape"><img src="Cover Project/Thumbnail Jinju x Leo.jpg" alt=""><span class="play-btn"></span></a>
+    <div class="vs-dots" id="vsDots"></div>
+  </div>
+
+  <!-- LONG FORM (2 baris, geser ke samping) -->
+  <div class="vs-group" id="vsLongGroup">
+    <p class="vs-sub" data-k="long">Long Form</p>
+    <div class="vs-wrap">
+      <button class="vs-arrow vs-prev" id="vsLPrev" aria-label="Sebelumnya">&#10094;</button>
+      <div class="vs-track vs-track-long" id="vsStack"></div>
+      <button class="vs-arrow vs-next" id="vsLNext" aria-label="Berikutnya">&#10095;</button>
     </div>
-    <div class="video-item">
-      <h3>Podcast Leo Giovani 1</h3>
-      <a href="https://www.youtube.com/watch?v=cTui6nM7idE" target="_blank" class="video-thumb landscape"><img src="Cover Project/Thumbnail Felix x Leo.jpg" alt=""><span class="play-btn"></span></a>
-    </div>
+    <div class="vs-dots" id="vsLDots"></div>
   </div>
 </section>
+
+<!-- Player video (embed di dalam web) -->
+<div class="vs-modal" id="vsModal" aria-hidden="true">
+  <div class="vs-modal-inner">
+    <button class="vs-close" id="vsClose" aria-label="Tutup">&times;</button>
+    <div class="vs-frame" id="vsFrame"></div>
+    <div class="vs-modal-title" id="vsModalTitle"></div>
+  </div>
+</div>
 
 <!-- GALLERY -->
 <section id="gallery-section" class="gallery-section">
@@ -2969,35 +2968,59 @@ body.modal-open { overflow:hidden; }
 })();
 
 (function(){
-  var outer=document.getElementById('ckOuter'),track=document.getElementById('ckTrack'),
-      dotsRow=document.getElementById('ckDots'),btnPrev=document.getElementById('ckPrev'),
-      btnNext=document.getElementById('ckNext'),btnLike=document.getElementById('ckLike'),
-      btnSave=document.getElementById('ckSave');
-  if(!outer) return;
-  var orig=Array.from(track.querySelectorAll('.ck-item')),total=orig.length,GAP=20,CLONES=2;
-  for(var s=CLONES;s>=1;s--) orig.forEach(function(el){ var c=el.cloneNode(true); c.setAttribute('aria-hidden','true'); track.insertBefore(c,track.firstChild); });
-  for(var s=0;s<CLONES;s++) orig.forEach(function(el){ var c=el.cloneNode(true); c.setAttribute('aria-hidden','true'); track.appendChild(c); });
-  var all=Array.from(track.querySelectorAll('.ck-item')),off0=CLONES*total,vIdx=off0,anim=false,auto=null;
-  orig.forEach(function(_,i){ var d=document.createElement('button'); d.className='ck-dot'; d.setAttribute('aria-label','Slide '+(i+1)); d.addEventListener('click',function(){ goTo(off0+i); }); dotsRow.appendChild(d); });
-  function calc(idx){ var ow=outer.offsetWidth,cw=all[idx].offsetWidth,l=0; for(var i=0;i<idx;i++) l+=all[i].offsetWidth+GAP; return ow/2-(l+cw/2); }
-  function cls(){ all.forEach(function(el,i){ var d=i-vIdx; el.className='ck-item'; if(d===0) el.classList.add('ck-active'); else if(Math.abs(d)===1) el.classList.add('ck-near'); else el.classList.add('ck-far'); }); var ri=((vIdx-off0)%total+total)%total; dotsRow.querySelectorAll('.ck-dot').forEach(function(d,i){ d.className='ck-dot'+(i===ri?' ck-dot-active':''); }); }
-  function slide(i){ track.style.transition='transform .45s cubic-bezier(.4,0,.2,1)'; track.style.transform='translateX('+calc(i)+'px)'; }
-  function jump(i) { track.style.transition='none'; track.style.transform='translateX('+calc(i)+'px)'; void track.offsetWidth; }
-  function render(a){ cls(); a?slide(vIdx):jump(vIdx); }
-  function goTo(i,a){ if(anim) return; a=a!==false; anim=true; vIdx=i; render(a); setTimeout(function(){ if(vIdx<off0){vIdx+=total;jump(vIdx);cls();}else if(vIdx>=off0+total){vIdx-=total;jump(vIdx);cls();} anim=false; },460); }
-  function prev(){ goTo(vIdx-1); ra(); } function next(){ goTo(vIdx+1); ra(); }
-  btnPrev.addEventListener('click',prev); btnNext.addEventListener('click',next);
-  all.forEach(function(el,i){ el.addEventListener('click',function(){ if(i!==vIdx){goTo(i);ra();} }); });
-  document.addEventListener('keydown',function(e){ if(e.key==='ArrowLeft') prev(); if(e.key==='ArrowRight') next(); });
-  function sa(){ auto=setInterval(function(){ goTo(vIdx+1); },4000); } function ra(){ clearInterval(auto); sa(); }
-  var tx=0,ty=0;
-  outer.addEventListener('touchstart',function(e){ tx=e.touches[0].clientX; ty=e.touches[0].clientY; },{passive:true});
-  outer.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty; if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){ dx<0?next():prev(); } },{passive:true});
-  window.addEventListener('resize',function(){ jump(vIdx); cls(); });
-  outer.addEventListener('mouseenter',function(){ clearInterval(auto); }); outer.addEventListener('mouseleave',sa);
-  var liked=false; btnLike.addEventListener('click',function(){ liked=!liked; btnLike.classList.toggle('ck-liked',liked); btnLike.classList.remove('ck-pop'); void btnLike.offsetWidth; if(liked) btnLike.classList.add('ck-pop'); });
-  var saved=false; btnSave.addEventListener('click',function(){ saved=!saved; btnSave.classList.toggle('ck-saved',saved); });
-  requestAnimationFrame(function(){ render(false); sa(); });
+  var stack=document.getElementById('psStack'),dotsRow=document.getElementById('psDots'),
+      btnLike=document.getElementById('psLike'),btnSave=document.getElementById('psSave');
+  if(!stack) return;
+  var cards=Array.from(stack.querySelectorAll('.ps-card')),total=cards.length,idx=0;
+
+  var AUTO_INTERVAL = 4800;  /* jarak antar auto-geser — dulu 3400, sekarang lebih santai */
+  var IDLE_DELAY    = 5500;  /* jeda nunggu setelah user interaksi manual, baru auto jalan lagi */
+  var autoTimer=null, idleTimer=null;
+
+  cards.forEach(function(_,i){ var d=document.createElement('button'); d.className='ps-dot'; d.setAttribute('aria-label','Slide '+(i+1)); d.addEventListener('click',function(){ goTo(i); pauseThenResume(); }); dotsRow.appendChild(d); });
+  var dots=Array.from(dotsRow.querySelectorAll('.ps-dot'));
+
+  function render(){
+    cards.forEach(function(el,i){
+      var diff=(i-idx+total)%total;
+      el.className='ps-card'+(diff===0?' ps-active':diff===1?' ps-next':diff===total-1?' ps-prev':' ps-hidden');
+    });
+    dots.forEach(function(d,i){ d.className='ps-dot'+(i===idx?' ps-dot-active':''); });
+  }
+  function goTo(i){ idx=(i+total)%total; render(); }
+  function next(){ goTo(idx+1); }
+
+  /* auto-play murni: jalan terus tiap AUTO_INTERVAL, tidak dipakai langsung setelah interaksi */
+  function startAuto(){ clearInterval(autoTimer); autoTimer=setInterval(next,AUTO_INTERVAL); }
+
+  /* dipanggil tiap kali user interaksi manual: stop dulu, tunggu idle, baru auto nyala lagi */
+  function pauseThenResume(){
+    clearInterval(autoTimer);
+    clearTimeout(idleTimer);
+    idleTimer=setTimeout(startAuto, IDLE_DELAY);
+  }
+
+  cards.forEach(function(el){ el.addEventListener('click',function(){ var i=cards.indexOf(el); if(i!==idx){ goTo(i); } else { next(); } pauseThenResume(); }); });
+
+  /* hover: auto berhenti total selama kursor di atas, lanjut normal begitu kursor keluar (tanpa idle tambahan) */
+  stack.addEventListener('mouseenter',function(){ clearInterval(autoTimer); clearTimeout(idleTimer); });
+  stack.addEventListener('mouseleave',startAuto);
+
+  var tx=0;
+  stack.addEventListener('touchstart',function(e){ tx=e.touches[0].clientX; clearInterval(autoTimer); clearTimeout(idleTimer); },{passive:true});
+  stack.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>40){ dx<0?next():goTo(idx-1); }
+    pauseThenResume();
+  },{passive:true});
+
+  var liked=false;
+  if(btnLike) btnLike.addEventListener('click',function(){ liked=!liked; btnLike.classList.toggle('ps-liked',liked); btnLike.classList.remove('ps-pop'); void btnLike.offsetWidth; if(liked) btnLike.classList.add('ps-pop'); });
+  var saved=false;
+  if(btnSave) btnSave.addEventListener('click',function(){ saved=!saved; btnSave.classList.toggle('ps-saved',saved); });
+
+  render();
+  startAuto();
 })();
 
 (function(){
@@ -3911,6 +3934,216 @@ function kirimPesanWhatsApp(){
 
   requestAnimationFrame(render);
 })();
+
+
+
+
+/* ─── video editing baru js ─── */
+
+
+(function(){
+  /* ═══ 1. DATA VIDEO ═══
+     type : 'short' (9:16) atau 'long' (16:9)
+     thumb: gambar cover
+     src  : file video .mp4 yang kamu upload
+     id/en: judul dalam bahasa Indonesia / Inggris */
+   var VIDEOS = [
+    { type:'short', thumb:'Cover Project/Speed Ramp Kursi.png',
+      yt:'-4uSl3Tc4Us',
+      id:'Speedramp Transformasi Kursi Kardus', en:'Cardboard Chair Speedramp Transformation' },
+    { type:'short', thumb:'Cover Project/Thumbnail Ads Tumpeng Citra Kuliner.png',
+      yt:'2RVxAmBif5c',
+      id:'Tumpeng Ads Video For Citra Kuliner', en:'Tumpeng Ads Video For Citra Kuliner' },
+    { type:'short', thumb:'Cover Project/Thumbnail Mechanical Spider.jpg',
+      ig:'C6OLi9ivT2I',
+      id:'Mechanical Spider 3D Model & Render', en:'Mechanical Spider 3D Model & Render' },
+    { type:'short', thumb:'COVER VIDEO TEST TECHNICAL-100.jpg',
+      yt:'ON1-mt_GEwI',
+      id:'Talking Head Video Editing (Sample)', en:'Talking Head Video Editing (Sample)' },
+
+    { type:'long', thumb:'Cover Project/Thumbnail Fahrus Isbi.png',
+      yt:'GrS9SaJko3o',
+      id:'Fan Art 3D Model & Render', en:'Fan Art 3D Model & Render' },
+    { type:'long', thumb:'Cover Project/Thumbnail Jinju x Leo.jpg',
+      yt:'Fl7xqbogI5E',
+      id:'Podcast Leo Giovani 2', en:'Podcast Leo Giovani 2' },
+    { type:'long', thumb:'Cover Project/Thumbnail Felix x Leo.jpg',
+      yt:'cTui6nM7idE',
+      id:'Podcast Leo Giovani 1', en:'Podcast Leo Giovani 1' }
+  ];
+
+  var LABEL = {
+    id:{ all:'Semua', short:'Short Form', long:'Long Form' },
+    en:{ all:'All',   short:'Short Form', long:'Long Form' }
+  };
+
+  var ROWS_LONG = 2;   /* harus sama dengan repeat(2, auto) di CSS .vs-track-long */
+
+  /* ═══ 2. AMBIL ELEMEN HTML ═══ */
+  var section = document.getElementById('video-section'),
+      shortGroup = document.getElementById('vsShortGroup'),
+      longGroup = document.getElementById('vsLongGroup'),
+      tabs = document.querySelectorAll('.vs-tab'),
+      modal = document.getElementById('vsModal'),
+      frame = document.getElementById('vsFrame'),
+      mTitle = document.getElementById('vsModalTitle');
+  if(!section) return;
+
+  function lang(){ return document.documentElement.lang === 'id' ? 'id' : 'en'; }
+
+  /* ═══ 3. CAROUSEL (dipakai short & long) ═══ */
+  function Carousel(track, dotsEl, prevBtn, nextBtn, perCol){
+    var raf = null, down = false, moved = false, sx = 0, sl = 0;
+
+    function nearest(){
+      var cards = track.querySelectorAll('.vs-card'),
+          mid = track.scrollLeft + track.clientWidth / 2, best = null, bestD = 1e9, bi = 0;
+      cards.forEach(function(c, i){
+        var dd = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
+        if(dd < bestD){ bestD = dd; best = c; bi = i; }
+      });
+      return { el:best, col:Math.floor(bi / perCol) };
+    }
+    function update(){
+      var n = nearest(), dots = dotsEl.children;
+      for(var i = 0; i < dots.length; i++) dots[i].classList.toggle('active', i === n.col);
+    }
+    function build(count){
+      dotsEl.innerHTML = '';
+      var cols = Math.ceil(count / perCol);
+      for(var i = 0; i < cols; i++){ var d = document.createElement('span'); d.className = 'vs-dot'; dotsEl.appendChild(d); }
+      track.style.scrollBehavior = 'auto'; track.scrollLeft = 0; track.style.scrollBehavior = '';
+      update();
+    }
+
+    track.addEventListener('scroll', function(){
+      if(raf) return;
+      raf = requestAnimationFrame(function(){ raf = null; update(); });
+    }, {passive:true});
+
+    prevBtn.addEventListener('click', function(){ track.scrollBy({left:-track.clientWidth * .3, behavior:'smooth'}); });
+    nextBtn.addEventListener('click', function(){ track.scrollBy({left: track.clientWidth * .3, behavior:'smooth'}); });
+
+    /* drag pakai mouse (di HP sudah otomatis bisa swipe) */
+    track.addEventListener('pointerdown', function(e){
+      if(e.pointerType !== 'mouse') return;
+      down = true; moved = false; sx = e.clientX; sl = track.scrollLeft;
+    });
+    window.addEventListener('pointermove', function(e){
+      if(!down) return;
+      var dx = e.clientX - sx;
+      if(!moved && Math.abs(dx) > 6){ moved = true; track.classList.add('dragging'); }
+      if(moved) track.scrollLeft = sl - dx;
+    });
+    window.addEventListener('pointerup', function(){
+      if(!down) return;
+      down = false;
+      if(moved){
+        var best = nearest().el;
+        track.classList.remove('dragging');
+        if(best) track.scrollTo({ left: best.offsetLeft + best.offsetWidth / 2 - track.clientWidth / 2, behavior:'smooth' });
+        setTimeout(function(){ moved = false; }, 0);
+      }
+    });
+
+    return { build:build, wasDragged:function(){ return moved; } };
+  }
+
+  var trackS = document.getElementById('vsTrack'),
+      trackL = document.getElementById('vsStack');
+  var shortC = Carousel(trackS, document.getElementById('vsDots'),
+                        document.getElementById('vsPrev'), document.getElementById('vsNext'), 1);
+  var longC  = Carousel(trackL, document.getElementById('vsLDots'),
+                        document.getElementById('vsLPrev'), document.getElementById('vsLNext'), ROWS_LONG);
+
+  /* ═══ 4. BUAT KARTU + FILTER TAB ═══ */
+  function makeCard(v, idx, order){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'vs-card ' + (v.type === 'short' ? 'vs-short' : 'vs-long');
+    b.style.animationDelay = (order * 70) + 'ms';
+    b.setAttribute('data-v', idx);
+    b.innerHTML =
+      '<img src="' + v.thumb + '" alt="" loading="lazy" draggable="false">' +
+      '<span class="vs-badge">' + (v.type === 'short' ? 'Short' : 'Long') + '</span>' +
+      '<span class="vs-play"></span>' +
+      '<span class="vs-title">' + v[lang()] + '</span>';
+    return b;
+  }
+
+  function render(filter){
+    trackS.innerHTML = ''; trackL.innerHTML = '';
+    var sN = 0, lN = 0;
+    VIDEOS.forEach(function(v, idx){
+      if(v.type === 'short' && filter !== 'long')  trackS.appendChild(makeCard(v, idx, sN++));
+      if(v.type === 'long'  && filter !== 'short') trackL.appendChild(makeCard(v, idx, lN++));
+    });
+    shortGroup.hidden = (filter === 'long');
+    longGroup.hidden  = (filter === 'short');
+    section.classList.toggle('vs-all', filter === 'all');
+    shortC.build(sN);
+    longC.build(lN);
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      render(t.getAttribute('data-filter'));
+    });
+  });
+
+  /* ═══ 5. PLAYER VIDEO (frame) ═══ */
+  section.addEventListener('click', function(e){
+    if(shortC.wasDragged() || longC.wasDragged()) return;
+    var card = e.target.closest('.vs-card'); if(!card) return;
+    open(VIDEOS[+card.getAttribute('data-v')]);
+  });
+
+  function embedUrl(v){
+    if(v.ig) return 'https://www.instagram.com/p/' + v.ig + '/embed';
+    return 'https://www.youtube.com/embed/' + v.yt + '?autoplay=1&rel=0&playsinline=1';
+  }
+  function open(v){
+    frame.className = 'vs-frame' + (v.ig ? ' is-ig' : (v.type === 'short' ? ' is-short' : ''));
+        frame.innerHTML = '<iframe src="' + embedUrl(v) + '" title="' + v[lang()] + '" ' +
+      'allow="autoplay; encrypted-media; picture-in-picture; fullscreen" ' +
+      'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+    mTitle.textContent = v[lang()];
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+  function close(){
+    frame.innerHTML = '';            /* iframe dihapus supaya videonya berhenti */
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }
+  
+  document.getElementById('vsClose').addEventListener('click', close);
+  modal.addEventListener('click', function(e){ if(e.target === modal) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('show')) close(); });
+
+  /* ═══ 6. BAHASA (ikut toggle ID/EN) ═══ */
+  function updateLang(){
+    var L = lang();
+    tabs.forEach(function(t){ t.textContent = LABEL[L][t.getAttribute('data-filter')]; });
+    document.querySelectorAll('.vs-sub').forEach(function(s){ s.textContent = LABEL[L][s.getAttribute('data-k')]; });
+    section.querySelectorAll('.vs-card').forEach(function(c){
+      c.querySelector('.vs-title').textContent = VIDEOS[+c.getAttribute('data-v')][L];
+    });
+  }
+  new MutationObserver(updateLang).observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
+
+  /* ═══ 7. JALANKAN ═══ */
+  render('all');
+  updateLang();
+})();
+
+
+
+
 </script>
 
 
