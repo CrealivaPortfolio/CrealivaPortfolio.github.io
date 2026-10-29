@@ -203,6 +203,7 @@ dialog .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
 <dialog id="lb"><button class="pill" id="lbX">✕ Tutup</button><img id="lbImg" alt=""><p id="lbCap"></p></dialog>
 
 <script>
+addEventListener('error',ev=>{const s=document.getElementById('status');if(s){s.textContent='Error halaman: '+ev.message;s.className='err'}});
 const LS='crealiva-catatan-v2', $=id=>document.getElementById(id);
 let S={entries:[],queue:[],cfg:{url:'',key:'',target:2000}};
 try{const o=JSON.parse(localStorage.getItem(LS)||localStorage.getItem('crealiva-catatan-v1')||'{}');
@@ -210,6 +211,7 @@ try{const o=JSON.parse(localStorage.getItem(LS)||localStorage.getItem('crealiva-
   if(o.queue)S.queue=o.queue.map(q=>q.op==='add'&&q.entry?{op:'add',id:q.entry.id}:q);}catch(e){}
 let storeFail=false;
 const save=()=>{try{localStorage.setItem(LS,JSON.stringify(S));storeFail=false}catch(e){storeFail=true}};
+if(/reset=1/.test(location.search)){S.entries=[];S.queue=[];save();history.replaceState(null,'',location.pathname)}
 
 const pad=n=>String(n).padStart(2,'0'), fmt=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 let cur=fmt(new Date());
@@ -284,7 +286,7 @@ function updStatus(){
   if(storeFail)return setStatus('Penyimpanan browser penuh, segera sinkron','err');
   if(!S.cfg.url)return setStatus('Belum terhubung ke Sheet (data di perangkat ini)','');
   if(S.queue.length)return setStatus(`Menunggu sinkron (${S.queue.length})`,'wait');
-  setStatus('Tersinkron dengan Sheet','ok');
+  setStatus(`Tersinkron dengan Sheet · ${S.entries.length} catatan diterima`,'ok');
 }
 
 function add(e){S.entries.push(e);S.queue.push({op:'add',id:e.id});save();render();sync()}
