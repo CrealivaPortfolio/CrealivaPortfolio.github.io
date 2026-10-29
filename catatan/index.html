@@ -235,7 +235,11 @@ function render(){
 
   // daftar
   const lb=$('listBox');lb.textContent='';
-  if(!day.length){const d=document.createElement('div');d.className='empty';d.textContent='Belum ada catatan. Isi form di atas untuk mulai.';lb.append(d)}
+  if(!day.length){const d=document.createElement('div');d.className='empty';d.textContent='Belum ada catatan. Isi form di atas untuk mulai.';lb.append(d);
+    if(S.entries.length){const last=S.entries[S.entries.length-1].date;const h=document.createElement('div');h.className='empty';h.style.marginTop='10px';
+      h.textContent=`Ada ${S.entries.length} catatan di tanggal lain. Tanggal terbaru: "${last}" `;
+      if(/^\d{4}-\d{2}-\d{2}$/.test(last)){const b=document.createElement('button');b.className='pill';b.textContent='Lihat';b.onclick=()=>{cur=last;render()};h.append(b)}
+      lb.append(h)}}
   else{const ul=document.createElement('ul');
     day.slice().reverse().forEach(e=>{
       const li=document.createElement('li');li.className=e.type==='makan'?'':'move';
