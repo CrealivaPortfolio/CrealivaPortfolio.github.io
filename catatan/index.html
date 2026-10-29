@@ -15,9 +15,11 @@
   --bg:#0e1020; --card:#171a2e; --ink:#f2f3fa; --mute:#9a9fbd; --line:#2a2e4a;
   --brand:#7c5cff; --eat:#2dd4a7; --move:#ffb020; --over:#ff6b6b;
   --r:18px;
+  --g1:#0e1020; --g2:#1c1445; --g3:#0b2b33; --glow:rgba(124,92,255,.28);
+  --card:rgba(23,26,46,.72); --solid:#171a2e; --logo:brightness(0) invert(1);
 }
 @media (prefers-color-scheme:light){
-  :root{--bg:#f4f4fb; --card:#fff; --ink:#1a1b2e; --mute:#6b6f8c; --line:#e1e2f0; --brand:#6b46ff; --eat:#0f9d7a; --move:#d97706; --over:#dc2626}
+  :root{--bg:#f4f4fb; --card:#fff; --ink:#1a1b2e; --mute:#6b6f8c; --line:#e1e2f0; --brand:#6b46ff; --eat:#0f9d7a; --move:#d97706; --over:#dc2626; --g1:#f4f4fb; --g2:#e8e2ff; --g3:#dff5ee; --glow:rgba(107,70,255,.18); --card:rgba(255,255,255,.78); --solid:#fff; --logo:brightness(0)}
 }
 /* ================================================================================ */
 *{box-sizing:border-box}
@@ -32,7 +34,7 @@ button{cursor:pointer}
   padding-top:env(safe-area-inset-top);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.15rem}
-.brand img{width:34px;height:34px;object-fit:contain}
+.brand img{width:34px;height:34px;object-fit:contain;filter:var(--logo)}
 .brand small{color:var(--mute);font-weight:500;font-size:.8rem}
 .pill{background:transparent;border:1px solid var(--line);border-radius:99px;padding:8px 16px;font-weight:500}
 .pill:hover{border-color:var(--brand)}
@@ -111,19 +113,54 @@ footer{display:flex;align-items:center;justify-content:space-between;margin-top:
 #status:before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--mute);margin-right:7px}
 #status.ok:before{background:var(--eat)} #status.wait:before{background:var(--move)} #status.err:before{background:var(--over)}
 
-dialog{border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--ink);width:min(92vw,440px);padding:18px}
+dialog{border:1px solid var(--line);border-radius:var(--r);background:var(--solid);color:var(--ink);width:min(92vw,440px);padding:18px}
 dialog::backdrop{background:rgba(0,0,0,.65)}
 dialog label{display:block;font-size:.85rem;color:var(--mute);margin:6px 0 4px}
 dialog .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.danger{background:var(--over);border-color:var(--over);color:#fff}
 #lb{width:min(96vw,900px);padding:10px;background:#000;border:0}
 #lb img{width:100%;max-height:80vh;object-fit:contain;display:block}
 #lb p{color:#fff;margin:8px 4px 0}
 #lb .pill{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;border-color:transparent}
+
+/* ===== Latar gradasi animasi & transisi ===== */
+body::before{content:"";position:fixed;inset:0;z-index:-2;
+  background:linear-gradient(125deg,var(--g1),var(--g2),var(--g3),var(--g2),var(--g1));
+  background-size:400% 400%;animation:bgmove 18s ease-in-out infinite}
+body::after{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle at 20% 25%,var(--glow),transparent 38%),
+             radial-gradient(circle at 80% 75%,var(--glow),transparent 38%);
+  animation:glow 22s ease-in-out infinite alternate}
+@keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes glow{from{transform:translate3d(-3%,-2%,0) scale(1)}to{transform:translate3d(4%,3%,0) scale(1.15)}}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+.nav{animation:fade .6s both}
+main>*{animation:rise .75s cubic-bezier(.2,.7,.2,1) both}
+main>*:nth-child(2){animation-delay:.08s} main>*:nth-child(3){animation-delay:.16s}
+main>*:nth-child(4){animation-delay:.24s} main>*:nth-child(5){animation-delay:.32s}
+main>*:nth-child(6){animation-delay:.4s}  main>*:nth-child(7){animation-delay:.48s}
+main>*:nth-child(8){animation-delay:.56s} main>*:nth-child(9){animation-delay:.64s}
+
+.card,li{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.card,li,.pill,.add,.slide,.slide img,.arrow{transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s,border-color .3s,background .3s,filter .3s}
+li:hover,.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px -14px rgba(0,0,0,.55);border-color:var(--brand)}
+.pill:hover{transform:translateY(-2px)}
+.add:hover{transform:translateY(-3px);box-shadow:0 12px 26px -10px var(--brand)}
+.slide:hover img{transform:scale(1.06)}
+.arrow:hover{transform:translateY(-50%) scale(1.12)}
+.brand img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.brand:hover img{transform:rotate(-8deg) scale(1.1)}
+dialog[open]{animation:pop .3s cubic-bezier(.2,.7,.2,1)}
+dialog[open]::backdrop{animation:fade .3s}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <nav class="nav"><div class="wrap">
-  <div class="brand"><img src="../LogoCrealiva22.png" alt="" onerror="this.remove()"><div>Crealiva <small>Catatan</small></div></div>
+  <div class="brand"><img src="../personcv.png" alt="" onerror="this.remove()"><div>Crealiva <small>Catatan</small></div></div>
   <button class="pill" id="setBtn">Atur</button>
 </div></nav>
 
@@ -164,6 +201,10 @@ dialog .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
     </div>
     <datalist id="sug"></datalist>
     <input type="text" id="note" placeholder="Catatan (opsional)">
+    <div id="extra">
+      <input type="text" id="lauk" placeholder="Lauk (opsional), mis. ayam goreng">
+      <input type="text" id="minum" placeholder="Minum (opsional), mis. es teh">
+    </div>
     <div class="photo">
       <button type="button" class="pill" id="photoBtn">+ Foto</button>
       <input type="file" id="photoIn" accept="image/*">
@@ -199,6 +240,9 @@ dialog .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
     </div>
   </form>
 </dialog>
+
+<dialog id="delDlg"><p id="delTxt" style="margin:0 0 14px;font-weight:600"></p>
+  <div class="btns"><button type="button" class="pill" id="delNo">Batal</button><button type="button" class="pill danger" id="delYes">Ya, hapus</button></div></dialog>
 
 <dialog id="lb"><button class="pill" id="lbX">✕ Tutup</button><img id="lbImg" alt=""><p id="lbCap"></p></dialog>
 
@@ -247,9 +291,11 @@ function render(){
       const s=src(e);if(s){const im=document.createElement('img');im.src=s;im.alt='';t.append(im)}
       const tx=document.createElement('div');tx.textContent=e.name;
       if(e.note){const sm=document.createElement('small');sm.textContent=e.note;tx.append(sm)}
+      const det=[e.lauk&&'Lauk: '+e.lauk,e.minum&&'Minum: '+e.minum].filter(Boolean).join(' · ');
+      if(det){const sd=document.createElement('small');sd.textContent=det;tx.append(sd)}
       t.append(tx);
       const k=document.createElement('span');k.className='k';k.textContent=(e.type==='makan'?'+':'−')+num(e.kcal);
-      const b=document.createElement('button');b.textContent='✕';b.setAttribute('aria-label','Hapus '+e.name);b.onclick=()=>del(e.id);
+      const b=document.createElement('button');b.textContent='✕';b.setAttribute('aria-label','Hapus '+e.name);b.onclick=()=>askDel(e);
       li.append(t,k,b);ul.append(li)});
     lb.append(ul)}
 
@@ -301,6 +347,10 @@ function del(id){
   save();render();sync();
 }
 
+let delId=null;
+function askDel(e){delId=e.id;$('delTxt').textContent=`Hapus "${e.name}" (${num(e.kcal)} kkal)?`;$('delDlg').showModal()}
+$('delNo').onclick=()=>$('delDlg').close();
+$('delYes').onclick=()=>{$('delDlg').close();if(delId)del(delId);delId=null};
 const MON={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
 function normDate(s){s=String(s);
   if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;
@@ -348,7 +398,7 @@ $('photoIn').onchange=async()=>{const f=$('photoIn').files[0];if(!f)return;
 // Form
 function syncForm(){const t=document.querySelector('[name=type]:checked').value;
   $('addBtn').textContent=t==='makan'?'Catat makan':'Catat olahraga';
-  $('name').placeholder=t==='makan'?'Nasi goreng':'Lari pagi'}
+  $('name').placeholder=t==='makan'?'Nasi goreng':'Lari pagi';$('extra').style.display=t==='makan'?'block':'none'}
 document.querySelectorAll('[name=type]').forEach(r=>r.onchange=syncForm);
 $('name').addEventListener('change',()=>{const t=document.querySelector('[name=type]:checked').value;
   const p=S.entries.slice().reverse().find(e=>e.name===$('name').value&&e.type===t);if(p&&!$('kcal').value)$('kcal').value=p.kcal});
@@ -356,7 +406,8 @@ $('form').onsubmit=ev=>{ev.preventDefault();
   const type=document.querySelector('[name=type]:checked').value;
   const e={id:uid(),date:cur,type,name:$('name').value.trim(),kcal:Math.round(Number($('kcal').value)),note:$('note').value.trim()};
   if(photoData)e.photoData=photoData;
-  add(e);$('name').value='';$('kcal').value='';$('note').value='';clearPhoto();$('name').focus()};
+  if(type==='makan'){e.lauk=$('lauk').value.trim();e.minum=$('minum').value.trim()}
+  add(e);$('name').value='';$('kcal').value='';$('note').value='';$('lauk').value='';$('minum').value='';clearPhoto();$('name').focus()};
 
 // Tanggal
 const shift=n=>{const d=parse(cur);d.setDate(d.getDate()+n);cur=fmt(d);render()};
