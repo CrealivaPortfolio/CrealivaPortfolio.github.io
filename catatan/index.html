@@ -316,7 +316,7 @@ async function sync(){
     const pend=S.entries.filter(e=>S.queue.some(q=>q.op==='add'&&q.id===e.id));
     const gone=new Set(S.queue.filter(q=>q.op==='del').map(q=>q.id));
     S.entries=res.rows.filter(r=>r.id&&!gone.has(r.id)).concat(pend);save();render();updStatus();
-  }catch(err){setStatus(/kode/i.test(err.message)?'Kode rahasia salah':'Offline / gagal sinkron, akan dicoba lagi','err')}
+  }catch(err){console.error(err);setStatus(/kode/i.test(err.message)?'Kode rahasia salah':'Gagal sinkron: '+err.message,'err')}
   busy=false;
 }
 
