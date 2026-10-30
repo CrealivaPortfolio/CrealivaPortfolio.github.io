@@ -190,7 +190,7 @@ footer{position:relative;isolation:isolate;display:flex;align-items:center;justi
 #status.err:before{background:var(--over)}
 
 /* Dialog */
-dialog{border:1px solid rgba(26,111,255,.2);border-radius:var(--radius-lg);background:rgba(16,26,46,.97);color:var(--ink);width:min(92vw,440px);padding:24px;box-shadow:var(--shadow-lg)}
+dialog{margin:auto;border:1px solid rgba(26,111,255,.2);border-radius:var(--radius-lg);background:rgba(16,26,46,.97);color:var(--ink);width:min(92vw,440px);padding:24px;box-shadow:var(--shadow-lg)}
 dialog::backdrop{background:rgba(11,17,32,.85);backdrop-filter:blur(8px)}
 dialog[open]{animation:pop .45s var(--ease-spring)}
 dialog[open]::backdrop{animation:fadeIn .3s}
@@ -230,6 +230,20 @@ dialog .btns{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
 
 @media (max-width:480px){.card{padding:22px 18px}.stats{gap:8px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1}}
+
+/* Layout dua kolom (desktop) */
+.cols{display:block}
+li .t>div{min-width:0;overflow-wrap:anywhere}
+.hint{font-size:.74rem;color:var(--ink-3);line-height:1.5;margin-top:8px}
+@media (min-width:1024px){
+  .wrap{max-width:1120px;padding:0 28px}
+  .hero{padding:124px 0 20px}
+  .cols{display:grid;grid-template-columns:minmax(360px,420px) minmax(0,1fr);gap:32px;align-items:start}
+  .col-right h2:first-child{margin-top:4px}
+  .slide{aspect-ratio:16/10}
+  .card{padding:30px}
+}
+@media (min-width:1024px) and (min-height:880px){.col-left{position:sticky;top:92px}}
 </style>
 </head>
 <body>
@@ -256,6 +270,8 @@ dialog .btns{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
 
   <div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
 
+  <div class="cols">
+<div class="col-left">
   <section class="card">
     <div class="big" id="left">0</div>
     <div class="cap" id="leftCap">kalori tersisa</div>
@@ -291,6 +307,8 @@ dialog .btns{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
     <button class="add" id="addBtn" type="submit">Catat makan</button>
   </form>
 
+  </div>
+<div class="col-right">
   <h2>Galeri Hari Ini</h2>
   <div id="galleryBox"></div>
 
@@ -301,6 +319,8 @@ dialog .btns{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
     <span id="status"></span>
     <button class="pill" id="syncBtn">Sinkron</button>
   </footer>
+</div>
+</div>
 </main>
 
 <dialog id="dlg">
@@ -311,6 +331,7 @@ dialog .btns{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
     <input type="password" id="cKey">
     <label for="cTarget">Target kalori harian</label>
     <input type="number" id="cTarget" min="0" inputmode="numeric">
+    <p class="hint">Mengganti URL atau kode rahasia berarti pindah ke Sheet lain: catatan Sheet lama dibersihkan dari perangkat ini (datanya di Sheet tetap aman).</p>
     <div class="btns">
       <button type="button" class="pill" id="cCancel">Batal</button>
       <button type="submit" class="pill">Simpan</button>
@@ -424,10 +445,11 @@ function del(id){
   save();render();sync();
 }
 
-let delId=null;
-function askDel(e){delId=e.id;$('delTxt').textContent=`Hapus "${e.name}" (${num(e.kcal)} kkal)?`;$('delDlg').showModal()}
-$('delNo').onclick=()=>$('delDlg').close();
-$('delYes').onclick=()=>{$('delDlg').close();if(delId)del(delId);delId=null};
+let confirmFn=null;
+function askConfirm(text,yesText,fn){confirmFn=fn;$('delTxt').textContent=text;$('delYes').textContent=yesText;$('delDlg').showModal()}
+function askDel(e){askConfirm(`Hapus "${e.name}" (${num(e.kcal)} kkal)?`,'Ya, hapus',()=>del(e.id))}
+$('delNo').onclick=()=>{confirmFn=null;$('delDlg').close()};
+$('delYes').onclick=()=>{const f=confirmFn;confirmFn=null;$('delDlg').close();if(f)f()};
 const MON={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
 function normDate(s){s=String(s);
   if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;
@@ -435,10 +457,10 @@ function normDate(s){s=String(s);
   if(m&&MON[m[1]])return `${m[3]}-${pad(MON[m[1]])}-${pad(m[2])}`;
   const d=new Date(s);return isNaN(d)?s:fmt(d)}
 const post=b=>fetch(S.cfg.url,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({...b,key:S.cfg.key})}).then(r=>r.json());
-let busy=false;
+let busy=false,cfgVer=0;const STALE=new Error('stale');
 async function sync(){
   if(!S.cfg.url||busy)return updStatus();
-  busy=true;setStatus('Menyinkronkan…','wait');
+  busy=true;const v=cfgVer;setStatus('Menyinkronkan…','wait');
   try{
     while(S.queue.length){
       const q=S.queue[0];let body;
@@ -447,15 +469,15 @@ async function sync(){
         if(!e){S.queue.shift();save();continue}
         const{photoData,...clean}=e;body={op:'add',entry:clean,photo:photoData||''};
       }else body=q;
-      const r=await post(body);if(!r.ok)throw new Error(r.error||'Gagal');
+      const r=await post(body);if(v!==cfgVer)throw STALE;if(!r.ok)throw new Error(r.error||'Gagal');
       S.queue.shift();save();
     }
     const res=await fetch(S.cfg.url+'?key='+encodeURIComponent(S.cfg.key)).then(r=>r.json());
-    if(!res.ok)throw new Error(res.error||'Gagal');
+    if(v!==cfgVer)throw STALE;if(!res.ok)throw new Error(res.error||'Gagal');
     const pend=S.entries.filter(e=>S.queue.some(q=>q.op==='add'&&q.id===e.id));
     const gone=new Set(S.queue.filter(q=>q.op==='del').map(q=>q.id));
     S.entries=res.rows.filter(r=>r.id&&!gone.has(r.id)).map(r=>({...r,date:normDate(r.date)})).concat(pend);save();render();updStatus();
-  }catch(err){console.error(err);setStatus(/kode/i.test(err.message)?'Kode rahasia salah':'Gagal sinkron: '+err.message,'err')}
+  }catch(err){if(err===STALE){busy=false;return sync()}console.error(err);setStatus(/kode/i.test(err.message)?'Kode rahasia salah':'Gagal sinkron: '+err.message,'err')}
   busy=false;
 }
 
@@ -495,7 +517,13 @@ $('date').onchange=()=>{if($('date').value){cur=$('date').value;render()}};
 // Pengaturan
 $('setBtn').onclick=()=>{$('cUrl').value=S.cfg.url;$('cKey').value=S.cfg.key;$('cTarget').value=S.cfg.target;$('dlg').showModal()};
 $('cCancel').onclick=()=>$('dlg').close();
-$('cfgForm').onsubmit=()=>{S.cfg={url:$('cUrl').value.trim(),key:$('cKey').value,target:Number($('cTarget').value)||0};save();render();sync()};
+function applyCfg(nc){
+  const oc=S.cfg, changed=(nc.url!==oc.url||nc.key!==oc.key), wipe=!!(changed&&oc.url);
+  const go=()=>{cfgVer++;if(wipe){S.entries=[];S.queue=[]}S.cfg=nc;save();render();updStatus();sync()};
+  if(wipe&&S.queue.length)askConfirm(`Ada ${S.queue.length} catatan yang belum terkirim ke Sheet lama dan akan hilang kalau pindah. Lanjutkan?`,'Ya, lanjutkan',go);
+  else go();
+}
+$('cfgForm').onsubmit=()=>applyCfg({url:$('cUrl').value.trim(),key:$('cKey').value,target:Number($('cTarget').value)||0});
 $('syncBtn').onclick=sync;
 addEventListener('online',sync);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync()});
@@ -508,7 +536,7 @@ syncForm();render();updStatus();sync();
   function sc(){ if(nav) nav.classList.toggle('scrolled',window.scrollY>50); }
   addEventListener('scroll',sc,{passive:true}); sc();
 
-  var els=[].slice.call(document.querySelectorAll('main>*'));
+  var els=[].slice.call(document.querySelectorAll('.hero,.marquee,.col-left>*,.col-right>*'));
   if(!('IntersectionObserver' in window)) return;
   var io=new IntersectionObserver(function(es){es.forEach(function(e){
     if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.08});
