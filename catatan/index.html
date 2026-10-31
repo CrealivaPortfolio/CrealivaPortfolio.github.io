@@ -322,6 +322,38 @@ li.rt.done::before{background:var(--ok)}
   .col-right{display:contents}
   .col-mid>h2:first-child,.col-side>h2:first-child{margin-top:4px}
 }
+
+/* Kategori makan & olahraga */
+.kats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.kchip{padding:6px 14px;border-radius:99px;border:1px solid rgba(26,111,255,.3);background:rgba(26,111,255,.08);color:rgba(255,255,255,.7);font-size:.78rem;font-weight:600;transition:all .3s var(--ease)}
+.kchip:hover{background:rgba(26,111,255,.22);border-color:rgba(26,111,255,.55);color:#fff;transform:translateY(-2px)}
+.kchip.on{background:var(--grad-blue);border-color:transparent;color:#fff;box-shadow:var(--shadow-blue)}
+.kats.mv .kchip.on{background:linear-gradient(135deg,#fbbf78,#c07840);color:#2b1a00;box-shadow:0 8px 24px rgba(192,120,64,.4)}
+.kchip.kmanage{border-style:dashed;color:var(--ink-2)}
+.kbadge{display:block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-bright);line-height:1.3;margin-bottom:2px}
+li.move .kbadge{color:var(--move)}
+.katsum{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.katsum:empty{display:none}
+.ks{padding:5px 12px;border-radius:99px;font-size:.74rem;font-weight:600;background:rgba(26,111,255,.15);border:1px solid rgba(26,111,255,.35);color:#fff}
+.ks.mv{background:rgba(251,191,120,.15);border-color:rgba(251,191,120,.4)}
+li.kd{grid-template-columns:1fr auto}
+.kd-title{font-size:1.1rem;font-weight:700;margin-bottom:14px}
+#kdList{margin-bottom:6px}
+
+/* Susunan desktop: kolom otomatis seimbang, tidak ada ruang kosong panjang */
+.grp{margin:20px 0 28px}
+.grp>h2:first-child{margin-top:0}
+.card,.grp{break-inside:avoid}
+.grp.split{break-inside:auto}
+.grp>h2,.katsum{break-after:avoid}
+li{break-inside:avoid}
+@media (min-width:1024px){
+  .cols{display:block;column-count:2;column-gap:32px}
+  .col-left,.col-right,.col-mid,.col-side{display:contents;position:static}
+}
+@media (min-width:1280px){
+  .cols{column-count:3}
+}
 </style>
 </head>
 <body>
@@ -339,7 +371,7 @@ li.rt.done::before{background:var(--ok)}
     <div class="hero-main">
     <span class="kicker">Daily Log 2026</span>
     <h1>Catatan <span>Harian</span></h1>
-    <p>Makan, olahraga, dan momen harianmu. Tersimpan di Google Sheet (Real Time).</p>
+    <p>Makan, olahraga, dan momen harianmu. Tersimpan di Google Sheet.</p>
     <div class="datenav">
       <button class="pill" id="prev" aria-label="Hari sebelumnya">❮</button>
       <button class="pill" id="dateLabel"></button>
@@ -371,6 +403,7 @@ li.rt.done::before{background:var(--ok)}
       <label><input type="radio" name="type" value="makan" checked><span>Makan</span></label>
       <label class="mv"><input type="radio" name="type" value="olahraga"><span>Olahraga</span></label>
     </div>
+    <div class="kats" id="katChips" aria-label="Kategori"></div>
     <div class="row">
       <input type="text" id="name" list="sug" placeholder="Nasi goreng" required>
       <input type="number" id="kcal" inputmode="numeric" min="0" placeholder="kkal" required>
@@ -393,14 +426,16 @@ li.rt.done::before{background:var(--ok)}
   </div>
 <div class="col-right">
 <div class="col-mid">
-  <h2>Galeri Hari Ini</h2>
-  <div id="galleryBox"></div>
+  <div class="grp"><h2>Galeri Hari Ini</h2>
+  <div id="galleryBox"></div></div>
 
-  <h2 id="sec-catatan">Catatan Hari Ini</h2>
-  <div id="listBox"></div>
+  <div class="grp split"><h2 id="sec-catatan">Catatan Hari Ini</h2>
+  <div class="katsum" id="katSum"></div>
+  <div id="listBox"></div></div>
 </div>
 <div class="col-side">
 
+  <div class="grp">
   <h2 id="sec-rutinitas">Rutinitas Harian</h2>
   <section class="card" id="rutinCard">
     <div class="rt-top">
@@ -419,7 +454,9 @@ li.rt.done::before{background:var(--ok)}
       <button type="submit" class="pill">Tambah</button>
     </form>
   </section>
+  </div>
 
+  <div class="grp">
   <h2 id="sec-berat">Target Berat</h2>
   <section class="card" id="beratCard">
     <div class="rt-top">
@@ -444,6 +481,7 @@ li.rt.done::before{background:var(--ok)}
     </form>
     <ul id="bwList"></ul>
   </section>
+  </div>
 
 </div>
 </div>
@@ -473,6 +511,16 @@ li.rt.done::before{background:var(--ok)}
 <dialog id="delDlg"><p id="delTxt" style="margin:0 0 14px;font-weight:600"></p>
   <div class="btns"><button type="button" class="pill" id="delNo">Batal</button><button type="button" class="pill danger" id="delYes">Ya, hapus</button></div></dialog>
 
+<dialog id="katDlg">
+  <div class="kd-title" id="kdTitle">Kategori</div>
+  <ul id="kdList"></ul>
+  <form class="inline-form" id="kdForm" autocomplete="off">
+    <input type="text" id="kdNew" maxlength="30" placeholder="Tambah kategori baru">
+    <button type="submit" class="pill">Tambah</button>
+  </form>
+  <p class="hint">Menghapus kategori tidak mengubah catatan lama yang sudah memakainya.</p>
+  <div class="btns"><button type="button" class="pill" id="kdReset">Kembalikan bawaan</button><button type="button" class="pill" id="kdClose">Selesai</button></div>
+</dialog>
 <dialog id="goalDlg">
   <form method="dialog" id="goalForm" style="all:unset">
     <label for="gTarget">Target berat (kg)</label>
@@ -538,6 +586,7 @@ function render(){
       if(e.note){const sm=document.createElement('small');sm.textContent=e.note;tx.append(sm)}
       const det=[e.lauk&&'Lauk: '+e.lauk,e.minum&&'Minum: '+e.minum].filter(Boolean).join(' · ');
       if(det){const sd=document.createElement('small');sd.textContent=det;tx.append(sd)}
+      if(e.kategori){const kb=document.createElement('span');kb.className='kbadge';kb.textContent=e.kategori;tx.prepend(kb)}
       t.append(tx);
       const k=document.createElement('span');k.className='k';k.textContent=(e.type==='makan'?'+':'−')+num(e.kcal);
       const b=document.createElement('button');b.textContent='✕';b.setAttribute('aria-label','Hapus '+e.name);b.onclick=()=>askDel(e);
@@ -652,7 +701,7 @@ $('photoIn').onchange=async()=>{const f=$('photoIn').files[0];if(!f)return;
 // Form
 function syncForm(){const t=document.querySelector('[name=type]:checked').value;
   $('addBtn').textContent=t==='makan'?'Catat makan':'Catat olahraga';
-  $('name').placeholder=t==='makan'?'Nasi goreng':'Lari pagi';$('extra').style.display=t==='makan'?'block':'none'}
+  $('name').placeholder=t==='makan'?'Nasi goreng':'Lari pagi';$('extra').style.display=t==='makan'?'block':'none';selKat='';renderKatChips()}
 document.querySelectorAll('[name=type]').forEach(r=>r.onchange=syncForm);
 $('name').addEventListener('change',()=>{const t=document.querySelector('[name=type]:checked').value;
   const p=S.entries.slice().reverse().find(e=>e.name===$('name').value&&e.type===t);if(p&&!$('kcal').value)$('kcal').value=p.kcal});
@@ -661,7 +710,8 @@ $('form').onsubmit=ev=>{ev.preventDefault();
   const e={id:uid(),date:cur,type,name:$('name').value.trim(),kcal:Math.round(Number($('kcal').value)),note:$('note').value.trim()};
   if(photoData)e.photoData=photoData;
   if(type==='makan'){e.lauk=$('lauk').value.trim();e.minum=$('minum').value.trim()}
-  add(e);$('name').value='';$('kcal').value='';$('note').value='';$('lauk').value='';$('minum').value='';clearPhoto();$('name').focus()};
+  if(selKat)e.kategori=selKat;
+  add(e);$('name').value='';$('kcal').value='';$('note').value='';$('lauk').value='';$('minum').value='';clearPhoto();selKat='';renderKatChips();$('name').focus()};
 
 // Tanggal
 const shift=n=>{const d=parse(cur);d.setDate(d.getDate()+n);cur=fmt(d);render()};
@@ -864,7 +914,58 @@ function renderChips(){
   $('hcKal').textContent=$('left').textContent+' kkal'+($('left').classList.contains('over')?' lebih':'');
   $('hcBerat').textContent=ws.length?nf(ws[ws.length-1].kg)+' kg':'–';
 }
-function renderExtra(){renderRutin();renderBerat();renderChips()}
+/* ===== Kategori makan & olahraga (bisa ditambah/dihapus; disimpan di tab "Data") ===== */
+const KAT_DEF={makan:['Sarapan','Makan siang','Makan malam','Camilan','Jajan','Minuman'],olahraga:['Jogging','Jalan kaki','Gym','Bersepeda','Renang','Yoga']};
+const katSlug=x=>String(x).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,24)||'x';
+const curType=()=>document.querySelector('[name=type]:checked').value;
+let selKat='',katType='makan';
+function cats(t){
+  const rows=S.data.filter(r=>r.jenis==='kat-'+t).sort((a,b)=>(parseFloat(a.nilai)||0)-(parseFloat(b.nilai)||0));
+  if(rows.length||S.data.some(r=>r.id==='kat-init-'+t))return rows;
+  return KAT_DEF[t].map((n,i)=>({id:'kt-'+t[0]+'-'+katSlug(n),jenis:'kat-'+t,tanggal:'',nama:n,nilai:String(i+1)}));
+}
+function katEnsure(t){   /* saat pertama diubah, daftar bawaan "dikunci" jadi data nyata */
+  if(S.data.some(r=>r.id==='kat-init-'+t))return;
+  cats(t).forEach(r=>putRow(r));
+  putRow({id:'kat-init-'+t,jenis:'cfg',tanggal:'',nama:'kat-init',nilai:'1'});
+}
+function katAdd(t,name){
+  name=String(name).trim().slice(0,30);if(!name)return false;
+  if(cats(t).some(r=>r.nama.toLowerCase()===name.toLowerCase()))return false;
+  katEnsure(t);
+  const max=Math.max(0,...S.data.filter(r=>r.jenis==='kat-'+t).map(r=>parseFloat(r.nilai)||0));
+  putRow({id:'kt-'+t[0]+'-'+katSlug(name)+'-'+Math.random().toString(36).slice(2,5),jenis:'kat-'+t,tanggal:'',nama:name,nilai:String(max+1)});
+  return true;
+}
+function katDel(t,id){katEnsure(t);removeRow(id);if(selKat&&!cats(t).some(r=>r.nama===selKat))selKat=''}
+function katReset(t){S.data.filter(r=>r.jenis==='kat-'+t||r.id==='kat-init-'+t).forEach(r=>removeRow(r.id));selKat=''}
+function renderKatChips(){
+  const box=$('katChips');if(!box)return;
+  const t=curType();box.textContent='';box.className='kats'+(t==='olahraga'?' mv':'');
+  cats(t).forEach(r=>{const b=document.createElement('button');b.type='button';b.className='kchip'+(selKat===r.nama?' on':'');b.textContent=r.nama;
+    b.onclick=()=>{selKat=selKat===r.nama?'':r.nama;renderKatChips()};box.append(b)});
+  const m=document.createElement('button');m.type='button';m.className='kchip kmanage';m.textContent='Kelola';m.onclick=()=>{katType=t;renderKatDlg();$('katDlg').showModal()};box.append(m);
+}
+function renderKatDlg(){
+  const t=katType,ul=$('kdList'),list=cats(t);
+  $('kdTitle').textContent='Kategori '+(t==='makan'?'Makan':'Olahraga');ul.textContent='';
+  list.forEach(r=>{const li=document.createElement('li');li.className='kd';
+    const d=document.createElement('div');d.className='t';d.textContent=r.nama;
+    const x=document.createElement('button');x.type='button';x.textContent='✕';x.setAttribute('aria-label','Hapus '+r.nama);
+    x.onclick=()=>{katDel(t,r.id);renderKatDlg();renderKatChips();sync()};li.append(d,x);ul.append(li)});
+  if(!list.length){const e=document.createElement('li');e.className='kd';e.textContent='Belum ada kategori. Tambahkan di bawah.';ul.append(e)}
+}
+$('kdForm').onsubmit=ev=>{ev.preventDefault();const inp=$('kdNew');
+  if(katAdd(katType,inp.value)){inp.value='';renderKatDlg();renderKatChips();sync()}
+  else{inp.classList.remove('bad');void inp.offsetWidth;inp.classList.add('bad')}};
+$('kdReset').onclick=()=>{katReset(katType);renderKatDlg();renderKatChips();sync()};
+$('kdClose').onclick=()=>$('katDlg').close();
+function renderKatSum(){
+  const box=$('katSum');box.textContent='';const m=new Map();
+  S.entries.filter(e=>e.date===cur&&e.kategori).forEach(e=>{const k=e.type+'|'+e.kategori;m.set(k,(m.get(k)||0)+e.kcal)});
+  m.forEach((v,k)=>{const i=k.indexOf('|'),sp=document.createElement('span');sp.className='ks'+(k.slice(0,i)==='olahraga'?' mv':'');sp.textContent=`${k.slice(i+1)} · ${num(v)}`;box.append(sp)});
+}
+function renderExtra(){renderRutin();renderBerat();renderChips();renderKatChips();renderKatSum()}
 const _render0=render;render=function(){_render0();renderExtra()};
 
 syncForm();render();updStatus();sync();
