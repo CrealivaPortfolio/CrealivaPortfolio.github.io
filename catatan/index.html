@@ -354,6 +354,55 @@ li{break-inside:avoid}
 @media (min-width:1280px){
   .cols{column-count:3}
 }
+
+/* Ubah catatan */
+#listBox li{grid-template-columns:1fr auto auto auto}
+li button.ed{font-size:1rem}
+li button.ed:hover{background:rgba(26,111,255,.2);color:var(--blue-bright);transform:none}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input[type=date]{width:100%;padding:14px 18px;margin-bottom:10px;background:rgba(255,255,255,.06);border:1px solid rgba(26,111,255,.2);border-radius:var(--radius-md);font-size:16px;color:#fff;font-family:'Poppins',sans-serif;transition:all var(--dur) var(--ease)}
+
+/* Laporan */
+.report{margin-top:8px}
+.rp-cols{display:grid;gap:24px}
+.rp-col{display:grid;gap:16px;align-content:start}
+.rp-col .card{margin-bottom:0}
+.stats.four{grid-template-columns:repeat(4,1fr)}
+#rpNTile.over b{color:var(--over)}
+#rpNTile.okc b{color:var(--ok)}
+.rp-leg,.hm-leg{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:.7rem;color:var(--ink-2)}
+.rp-leg i,.hm-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.kh{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:2px 0 12px}
+.kh:not(:first-child){margin-top:24px}
+.kr{margin-bottom:12px}
+.kl{display:flex;justify-content:space-between;gap:8px;font-size:.85rem;margin-bottom:5px}
+.kl b{font-weight:600;white-space:nowrap}
+.kb{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.kb i{display:block;height:100%;border-radius:99px;background:var(--grad-blue);transition:width .6s var(--ease)}
+.kr.mv .kb i{background:linear-gradient(135deg,#fbbf78,#c07840)}
+.hm-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+#hmTitle{font-weight:700;text-transform:capitalize}
+.hm-wd,.hm-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.hm-wd span{text-align:center;font-size:.64rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding-bottom:6px}
+.hm{position:relative;aspect-ratio:1;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03);color:var(--ink-2);font-size:.78rem;font-weight:600;display:grid;place-items:center;transition:transform .25s var(--ease-spring),box-shadow .25s}
+.hm:hover{transform:scale(1.14);z-index:2}
+.hm.hm1{background:rgba(26,111,255,.3);border-color:rgba(26,111,255,.55);color:#fff}
+.hm.hm2{background:var(--grad-blue);border-color:transparent;color:#fff;box-shadow:0 0 12px rgba(26,111,255,.5)}
+.hm.hm3{background:linear-gradient(135deg,#f87171,#dc2626);border-color:transparent;color:#fff;box-shadow:0 0 12px rgba(248,113,113,.45)}
+.hm.fut{opacity:.35}
+.hm.tod{outline:2px solid var(--move);outline-offset:2px}
+.hm.sel{box-shadow:0 0 0 2px #fff}
+.hm.rd::after{content:'';position:absolute;bottom:4px;width:5px;height:5px;border-radius:50%;background:var(--move)}
+@media (min-width:1024px){
+  .rp-cols{grid-template-columns:1fr 1fr;align-items:start}
+  .rp-col{display:contents}
+  .rp-cols .rp-col:first-child .card{grid-column:1/-1}
+}
+@media (min-width:1280px){
+  .rp-cols{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr)}
+  .rp-cols .rp-col:first-child .card{grid-column:auto}
+}
+@media (max-width:520px){.stats.four{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -361,7 +410,7 @@ li{break-inside:avoid}
 <img class="bg-logo bg-logo2" src="../personcv.png" alt="" aria-hidden="true" onerror="this.remove()">
 <div class="cursor-glow-wrap" id="cursorGlowWrap"><div class="cursor-glow"></div></div>
 <nav class="nav"><div class="wrap">
-  <div class="brand"><img src="../personcv.png" alt="" onerror="this.remove()"><div>Crealiva <small>Notes</small></div></div>
+  <div class="brand"><img src="../personcv.png" alt="" onerror="this.remove()"><div>Crealiva <small>Catatan</small></div></div>
   <button class="pill" id="setBtn">Atur</button>
 </div></nav>
 
@@ -370,7 +419,7 @@ li{break-inside:avoid}
     <aside class="hero-side hl" aria-label="Ringkasan"><a class="gchip" href="#sec-rutinitas"><span>Streak</span><b id="hcStreak" class="am">0 hari</b></a><a class="gchip" href="#sec-rutinitas"><span>Rutinitas</span><b id="hcRut">–</b></a></aside>
     <div class="hero-main">
     <span class="kicker">Daily Log 2026</span>
-    <h1>Catatan <span>Harian</span></h1>
+    <h1>Catatan <span>Notes</span></h1>
     <p>Makan, olahraga, dan momen harianmu. Tersimpan di Google Sheet.</p>
     <div class="datenav">
       <button class="pill" id="prev" aria-label="Hari sebelumnya">❮</button>
@@ -378,7 +427,7 @@ li{break-inside:avoid}
       <button class="pill" id="next" aria-label="Hari berikutnya">❯</button>
       <input type="date" id="date" aria-label="Pilih tanggal">
     </div>
-    <nav class="jump" aria-label="Lompat ke bagian"><a class="pill" href="#sec-catatan">Catatan</a><a class="pill" href="#sec-rutinitas">Rutinitas</a><a class="pill" href="#sec-berat">Berat</a></nav>
+    <nav class="jump" aria-label="Lompat ke bagian"><a class="pill" href="#sec-catatan">Catatan</a><a class="pill" href="#sec-rutinitas">Rutinitas</a><a class="pill" href="#sec-berat">Berat</a><a class="pill" href="#sec-laporan">Laporan</a></nav>
     </div>
     <aside class="hero-side hr" aria-label="Ringkasan"><a class="gchip" href="#form"><span>Sisa kalori</span><b id="hcKal" class="bl">–</b></a><a class="gchip" href="#sec-berat"><span>Berat</span><b id="hcBerat">–</b></a></aside>
   </section>
@@ -486,6 +535,40 @@ li{break-inside:avoid}
 </div>
 </div>
 </div>
+  <section class="report" id="sec-laporan">
+    <h2>Laporan</h2>
+    <div class="rp-cols">
+      <div class="rp-col">
+        <div class="card">
+          <div class="seg">
+            <label><input type="radio" name="rng" value="7" checked><span>7 hari</span></label>
+            <label><input type="radio" name="rng" value="30"><span>30 hari</span></label>
+          </div>
+          <div class="cap" id="rpRange"></div>
+          <div class="stats four">
+            <div class="e"><b id="rpE">–</b><span>Rata-rata masuk</span></div>
+            <div class="m"><b id="rpM">–</b><span>Rata-rata olahraga</span></div>
+            <div id="rpNTile"><b id="rpN">–</b><span>Rata-rata bersih</span></div>
+            <div><b id="rpD">–</b><span>Hari sesuai target</span></div>
+          </div>
+          <div class="chart" id="rpChart"></div>
+          <div class="rp-leg"><span><i style="background:#3D8EFF"></i>Masuk</span><span><i style="background:#fbbf78"></i>Olahraga</span><span><i style="background:#4ade80"></i>Target</span></div>
+        </div>
+      </div>
+      <div class="rp-col">
+        <div class="card">
+          <div class="kh">Makan per kategori</div><div id="rpKatE"></div>
+          <div class="kh">Olahraga per kategori</div><div id="rpKatM"></div>
+        </div>
+        <div class="card">
+          <div class="hm-head"><button type="button" class="pill" id="hmPrev" aria-label="Bulan sebelumnya">❮</button><div id="hmTitle"></div><button type="button" class="pill" id="hmNext" aria-label="Bulan berikutnya">❯</button></div>
+          <div class="hm-wd"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
+          <div class="hm-grid" id="hmGrid"></div>
+          <div class="hm-leg"><span><i style="background:rgba(26,111,255,.4)"></i>Di bawah target</span><span><i style="background:#1A6FFF"></i>Mendekati target</span><span><i style="background:#f87171"></i>Melebihi</span><span><i style="background:#fbbf78;border-radius:50%"></i>Rutinitas lengkap</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
   <footer>
     <span id="status"></span>
     <button class="pill" id="syncBtn">Sinkron</button>
@@ -511,6 +594,29 @@ li{break-inside:avoid}
 <dialog id="delDlg"><p id="delTxt" style="margin:0 0 14px;font-weight:600"></p>
   <div class="btns"><button type="button" class="pill" id="delNo">Batal</button><button type="button" class="pill danger" id="delYes">Ya, hapus</button></div></dialog>
 
+<dialog id="editDlg">
+  <form method="dialog" id="editForm" style="all:unset">
+    <div class="kd-title">Ubah catatan</div>
+    <div class="seg">
+      <label><input type="radio" name="etype" value="makan"><span>Makan</span></label>
+      <label class="mv"><input type="radio" name="etype" value="olahraga"><span>Olahraga</span></label>
+    </div>
+    <div class="kats" id="eKats"></div>
+    <label for="eName">Nama</label>
+    <input type="text" id="eName" maxlength="80" required>
+    <div class="row2">
+      <div><label for="eKcal">Kalori (kkal)</label><input type="number" id="eKcal" min="0" inputmode="numeric" required></div>
+      <div><label for="eDate">Tanggal</label><input type="date" id="eDate" required></div>
+    </div>
+    <label for="eNote">Catatan</label>
+    <input type="text" id="eNote" maxlength="120">
+    <div id="eExtra">
+      <label for="eLauk">Lauk</label><input type="text" id="eLauk" maxlength="80">
+      <label for="eMinum">Minum</label><input type="text" id="eMinum" maxlength="80">
+    </div>
+    <div class="btns"><button type="button" class="pill" id="eCancel">Batal</button><button type="submit" class="pill">Simpan</button></div>
+  </form>
+</dialog>
 <dialog id="katDlg">
   <div class="kd-title" id="kdTitle">Kategori</div>
   <ul id="kdList"></ul>
@@ -544,7 +650,7 @@ addEventListener('error',ev=>{const s=document.getElementById('status');if(s){s.
 const LS='crealiva-catatan-v2', $=id=>document.getElementById(id);
 let S={entries:[],queue:[],data:[],cfg:{url:'',key:'',target:2000}};
 try{const o=JSON.parse(localStorage.getItem(LS)||localStorage.getItem('crealiva-catatan-v1')||'{}');
-  if(o.cfg)S.cfg=o.cfg; if(o.entries)S.entries=o.entries; if(o.data)S.data=o.data; if(o.srv2!==undefined)S.srv2=o.srv2;
+  if(o.cfg)S.cfg=o.cfg; if(o.entries)S.entries=o.entries; if(o.data)S.data=o.data; if(o.srv2!==undefined)S.srv2=o.srv2; if(o.srv3!==undefined)S.srv3=o.srv3;
   if(o.queue)S.queue=o.queue.map(q=>q.op==='add'&&q.entry?{op:'add',id:q.entry.id}:q);}catch(e){}
 let storeFail=false;
 const save=()=>{try{localStorage.setItem(LS,JSON.stringify(S));storeFail=false}catch(e){storeFail=true}};
@@ -590,7 +696,8 @@ function render(){
       t.append(tx);
       const k=document.createElement('span');k.className='k';k.textContent=(e.type==='makan'?'+':'−')+num(e.kcal);
       const b=document.createElement('button');b.textContent='✕';b.setAttribute('aria-label','Hapus '+e.name);b.onclick=()=>askDel(e);
-      li.append(t,k,b);ul.append(li)});
+      const ed=document.createElement('button');ed.textContent='✎';ed.className='ed';ed.setAttribute('aria-label','Ubah '+e.name);ed.onclick=()=>openEdit(e);
+      li.append(t,k,ed,b);ul.append(li)});
     lb.append(ul)}
 
   // galeri slide
@@ -629,8 +736,8 @@ function setStatus(t,c){$('status').textContent=t;$('status').className=c}
 function updStatus(){
   if(storeFail)return setStatus('Penyimpanan browser penuh, segera sinkron','err');
   if(!S.cfg.url)return setStatus('Belum terhubung ke Sheet (data di perangkat ini)','');
-  if(S.queue.length)return setStatus(`Menunggu sinkron (${S.queue.length})`+(S.srv2===false?' · perbarui Code.gs untuk fitur baru':''),'wait');
-  setStatus(`Tersinkron dengan Sheet · ${S.entries.length} catatan diterima`+(S.srv2===false?' · perbarui Code.gs untuk fitur baru':''),'ok');
+  if(S.queue.length)return setStatus(`Menunggu sinkron (${S.queue.length})`+((S.srv2===false||S.srv3===false)?' · perbarui Code.gs untuk fitur baru':''),'wait');
+  setStatus(`Tersinkron dengan Sheet · ${S.entries.length} catatan diterima`+((S.srv2===false||S.srv3===false)?' · perbarui Code.gs untuk fitur baru':''),'ok');
 }
 
 function add(e){S.entries.push(e);S.queue.push({op:'add',id:e.id});save();render();sync()}
@@ -661,7 +768,7 @@ async function sync(){
     let qi=0;
     while(qi<S.queue.length){
       const q=S.queue[qi];let body;
-      if((q.op==='put'||q.op==='remove')&&S.srv2!==true){qi++;continue}
+      if(((q.op==='put'||q.op==='remove')&&S.srv2!==true)||(q.op==='upd'&&S.srv3!==true)){qi++;continue}
       if(q.op==='add'){
         const e=S.entries.find(x=>x.id===q.id);
         if(!e){S.queue.splice(qi,1);save();continue}
@@ -675,12 +782,13 @@ async function sync(){
     const pend=S.entries.filter(e=>S.queue.some(q=>q.op==='add'&&q.id===e.id));
     const gone=new Set(S.queue.filter(q=>q.op==='del').map(q=>q.id));
     S.entries=res.rows.filter(r=>r.id&&!gone.has(r.id)).map(r=>({...r,date:normDate(r.date)})).concat(pend);
-    S.srv2=(res.v===2);
+    S.srv2=(res.v===2);S.srv3=(res.cap>=3);
+    S.queue.forEach(q=>{if(q.op==='upd'){const i=S.entries.findIndex(x=>x.id===q.entry.id);if(i>=0)S.entries[i]={...S.entries[i],...q.entry}}});
     if(Array.isArray(res.data)){const m=new Map(res.data.filter(r=>r.id).map(r=>[r.id,r]));
       S.queue.forEach(q=>{if(q.op==='put')m.set(q.row.id,q.row);else if(q.op==='remove')m.delete(q.id)});
       S.data=[...m.values()]}
     save();render();updStatus();
-    if(S.srv2===true&&S.queue.some(q=>q.op==='put'||q.op==='remove')){busy=false;return sync()}
+    if((S.srv2===true&&S.queue.some(q=>q.op==='put'||q.op==='remove'))||(S.srv3===true&&S.queue.some(q=>q.op==='upd'))){busy=false;return sync()}
   }catch(err){if(err===STALE){busy=false;return sync()}console.error(err);setStatus(/kode/i.test(err.message)?'Kode rahasia salah':'Gagal sinkron: '+err.message,'err')}
   busy=false;
 }
@@ -724,7 +832,7 @@ $('setBtn').onclick=()=>{$('cUrl').value=S.cfg.url;$('cKey').value=S.cfg.key;$('
 $('cCancel').onclick=()=>$('dlg').close();
 function applyCfg(nc){
   const oc=S.cfg, changed=(nc.url!==oc.url||nc.key!==oc.key), wipe=!!(changed&&oc.url);
-  const go=()=>{cfgVer++;if(wipe){S.entries=[];S.queue=[];S.data=[];S.srv2=undefined}S.cfg=nc;save();render();updStatus();sync()};
+  const go=()=>{cfgVer++;if(wipe){S.entries=[];S.queue=[];S.data=[];S.srv2=undefined;S.srv3=undefined}S.cfg=nc;save();render();updStatus();sync()};
   if(wipe&&S.queue.length)askConfirm(`Ada ${S.queue.length} catatan yang belum terkirim ke Sheet lama dan akan hilang kalau pindah. Lanjutkan?`,'Ya, lanjutkan',go);
   else go();
 }
@@ -965,7 +1073,91 @@ function renderKatSum(){
   S.entries.filter(e=>e.date===cur&&e.kategori).forEach(e=>{const k=e.type+'|'+e.kategori;m.set(k,(m.get(k)||0)+e.kcal)});
   m.forEach((v,k)=>{const i=k.indexOf('|'),sp=document.createElement('span');sp.className='ks'+(k.slice(0,i)==='olahraga'?' mv':'');sp.textContent=`${k.slice(i+1)} · ${num(v)}`;box.append(sp)});
 }
-function renderExtra(){renderRutin();renderBerat();renderChips();renderKatChips();renderKatSum()}
+/* ===== Ubah catatan ===== */
+let editId=null,eKat='';
+const eType=()=>document.querySelector('[name=etype]:checked').value;
+function renderEKats(){
+  const t=eType(),box=$('eKats');box.textContent='';box.className='kats'+(t==='olahraga'?' mv':'');
+  const names=cats(t).map(r=>r.nama);if(eKat&&!names.includes(eKat))names.push(eKat);
+  names.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='kchip'+(eKat===n?' on':'');b.textContent=n;
+    b.onclick=()=>{eKat=eKat===n?'':n;renderEKats()};box.append(b)});
+}
+function syncEdit(){$('eExtra').style.display=eType()==='makan'?'block':'none';renderEKats()}
+function openEdit(e){
+  editId=e.id;eKat=e.kategori||'';
+  document.querySelector(`[name=etype][value=${e.type==='olahraga'?'olahraga':'makan'}]`).checked=true;
+  $('eName').value=e.name;$('eKcal').value=e.kcal;$('eDate').value=e.date;$('eNote').value=e.note||'';$('eLauk').value=e.lauk||'';$('eMinum').value=e.minum||'';
+  syncEdit();$('editDlg').showModal();
+}
+document.querySelectorAll('[name=etype]').forEach(r=>r.onchange=()=>{eKat='';syncEdit()});
+$('eCancel').onclick=()=>$('editDlg').close();
+$('editForm').onsubmit=()=>{
+  const e=S.entries.find(x=>x.id===editId);if(!e)return;
+  const t=eType();
+  e.type=t;e.name=$('eName').value.trim()||e.name;e.kcal=Math.round(Number($('eKcal').value))||0;e.date=$('eDate').value||e.date;
+  e.note=$('eNote').value.trim();e.lauk=t==='makan'?$('eLauk').value.trim():'';e.minum=t==='makan'?$('eMinum').value.trim():'';e.kategori=eKat;
+  S.queue.push({op:'upd',entry:{id:e.id,date:e.date,type:e.type,name:e.name,kcal:e.kcal,note:e.note,lauk:e.lauk,minum:e.minum,kategori:e.kategori}});
+  save();render();sync();
+};
+
+/* ===== Laporan mingguan / bulanan ===== */
+let repDays=7,repMonth=fmt(new Date()).slice(0,7);
+function dayAgg(){const m=new Map();S.entries.forEach(e=>{const a=m.get(e.date)||{eat:0,mv:0,n:0};if(e.type==='olahraga')a.mv+=e.kcal;else a.eat+=e.kcal;a.n++;m.set(e.date,a)});return m}
+function repSvg(rows,target){
+  const W=600,H=230,L=40,R=8,T=14,B=28,n=rows.length,gw=(W-L-R)/n,bw=Math.min(18,gw*.34);
+  const mx=Math.max(100,target*1.1,...rows.map(r=>Math.max(r.eat,r.mv))),Y=v=>T+(1-v/mx)*(H-T-B);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Grafik kalori harian">`;
+  for(let k=0;k<=3;k++){const v=mx*k/3,y=Y(v);s+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,.08)"/><text x="${L-6}" y="${y+4}" text-anchor="end" font-size="11" fill="#5A729A">${Math.round(v)}</text>`}
+  rows.forEach((r,i)=>{const cx=L+i*gw+gw/2;
+    if(r.eat>0)s+=`<rect x="${(cx-bw-1).toFixed(1)}" y="${Y(r.eat).toFixed(1)}" width="${bw.toFixed(1)}" height="${(H-B-Y(r.eat)).toFixed(1)}" rx="3" fill="#3D8EFF"><title>${shortDate(r.d)}: masuk ${num(r.eat)} kkal</title></rect>`;
+    if(r.mv>0)s+=`<rect x="${(cx+1).toFixed(1)}" y="${Y(r.mv).toFixed(1)}" width="${bw.toFixed(1)}" height="${(H-B-Y(r.mv)).toFixed(1)}" rx="3" fill="#fbbf78"><title>${shortDate(r.d)}: olahraga ${num(r.mv)} kkal</title></rect>`;
+    const lab=n<=7?parse(r.d).toLocaleDateString('id-ID',{weekday:'short'}):((i%5===0||i===n-1)?String(parse(r.d).getDate()):'');
+    if(lab)s+=`<text x="${cx.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="11" fill="#5A729A">${lab}</text>`});
+  if(target){const y=Y(target);s+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#4ade80" stroke-width="2" stroke-dasharray="6 6"/><text x="${W-R}" y="${y-6}" text-anchor="end" font-size="11" fill="#4ade80">target ${num(target)}</text>`}
+  return s+'</svg>';
+}
+function katBars(el,type,set){
+  el.textContent='';const m=new Map();
+  S.entries.filter(e=>e.type===type&&set.has(e.date)).forEach(e=>{const k=e.kategori||'Tanpa kategori';m.set(k,(m.get(k)||0)+e.kcal)});
+  const arr=[...m].sort((a,b)=>b[1]-a[1]),tot=arr.reduce((a,x)=>a+x[1],0);
+  if(!arr.length){const d=document.createElement('div');d.className='empty';d.textContent='Belum ada data di periode ini.';el.append(d);return}
+  arr.forEach(([k,v])=>{const p=tot?Math.round(v/tot*100):0,r=document.createElement('div');r.className='kr'+(type==='olahraga'?' mv':'');
+    const l=document.createElement('div');l.className='kl';const a=document.createElement('span');a.textContent=k;const b=document.createElement('b');b.textContent=`${num(v)} · ${p}%`;l.append(a,b);
+    const bar=document.createElement('div');bar.className='kb';const i=document.createElement('i');i.style.width=p+'%';bar.append(i);r.append(l,bar);el.append(r)});
+}
+function renderHeat(agg,target){
+  const [y,mo]=repMonth.split('-').map(Number),first=new Date(y,mo-1,1),off=(first.getDay()+6)%7,dim=new Date(y,mo,0).getDate(),today=fmt(new Date());
+  $('hmTitle').textContent=first.toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+  const g=$('hmGrid');g.textContent='';
+  for(let i=0;i<off;i++)g.append(document.createElement('div'));
+  for(let d=1;d<=dim;d++){
+    const ds=`${y}-${pad(mo)}-${pad(d)}`,a=agg.get(ds),b=document.createElement('button');b.type='button';
+    let c='hm';
+    if(a){const net=a.eat-a.mv;c+=!target?' hm2':(net>target?' hm3':(net>=target*.85?' hm2':' hm1'))}
+    if(ds>today)c+=' fut';if(ds===today)c+=' tod';if(ds===cur)c+=' sel';if(dayStatus(ds)==='done')c+=' rd';
+    b.className=c;b.textContent=d;
+    b.title=a?`${shortDate(ds)}: masuk ${num(a.eat)}, olahraga ${num(a.mv)} kkal`:shortDate(ds)+': belum ada catatan';
+    b.onclick=()=>{cur=ds;render()};g.append(b);
+  }
+}
+function renderReport(){
+  const n=repDays,target=Number(S.cfg.target)||0,agg=dayAgg(),rows=[];
+  for(let k=n-1;k>=0;k--){const d=addDays(cur,-k),a=agg.get(d)||{eat:0,mv:0,n:0};rows.push({d,eat:a.eat,mv:a.mv,has:a.n>0})}
+  const have=rows.filter(r=>r.has),avg=f=>have.length?Math.round(have.reduce((s,r)=>s+f(r),0)/have.length):null;
+  const aE=avg(r=>r.eat),aM=avg(r=>r.mv),aN=avg(r=>r.eat-r.mv);
+  $('rpE').textContent=aE==null?'–':num(aE);$('rpM').textContent=aM==null?'–':num(aM);$('rpN').textContent=aN==null?'–':num(aN);
+  $('rpD').textContent=have.length?`${have.filter(r=>r.eat-r.mv<=target).length}/${have.length}`:'–';
+  $('rpNTile').className=(aN==null||!target)?'':(aN>target?'over':'okc');
+  $('rpRange').textContent=`${shortDate(rows[0].d)} – ${shortDate(rows[n-1].d)} · ${have.length} hari tercatat`;
+  $('rpChart').innerHTML=have.length?repSvg(rows,target):'<div class="empty">Belum ada catatan di periode ini.</div>';
+  const set=new Set(rows.map(r=>r.d));katBars($('rpKatE'),'makan',set);katBars($('rpKatM'),'olahraga',set);
+  renderHeat(agg,target);
+}
+$('hmPrev').onclick=()=>{const [y,m]=repMonth.split('-').map(Number);repMonth=fmt(new Date(y,m-2,1)).slice(0,7);renderReport()};
+$('hmNext').onclick=()=>{const [y,m]=repMonth.split('-').map(Number);repMonth=fmt(new Date(y,m,1)).slice(0,7);renderReport()};
+document.querySelectorAll('[name=rng]').forEach(r=>r.onchange=()=>{repDays=Number(r.value);renderReport()});
+
+function renderExtra(){renderRutin();renderBerat();renderChips();renderKatChips();renderKatSum();renderReport()}
 const _render0=render;render=function(){_render0();renderExtra()};
 
 syncForm();render();updStatus();sync();
@@ -976,7 +1168,7 @@ syncForm();render();updStatus();sync();
   function sc(){ if(nav) nav.classList.toggle('scrolled',window.scrollY>50); }
   addEventListener('scroll',sc,{passive:true}); sc();
 
-  var els=[].slice.call(document.querySelectorAll('.hero,.marquee,.col-left>*,.col-mid>*,.col-side>*,main>footer'));
+  var els=[].slice.call(document.querySelectorAll('.hero,.marquee,.col-left>*,.col-mid>*,.col-side>*,.report,main>footer'));
   if(!('IntersectionObserver' in window)) return;
   var io=new IntersectionObserver(function(es){es.forEach(function(e){
     if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.08});
