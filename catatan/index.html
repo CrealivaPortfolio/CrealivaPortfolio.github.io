@@ -403,6 +403,24 @@ input[type=date]{width:100%;padding:14px 18px;margin-bottom:10px;background:rgba
   .rp-cols .rp-col:first-child .card{grid-column:auto}
 }
 @media (max-width:520px){.stats.four{grid-template-columns:1fr 1fr}}
+
+/* Rutinitas per hari */
+.dl{display:block;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:14px}
+.days{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 2px}
+.dchip{min-width:44px;padding:6px 10px;border-radius:99px;border:1px solid rgba(26,111,255,.3);background:rgba(26,111,255,.08);color:rgba(255,255,255,.65);font-size:.74rem;font-weight:600;transition:all .25s var(--ease)}
+.dchip:hover{background:rgba(26,111,255,.22);color:#fff}
+.dchip.on{background:var(--grad-blue);border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(26,111,255,.4)}
+.dpre{padding:6px 10px;border-radius:99px;border:1px dashed rgba(255,255,255,.22);background:none;color:var(--ink-2);font-size:.7rem;font-weight:600;transition:all .25s var(--ease)}
+.dpre:hover{color:#fff;border-color:rgba(26,111,255,.7)}
+li.rt{grid-template-columns:1fr auto auto}
+li.rt .t small{display:block;font-weight:400;color:rgba(255,255,255,.42);font-size:.72rem;line-height:1.4}
+li.rt.off{opacity:.55}
+li.rt.off .t{cursor:default}
+li.rt.off .box{border-style:dashed}
+li.offh{display:block;background:none;border:0;padding:8px 4px 0;color:var(--ink-3);font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:none;box-shadow:none}
+li.offh::before,li.offh::after{display:none}
+li.offh:hover{transform:none;background:none;border:0;box-shadow:none}
+.wd.rest i{border-style:dashed;opacity:.55}
 </style>
 </head>
 <body>
@@ -502,6 +520,8 @@ input[type=date]{width:100%;padding:14px 18px;margin-bottom:10px;background:rgba
       <input type="text" id="rtNew" placeholder="Tambah rutinitas baru" maxlength="60">
       <button type="submit" class="pill">Tambah</button>
     </form>
+    <span class="dl">Hari aktif</span>
+    <div class="days" id="rtNewDays"></div>
   </section>
   </div>
 
@@ -594,6 +614,17 @@ input[type=date]{width:100%;padding:14px 18px;margin-bottom:10px;background:rgba
 <dialog id="delDlg"><p id="delTxt" style="margin:0 0 14px;font-weight:600"></p>
   <div class="btns"><button type="button" class="pill" id="delNo">Batal</button><button type="button" class="pill danger" id="delYes">Ya, hapus</button></div></dialog>
 
+<dialog id="rtDlg">
+  <form method="dialog" id="rtEditForm" style="all:unset">
+    <div class="kd-title">Ubah rutinitas</div>
+    <label for="rtEName">Nama</label>
+    <input type="text" id="rtEName" maxlength="60" required>
+    <span class="dl">Hari aktif</span>
+    <div class="days" id="rtEDays"></div>
+    <p class="hint">Perubahan jadwal juga berlaku untuk hari-hari yang sudah lewat.</p>
+    <div class="btns"><button type="button" class="pill" id="rtECancel">Batal</button><button type="submit" class="pill" id="rtESave">Simpan</button></div>
+  </form>
+</dialog>
 <dialog id="editDlg">
   <form method="dialog" id="editForm" style="all:unset">
     <div class="kd-title">Ubah catatan</div>
@@ -871,20 +902,28 @@ function celebrate(title,reward){
 }
 $('winOk').onclick=()=>{$('win').hidden=true};
 
-/* --- Rutinitas --- */
+/* --- Rutinitas (bisa dijadwalkan per hari) --- */
+const DAYN=['Sen','Sel','Rab','Kam','Jum','Sab','Min'],ALLD=[1,2,3,4,5,6,7];
 const rtItems=()=>S.data.filter(r=>r.jenis==='rutin-item').sort((a,b)=>a.tanggal<b.tanggal?-1:a.tanggal>b.tanggal?1:a.id<b.id?-1:1);
 const isChecked=(d,id)=>S.data.some(r=>r.id===`rc-${d}-${id}`);
 const isLibur=d=>S.data.some(r=>r.id==='rl-'+d);
+const wdOf=ds=>{const g=parse(ds).getDay();return g===0?7:g};
+function itemDays(it){const v=String(it.nilai||'');if(v.startsWith('d:')){const a=v.slice(2).split('').map(Number).filter(n=>n>=1&&n<=7);if(a.length)return a}return ALLD.slice()}
+const itemActive=(it,ds)=>itemDays(it).includes(wdOf(ds));
+const daysLabel=it=>{const a=itemDays(it);return a.length===7?'':a.map(n=>DAYN[n-1]).join(' · ')};
+const encDays=a=>'d:'+[...new Set(a)].sort().join('');
 function dayStatus(d){
   if(isLibur(d))return 'libur';
-  const its=rtItems().filter(i=>i.tanggal<=d);
-  if(!its.length)return 'none';
+  const all=rtItems().filter(i=>i.tanggal<=d);
+  if(!all.length)return 'none';
+  const its=all.filter(i=>itemActive(i,d));
+  if(!its.length)return 'rest';
   return its.every(i=>isChecked(d,i.id))?'done':'miss';
 }
 function streak(){
   const today=fmt(new Date());let n=0,d=today,g=0;
   while(g++<800){const st=dayStatus(d);
-    if(st==='done')n++;else if(st==='libur'){}else if(d===today){}else break;
+    if(st==='done')n++;else if(st==='libur'||st==='rest'){}else if(d===today){}else break;
     d=addDays(d,-1)}
   return n;
 }
@@ -892,15 +931,24 @@ function bestStreak(){
   const its=rtItems();if(!its.length)return 0;
   const today=fmt(new Date());let d=its[0].tanggal,run=0,best=0,g=0;
   while(d<=today&&g++<1500){const st=dayStatus(d);
-    if(st==='done'){run++;best=Math.max(best,run)}else if(st==='libur'){}else if(d===today){}else run=0;
+    if(st==='done'){run++;best=Math.max(best,run)}else if(st==='libur'||st==='rest'){}else if(d===today){}else run=0;
     d=addDays(d,1)}
   return best;
 }
+let newDays=ALLD.slice(),rtEditId=null,editDays=[];
+function renderDayChips(box,get,set,onchg){
+  box.textContent='';const sel=get();
+  DAYN.forEach((n,i)=>{const b=document.createElement('button');b.type='button';b.className='dchip'+(sel.includes(i+1)?' on':'');b.textContent=n;
+    b.onclick=()=>{const a=get().slice(),k=a.indexOf(i+1);if(k>=0)a.splice(k,1);else a.push(i+1);set(a);renderDayChips(box,get,set,onchg);if(onchg)onchg()};box.append(b)});
+  [['Setiap hari',[1,2,3,4,5,6,7]],['Sen–Jum',[1,2,3,4,5]],['Sab–Min',[6,7]]].forEach(([l,a])=>{const b=document.createElement('button');b.type='button';b.className='dpre';b.textContent=l;
+    b.onclick=()=>{set(a.slice());renderDayChips(box,get,set,onchg);if(onchg)onchg()};box.append(b)});
+}
 function addItem(name){
   name=String(name).trim();if(!name)return;
+  if(!newDays.length)newDays=ALLD.slice();
   const today=fmt(new Date());
-  putRow({id:'ri-'+uid().replace(/-/g,'').slice(0,8),jenis:'rutin-item',tanggal:cur<today?cur:today,nama:name,nilai:'1'});
-  render();sync();
+  putRow({id:'ri-'+uid().replace(/-/g,'').slice(0,8),jenis:'rutin-item',tanggal:cur<today?cur:today,nama:name,nilai:encDays(newDays)});
+  newDays=ALLD.slice();render();sync();
 }
 function toggleItem(it){
   const id=`rc-${cur}-${it.id}`,was=dayStatus(cur)==='done';
@@ -908,11 +956,33 @@ function toggleItem(it){
   render();sync();
   if(!was&&dayStatus(cur)==='done')confetti();
 }
+function editItem(it){
+  rtEditId=it.id;$('rtEName').value=it.nama;editDays=itemDays(it);
+  const chg=()=>{$('rtESave').disabled=!editDays.length};
+  renderDayChips($('rtEDays'),()=>editDays,v=>{editDays=v},chg);chg();$('rtDlg').showModal();
+}
+$('rtEditForm').onsubmit=()=>{
+  const it=S.data.find(r=>r.id===rtEditId);if(!it||!editDays.length)return;
+  putRow({...it,nama:$('rtEName').value.trim()||it.nama,nilai:encDays(editDays)});render();sync();
+};
+$('rtECancel').onclick=()=>$('rtDlg').close();
+function rtRow(it,on){
+  const li=document.createElement('li');li.className='rt'+(on?(isChecked(cur,it.id)?' done':''):' off');
+  const t=document.createElement('div');t.className='t';if(on)t.onclick=()=>toggleItem(it);
+  const bx=document.createElement('i');bx.className='box';
+  const tx=document.createElement('div'),sp=document.createElement('span');sp.textContent=it.nama;tx.append(sp);
+  const lab=daysLabel(it);if(lab){const sm=document.createElement('small');sm.textContent=lab;tx.append(sm)}
+  t.append(bx,tx);
+  const ed=document.createElement('button');ed.type='button';ed.textContent='✎';ed.className='ed';ed.setAttribute('aria-label','Ubah '+it.nama);ed.onclick=()=>editItem(it);
+  const x=document.createElement('button');x.type='button';x.textContent='✕';x.setAttribute('aria-label','Hapus '+it.nama);
+  x.onclick=()=>askConfirm(`Hapus rutinitas "${it.nama}"?`,'Ya, hapus',()=>{removeRow(it.id);render();sync()});
+  li.append(t,ed,x);return li;
+}
 function renderRutin(){
-  const today=fmt(new Date()),its=rtItems().filter(i=>i.tanggal<=cur);
+  const today=fmt(new Date()),all=rtItems().filter(i=>i.tanggal<=cur),its=all.filter(i=>itemActive(i,cur)),off=all.filter(i=>!itemActive(i,cur));
   const done=its.filter(i=>isChecked(cur,i.id)).length,tot=its.length,lib=isLibur(cur);
   $('stNow').textContent=streak();
-  $('stSub').textContent=`Terbaik ${bestStreak()} hari · ${tot?done+'/'+tot+' selesai':'belum ada rutinitas'}${lib?' · libur':''}`;
+  $('stSub').textContent=`Terbaik ${bestStreak()} hari · ${tot?done+'/'+tot+' selesai':(all.length?'tidak ada jadwal hari ini':'belum ada rutinitas')}${lib?' · libur':''}`;
   $('rtBar').style.width=(tot?done/tot*100:0)+'%';
   const near=[-6,-5,-4,-3,-2,-1,1,2,3,4,5,6].some(k=>isLibur(addDays(cur,k)));
   const lb=$('liburBtn');lb.textContent=lib?'Batalkan libur':(cur===today?'Libur hari ini':'Tandai libur');
@@ -923,14 +993,11 @@ function renderRutin(){
     const sp=document.createElement('span');sp.textContent=parse(d).toLocaleDateString('id-ID',{weekday:'short'});
     b.append(sp,document.createElement('i'));b.setAttribute('aria-label',shortDate(d));b.onclick=()=>{cur=d;render()};wk.append(b)}
   const ul=$('rtList');ul.textContent='';
-  its.forEach(it=>{const li=document.createElement('li');li.className='rt'+(isChecked(cur,it.id)?' done':'');
-    const t=document.createElement('div');t.className='t';t.onclick=()=>toggleItem(it);
-    const bx=document.createElement('i');bx.className='box';const sp=document.createElement('span');sp.textContent=it.nama;t.append(bx,sp);
-    const x=document.createElement('button');x.textContent='✕';x.setAttribute('aria-label','Hapus '+it.nama);
-    x.onclick=()=>askConfirm(`Hapus rutinitas "${it.nama}"?`,'Ya, hapus',()=>{removeRow(it.id);render();sync()});
-    li.append(t,x);ul.append(li)});
+  its.forEach(it=>ul.append(rtRow(it,true)));
+  if(off.length){const h=document.createElement('li');h.className='offh';h.textContent='Tidak dijadwalkan hari ini';ul.append(h);off.forEach(it=>ul.append(rtRow(it,false)))}
   const q=$('rtQuick');q.textContent='';
   if(!rtItems().length)['Minum air','Olahraga','Tidur cukup'].forEach(n=>{const b=document.createElement('button');b.type='button';b.className='pill';b.textContent='+ '+n;b.onclick=()=>addItem(n);q.append(b)});
+  renderDayChips($('rtNewDays'),()=>newDays,v=>{newDays=v});
 }
 $('rtForm').onsubmit=ev=>{ev.preventDefault();addItem($('rtNew').value);$('rtNew').value=''};
 $('liburBtn').onclick=()=>{const id='rl-'+cur;if(isLibur(cur))removeRow(id);else putRow({id,jenis:'rutin-libur',tanggal:cur,nama:'',nilai:'1'});render();sync()};
@@ -1016,7 +1083,7 @@ $('goalForm').onsubmit=()=>{
 };
 
 function renderChips(){
-  const its=rtItems().filter(i=>i.tanggal<=cur),done=its.filter(i=>isChecked(cur,i.id)).length,ws=weights();
+  const its=rtItems().filter(i=>i.tanggal<=cur&&itemActive(i,cur)),done=its.filter(i=>isChecked(cur,i.id)).length,ws=weights();
   $('hcStreak').textContent=streak()+' hari';
   $('hcRut').textContent=its.length?done+'/'+its.length:'–';
   $('hcKal').textContent=$('left').textContent+' kkal'+($('left').classList.contains('over')?' lebih':'');
