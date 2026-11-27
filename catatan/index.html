@@ -421,6 +421,20 @@ li.offh{display:block;background:none;border:0;padding:8px 4px 0;color:var(--ink
 li.offh::before,li.offh::after{display:none}
 li.offh:hover{transform:none;background:none;border:0;box-shadow:none}
 .wd.rest i{border-style:dashed;opacity:.55}
+
+/* Banner pengingat */
+.remind{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 16px);transform:translateX(-50%);z-index:1200;width:min(94vw,560px);display:flex;align-items:center;gap:12px;
+  padding:12px 12px 12px 18px;border-radius:var(--radius-lg);background:rgba(16,26,46,.97);border:1px solid rgba(251,191,120,.55);
+  box-shadow:0 0 34px rgba(251,191,120,.28),var(--shadow-lg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);animation:remindIn .8s var(--ease-spring)}
+.remind[hidden]{display:none}
+.rdot{width:11px;height:11px;border-radius:50%;background:var(--move);box-shadow:0 0 14px var(--move);animation:pulse 1.4s infinite;flex:none}
+.rtxt{flex:1;min-width:0;font-size:.82rem;line-height:1.4}
+.rtxt b{display:block;font-size:.92rem;font-weight:700}
+.rtxt span{display:block;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rx{background:none;border:0;color:var(--ink-2);font-size:1.1rem;padding:6px 9px;border-radius:50%;transition:all .25s var(--ease)}
+.rx:hover{background:rgba(255,255,255,.12);color:#fff}
+body:has(#remind:not([hidden])) main{padding-bottom:96px}
+@keyframes remindIn{from{opacity:0;transform:translate(-50%,70px)}to{opacity:1;transform:translateX(-50%)}}
 </style>
 </head>
 <body>
@@ -603,6 +617,8 @@ li.offh:hover{transform:none;background:none;border:0;box-shadow:none}
     <input type="password" id="cKey">
     <label for="cTarget">Target kalori harian</label>
     <input type="number" id="cTarget" min="0" inputmode="numeric">
+    <label for="cRemind">Banner pengingat rutinitas mulai jam (0–23). Kosongkan untuk mematikan</label>
+    <input type="number" id="cRemind" min="0" max="23" inputmode="numeric" placeholder="18">
     <p class="hint">Mengganti URL atau kode rahasia berarti pindah ke Sheet lain: catatan Sheet lama dibersihkan dari perangkat ini (datanya di Sheet tetap aman).</p>
     <div class="btns">
       <button type="button" class="pill" id="cCancel">Batal</button>
@@ -672,6 +688,12 @@ li.offh:hover{transform:none;background:none;border:0;box-shadow:none}
     <div class="btns"><button type="button" class="pill" id="gCancel">Batal</button><button type="submit" class="pill">Simpan</button></div>
   </form>
 </dialog>
+<div class="remind" id="remind" role="status" hidden>
+  <span class="rdot"></span>
+  <div class="rtxt" id="remindTxt"></div>
+  <a class="pill" href="#sec-rutinitas" id="remindGo">Lihat</a>
+  <button type="button" class="rx" id="remindX" aria-label="Tutup pengingat">✕</button>
+</div>
 <div class="win" id="win" hidden><div class="win-card"><div class="win-title" id="winTitle"></div><p id="winText"></p><button type="button" class="pill" id="winOk">Mantap!</button></div></div>
 
 <dialog id="lb"><button class="pill" id="lbX">✕ Tutup</button><img id="lbImg" alt=""><p id="lbCap"></p></dialog>
@@ -681,7 +703,7 @@ addEventListener('error',ev=>{const s=document.getElementById('status');if(s){s.
 const LS='crealiva-catatan-v2', $=id=>document.getElementById(id);
 let S={entries:[],queue:[],data:[],cfg:{url:'',key:'',target:2000}};
 try{const o=JSON.parse(localStorage.getItem(LS)||localStorage.getItem('crealiva-catatan-v1')||'{}');
-  if(o.cfg)S.cfg=o.cfg; if(o.entries)S.entries=o.entries; if(o.data)S.data=o.data; if(o.srv2!==undefined)S.srv2=o.srv2; if(o.srv3!==undefined)S.srv3=o.srv3;
+  if(o.cfg)S.cfg=o.cfg; if(o.entries)S.entries=o.entries; if(o.data)S.data=o.data; if(o.srv2!==undefined)S.srv2=o.srv2; if(o.srv3!==undefined)S.srv3=o.srv3; if(o.remindOff)S.remindOff=o.remindOff;
   if(o.queue)S.queue=o.queue.map(q=>q.op==='add'&&q.entry?{op:'add',id:q.entry.id}:q);}catch(e){}
 let storeFail=false;
 const save=()=>{try{localStorage.setItem(LS,JSON.stringify(S));storeFail=false}catch(e){storeFail=true}};
@@ -859,7 +881,7 @@ $('dateLabel').onclick=()=>{$('date').value=cur;$('date').showPicker?$('date').s
 $('date').onchange=()=>{if($('date').value){cur=$('date').value;render()}};
 
 // Pengaturan
-$('setBtn').onclick=()=>{$('cUrl').value=S.cfg.url;$('cKey').value=S.cfg.key;$('cTarget').value=S.cfg.target;$('dlg').showModal()};
+$('setBtn').onclick=()=>{$('cUrl').value=S.cfg.url;$('cKey').value=S.cfg.key;$('cTarget').value=S.cfg.target;$('cRemind').value=S.cfg.remindHour===undefined?18:(S.cfg.remindHour===null?'':S.cfg.remindHour);$('dlg').showModal()};
 $('cCancel').onclick=()=>$('dlg').close();
 function applyCfg(nc){
   const oc=S.cfg, changed=(nc.url!==oc.url||nc.key!==oc.key), wipe=!!(changed&&oc.url);
@@ -867,7 +889,7 @@ function applyCfg(nc){
   if(wipe&&S.queue.length)askConfirm(`Ada ${S.queue.length} catatan yang belum terkirim ke Sheet lama dan akan hilang kalau pindah. Lanjutkan?`,'Ya, lanjutkan',go);
   else go();
 }
-$('cfgForm').onsubmit=()=>applyCfg({url:$('cUrl').value.trim(),key:$('cKey').value,target:Number($('cTarget').value)||0});
+$('cfgForm').onsubmit=()=>applyCfg({url:$('cUrl').value.trim(),key:$('cKey').value,target:Number($('cTarget').value)||0,remindHour:$('cRemind').value===''?null:Math.min(23,Math.max(0,Math.round(Number($('cRemind').value)||0)))});
 $('syncBtn').onclick=sync;
 addEventListener('online',sync);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync()});
@@ -1224,7 +1246,27 @@ $('hmPrev').onclick=()=>{const [y,m]=repMonth.split('-').map(Number);repMonth=fm
 $('hmNext').onclick=()=>{const [y,m]=repMonth.split('-').map(Number);repMonth=fmt(new Date(y,m,1)).slice(0,7);renderReport()};
 document.querySelectorAll('[name=rng]').forEach(r=>r.onchange=()=>{repDays=Number(r.value);renderReport()});
 
-function renderExtra(){renderRutin();renderBerat();renderChips();renderKatChips();renderKatSum();renderReport()}
+/* ===== Banner pengingat rutinitas ===== */
+const remindHour=()=>{const h=S.cfg.remindHour;return h===null||h===''?null:(h===undefined?18:Number(h))};
+function renderRemind(){
+  const box=$('remind'),today=fmt(new Date()),h=remindHour();
+  let show=false;
+  if(h!==null&&new Date().getHours()>=h&&S.remindOff!==today&&!isLibur(today)){
+    const its=rtItems().filter(i=>i.tanggal<=today&&itemActive(i,today)),belum=its.filter(i=>!isChecked(today,i.id));
+    if(its.length&&belum.length){
+      show=true;const t=$('remindTxt');t.textContent='';
+      const b=document.createElement('b');b.textContent=`${belum.length} rutinitas hari ini belum selesai`;
+      const sp=document.createElement('span');sp.textContent=belum.slice(0,3).map(i=>i.nama).join(', ')+(belum.length>3?` +${belum.length-3} lagi`:'');
+      t.append(b,sp);
+    }
+  }
+  box.hidden=!show;
+}
+$('remindX').onclick=()=>{S.remindOff=fmt(new Date());save();$('remind').hidden=true};
+$('remindGo').onclick=()=>{cur=fmt(new Date());render()};
+setInterval(renderRemind,60000);
+
+function renderExtra(){renderRutin();renderBerat();renderChips();renderKatChips();renderKatSum();renderReport();renderRemind()}
 const _render0=render;render=function(){_render0();renderExtra()};
 
 syncForm();render();updStatus();sync();
